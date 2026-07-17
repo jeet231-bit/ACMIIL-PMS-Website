@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Single sans-serif family across the entire project */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand palette — half-and-half blend:
+     ink (logo indigo/purple) for dark sections,
+     accent (logo orange) for CTAs,
+     Tailwind amber retained for metrics/highlights. */
+  --color-ink-50: #F3F1FA;
+  --color-ink-100: #E4DFF1;
+  --color-ink-200: #C9C1E2;
+  --color-ink-400: #6B5CA8;
+  --color-ink-600: #3A2A70;
+  --color-ink-700: #2C1F58;
+  --color-ink-800: #241A4C;
+  --color-ink-900: #1B1140;
+  --color-ink-950: #140C30;
+
+  --color-accent-50: #FDF0E8;
+  --color-accent-100: #FADDCB;
+  --color-accent-400: #EE8A50;
+  --color-accent-500: #E4611F;
+  --color-accent-600: #C94F12;
+  --color-accent-700: #A8400E;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #FAFAFA;
+    font-family: var(--font-sans);
+  }
+}
+
+/* Custom premium aesthetic utilities */
+.bg-grid-pattern {
+  background-size: 30px 30px;
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

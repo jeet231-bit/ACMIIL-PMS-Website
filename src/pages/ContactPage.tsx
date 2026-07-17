@@ -1,0 +1,233 @@
+import { useState } from 'react';
+import { MapPin, Phone, Mail, Clock, ShieldCheck, ExternalLink } from 'lucide-react';
+import { CONTACT } from '../data/content';
+import { PageHero } from '../components/shared';
+import { SchedulerCta } from '../components/SchedulerCta';
+import { useToast } from '../components/toast';
+
+const CORPUS_OPTIONS = ['₹50 Lakh – ₹2 Crore', '₹2 Crore – ₹5 Crore', '₹5 Crore – ₹15 Crore', '₹15 Crore+'];
+
+export default function ContactPage() {
+  const showToast = useToast();
+  const [form, setForm] = useState({
+    name: '',
+    mobile: '',
+    email: '',
+    corpus: CORPUS_OPTIONS[0],
+    city: '',
+    message: '',
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.mobile || !form.email) {
+      showToast('Please fill in your name, mobile and email so we can reach you.');
+      return;
+    }
+    showToast(
+      `Thank you ${form.name}! Your enquiry has been recorded. A portfolio specialist will call you back — we typically respond within one business day.`
+    );
+    setForm({ name: '', mobile: '', email: '', corpus: CORPUS_OPTIONS[0], city: '', message: '' });
+  };
+
+  const inputClass =
+    'w-full bg-white text-slate-900 rounded-lg p-2.5 text-xs border border-slate-200 focus:outline-none focus:ring-1 focus:ring-ink-700';
+
+  return (
+    <>
+      <PageHero
+        eyebrow="CONTACT"
+        title={
+          <>
+            Let's build your portfolio <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">together</span>
+          </>
+        }
+        lead="Speak to a portfolio specialist about the strategy that fits your goals. We typically respond within one business day."
+      />
+
+      {/* Enquiry + office info */}
+      <section className="py-20 bg-white border-b border-slate-100 font-sans">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            {/* Form */}
+            <div className="lg:col-span-7 bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-8 space-y-5">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 block pb-3 border-b border-slate-200">
+                ✍️ REQUEST A CALLBACK
+              </span>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[10px] text-slate-500 font-bold block uppercase">Name</label>
+                    <input
+                      type="text"
+                      placeholder="Your full name"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] text-slate-500 font-bold block uppercase">Mobile</label>
+                    <input
+                      type="tel"
+                      placeholder="+91 98XXX XXXXX"
+                      value={form.mobile}
+                      onChange={(e) => setForm({ ...form, mobile: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[10px] text-slate-500 font-bold block uppercase">Email</label>
+                    <input
+                      type="email"
+                      placeholder="you@example.com"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] text-slate-500 font-bold block uppercase">
+                      Investment corpus range
+                    </label>
+                    <select
+                      value={form.corpus}
+                      onChange={(e) => setForm({ ...form, corpus: e.target.value })}
+                      className={inputClass}
+                    >
+                      {CORPUS_OPTIONS.map((c) => (
+                        <option key={c}>{c}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] text-slate-500 font-bold block uppercase">City</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Mumbai"
+                    value={form.city}
+                    onChange={(e) => setForm({ ...form, city: e.target.value })}
+                    className={inputClass}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] text-slate-500 font-bold block uppercase">Message</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Tell us briefly about your goals (optional)"
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    className={inputClass}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3 rounded-xl text-xs font-bold text-white uppercase tracking-wider bg-accent-500 hover:bg-accent-600 shadow-md transition"
+                >
+                  Request a Callback
+                </button>
+                <div className="text-[10px] text-slate-400 flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>Your details are confidential and used only to arrange your consultation.</span>
+                </div>
+              </form>
+            </div>
+
+            {/* Office info */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="bg-ink-900 text-white rounded-2xl p-6 sm:p-8 space-y-5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+                <div className="relative z-10 space-y-5">
+                  <h3 className="font-extrabold text-xl">Head Office</h3>
+                  <ul className="space-y-4 text-xs text-ink-100/80">
+                    <li className="flex items-start gap-2.5">
+                      <MapPin className="w-4 h-4 text-accent-400 shrink-0 mt-0.5" />
+                      <span>{CONTACT.address}</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <Phone className="w-4 h-4 text-accent-400" />
+                      <span>{CONTACT.phones.join(' / ')}</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <Mail className="w-4 h-4 text-accent-400" />
+                      <span>{CONTACT.email}</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <Clock className="w-4 h-4 text-accent-400" />
+                      <span>Office hours: {CONTACT.officeHours}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-slate-50 rounded-2xl border border-slate-200/80 p-6 space-y-3">
+                <h4 className="font-bold text-sm text-slate-900">Investor protection</h4>
+                <ul className="space-y-2 text-xs">
+                  <li>
+                    <a
+                      href="https://www.investmentz.com/investor-charters"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-slate-600 hover:text-accent-600 transition inline-flex items-center gap-1.5"
+                    >
+                      Investor Charter <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://scores.sebi.gov.in/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-slate-600 hover:text-accent-600 transition inline-flex items-center gap-1.5"
+                    >
+                      Grievance redressal — SEBI SCORES <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.investmentz.com/signup"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-slate-600 hover:text-accent-600 transition inline-flex items-center gap-1.5"
+                    >
+                      Invest with us / Login <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Map */}
+              <div className="rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm">
+                <iframe
+                  title="ACMIIL Head Office — Pantomath Nucleus House"
+                  src="https://www.google.com/maps?q=Pantomath+Nucleus+House,+Saki+Vihar+Road,+Andheri+East,+Mumbai&output=embed"
+                  className="w-full h-56 border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Scheduler */}
+      <section className="py-20 bg-[#FAFAFA] font-sans">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
+              PREFER A SCHEDULED SLOT?
+            </span>
+            <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl">
+              Book a priority briefing session
+            </h2>
+          </div>
+          <SchedulerCta />
+        </div>
+      </section>
+    </>
+  );
+}

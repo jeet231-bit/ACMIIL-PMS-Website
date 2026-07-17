@@ -1,0 +1,78 @@
+import { useEffect, useState, useCallback } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { CheckCircle2 } from 'lucide-react';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
+import { ToastContext } from './components/toast';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import PhilosophyPage from './pages/PhilosophyPage';
+import StrategiesPage from './pages/StrategiesPage';
+import PerformancePage from './pages/PerformancePage';
+import WhyPage from './pages/WhyPage';
+import InsightsPage from './pages/InsightsPage';
+import ResourcesPage from './pages/ResourcesPage';
+import ContactPage from './pages/ContactPage';
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      // Element renders after route mount — defer the scroll one frame
+      requestAnimationFrame(() => {
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'instant' as ScrollBehavior });
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    }
+  }, [pathname, hash]);
+  return null;
+}
+
+export default function App() {
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = useCallback((msg: string) => {
+    setToastMessage(msg);
+    window.setTimeout(() => setToastMessage(null), 6000);
+  }, []);
+
+  return (
+    <ToastContext.Provider value={showToast}>
+      <div className="min-h-screen bg-[#FAFAFA] text-slate-900 font-sans selection:bg-amber-100 selection:text-amber-900 relative">
+        <ScrollToTop />
+
+        {toastMessage && (
+          <div className="fixed bottom-6 left-6 z-[120] bg-ink-900 text-white rounded-xl p-4 shadow-2xl border border-ink-600 max-w-sm flex items-start gap-3 animate-fadeIn">
+            <div className="h-5 w-5 bg-emerald-500 text-white rounded-full flex items-center justify-center shrink-0 mt-0.5">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+            </div>
+            <div>
+              <span className="text-xs font-bold font-mono tracking-wider text-amber-400 block uppercase mb-0.5">
+               ACE PMS
+              </span>
+              <span className="text-xs text-ink-100 font-light leading-relaxed">{toastMessage}</span>
+            </div>
+          </div>
+        )}
+
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/philosophy" element={<PhilosophyPage />} />
+          <Route path="/strategies" element={<StrategiesPage />} />
+          <Route path="/performance" element={<PerformancePage />} />
+          <Route path="/why-acmiil" element={<WhyPage />} />
+          <Route path="/insights" element={<InsightsPage />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+
+        <Footer />
+      </div>
+    </ToastContext.Provider>
+  );
+}

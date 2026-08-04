@@ -9,7 +9,7 @@ import { useToast } from './toast';
 const MENU_ITEMS = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
-  { to: '/why-acmiil', label: 'Why ACE PMS' },
+  { to: '/why-ace-pms', label: 'Why ACE PMS' },
   { to: '/philosophy', label: 'Philosophy' },
   { to: '/strategies', label: 'Strategies' },
   { to: '/performance', label: 'Performance' },

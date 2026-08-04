@@ -411,11 +411,6 @@ export const FAQS = [
 
 // ---------- About ----------
 export const ABOUT = {
-  breadcrumb: [
-    { label: 'Pantomath Group', href: '#group-structure' },
-    { label: 'Asit C. Mehta Investment Intermediates Ltd.', href: '#group-structure' },
-    { label: 'ACE PMS', href: '#leadership' },
-  ],
   hero: {
     title: 'A Pantomath Group Company, Full-service Financial Conglomerate.',
     sub: "The Asit C. Mehta heritage — 40 years of trust and legacy — reimagined by Pantomath, India's fastest-growing investment bank.",
@@ -476,7 +471,7 @@ export const ABOUT = {
     role: 'Principal Officer & Fund Manager',
     photo: '/team/prathmesh-agrawal.png',
     bio: "Investment strategist with a proven track record of alpha creation and 15+ years' experience in Indian equities and the PMS industry. Earlier stints include Enam AMC, Varanium Group, Religare and Moody's Analytics.",
-    timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'ACE PMS'],
+    timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'Pantomath Group'],
     closingLine: "Supported by Pantomath Group's extensive research infrastructure.",
   },
   cta: {

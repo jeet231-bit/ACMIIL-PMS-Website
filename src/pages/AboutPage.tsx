@@ -1,9 +1,10 @@
 import { useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ChevronRight, Plus, Equal, Users, Building2, MapPin, ArrowRight } from 'lucide-react';
+import { Plus, Equal, Users, Building2, MapPin, ArrowRight } from 'lucide-react';
 import { ABOUT } from '../data/content';
 import { CountUp, useInView } from '../components/motion';
+import { PageHero } from '../components/shared';
 
 const STAT_ICONS: Record<string, FC<{ className?: string }>> = { Users, Building2, MapPin };
 
@@ -112,15 +113,21 @@ const GroupScale: FC = () => {
     <section id="group-scale" className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Service lines */}
-        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mb-14">
-          {ABOUT.scale.serviceLines.map((s, i) => (
-            <span key={s} className="flex items-center gap-3">
-              {i > 0 && <span className="text-slate-300" aria-hidden="true">·</span>}
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600 font-mono">
+        <div className="text-center mb-14">
+          <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono mb-5">
+            Group Service Lines
+          </span>
+          <div className="flex flex-wrap justify-center gap-2.5">
+            {ABOUT.scale.serviceLines.map((s) => (
+              <span
+                key={s}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-xs font-semibold text-slate-700"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-accent-500" aria-hidden="true" />
                 {s}
               </span>
-            </span>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Stats with count-up */}
@@ -247,56 +254,34 @@ const Leadership: FC = () => {
 export default function AboutPage() {
   return (
     <>
-      {/* 7.1 Lineage breadcrumb */}
-      <div className="bg-white border-b border-slate-100 font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <nav
-            aria-label="Group lineage"
-            className="flex items-center flex-wrap gap-x-2 gap-y-1 text-[11px] font-medium text-slate-500"
-          >
-            {ABOUT.breadcrumb.map((node, i) => (
-              <span key={node.label} className="flex items-center gap-2">
-                {i > 0 && <ChevronRight className="w-3 h-3 text-accent-500 shrink-0" aria-hidden="true" />}
-                <a href={node.href} className="hover:text-ink-700 transition whitespace-nowrap">
-                  {node.label}
-                </a>
-              </span>
-            ))}
-          </nav>
-        </div>
-      </div>
-
-      {/* 7.2 Hero */}
-      <section className="relative bg-[#FAFAFA] pt-16 pb-20 overflow-hidden border-b border-slate-100 font-sans">
-        <div className="absolute top-0 right-0 w-2/3 h-full pointer-events-none opacity-30">
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full text-ink-50">
-            <path d="M0,0 L100,0 L100,100 C80,80 60,95 0,80 Z" fill="currentColor"></path>
-          </svg>
-        </div>
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-ink-50/60 via-accent-50/30 to-transparent rounded-full filter blur-3xl pointer-events-none"></div>
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-[46px] leading-[1.1] text-slate-950 max-w-4xl">
-            A <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Pantomath Group Company</span>, Full-service Financial Conglomerate.
-          </h1>
-          <p className="text-slate-600 text-sm sm:text-base font-light leading-relaxed max-w-2xl mt-6">
-            {ABOUT.hero.sub}
-          </p>
-
-          {/* Equation chips */}
-          <div className="flex flex-wrap items-center gap-3 mt-10">
-            <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-sm text-xs font-semibold text-ink-800">
-              {ABOUT.hero.equation[0]}
+      {/* 7.2 Hero — shared style, consistent with other pages */}
+      <PageHero
+        eyebrow="A Pantomath Group Company"
+        title={
+          <>
+            A full-service{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
+              financial conglomerate
             </span>
-            <Plus className="w-4 h-4 text-accent-500 shrink-0" aria-hidden="true" />
-            <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-sm text-xs font-semibold text-ink-800">
-              {ABOUT.hero.equation[1]}
-            </span>
-            <Equal className="w-4 h-4 text-amber-500 shrink-0" aria-hidden="true" />
-            <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-ink-900 text-white shadow-md text-xs font-bold">
-              {ABOUT.hero.equation[2]}
-            </span>
-          </div>
+          </>
+        }
+        lead={ABOUT.hero.sub}
+      />
+
+      {/* Equation band */}
+      <section className="py-12 bg-white border-b border-slate-100 font-sans">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-4">
+          <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-sm text-xs font-semibold text-ink-800">
+            {ABOUT.hero.equation[0]}
+          </span>
+          <Plus className="w-4 h-4 text-accent-500 shrink-0" aria-hidden="true" />
+          <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-sm text-xs font-semibold text-ink-800">
+            {ABOUT.hero.equation[1]}
+          </span>
+          <Equal className="w-4 h-4 text-amber-500 shrink-0" aria-hidden="true" />
+          <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-ink-900 text-white shadow-md text-xs font-bold">
+            {ABOUT.hero.equation[2]}
+          </span>
         </div>
       </section>
 
@@ -320,7 +305,7 @@ export default function AboutPage() {
               </h2>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link
-                  to="/why-acmiil"
+                  to="/why-ace-pms"
                   className="px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-ink-900 bg-white hover:bg-slate-100 transition inline-flex items-center justify-center gap-2"
                 >
                   Why ACE PMS

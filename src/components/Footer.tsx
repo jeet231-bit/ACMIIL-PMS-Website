@@ -71,7 +71,7 @@ export const Footer = () => {
             <h4 className="text-xs font-bold uppercase tracking-widest text-white">Explore</h4>
             <ul className="space-y-2 text-xs">
               <li><Link to="/about" className="hover:text-white transition">About Us</Link></li>
-              <li><Link to="/why-acmiil" className="hover:text-white transition">Why ACE PMS</Link></li>
+              <li><Link to="/why-ace-pms" className="hover:text-white transition">Why ACE PMS</Link></li>
               <li><Link to="/performance" className="hover:text-white transition">Performance & Disclosures</Link></li>
               <li><Link to="/insights" className="hover:text-white transition">Insights & Media</Link></li>
               <li><Link to="/resources" className="hover:text-white transition">Downloads</Link></li>

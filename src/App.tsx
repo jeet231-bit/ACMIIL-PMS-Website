@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -64,7 +64,8 @@ export default function App() {
           <Route path="/philosophy" element={<PhilosophyPage />} />
           <Route path="/strategies" element={<StrategiesPage />} />
           <Route path="/performance" element={<PerformancePage />} />
-          <Route path="/why-acmiil" element={<WhyPage />} />
+          <Route path="/why-ace-pms" element={<WhyPage />} />
+          <Route path="/why-acmiil" element={<Navigate to="/why-ace-pms" replace />} />
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/contact" element={<ContactPage />} />

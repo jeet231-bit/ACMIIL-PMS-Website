@@ -1,169 +1,34 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle2, ChevronDown, Sparkles } from 'lucide-react';
 import {
-  ArrowRight,
-  BarChart3,
-  CheckCircle2,
-  ChevronDown,
-  ShieldCheck,
-  Sparkles,
-} from 'lucide-react';
-import {
-  HERO,
   CREDIBILITY_BAR,
   HERITAGE,
   GARP_TEASER,
-  TRACK_RECORD,
   WHY_PILLARS,
   PMS_EXPLAINER,
   GETTING_STARTED,
   INSIGHT_PLACEHOLDERS,
   FAQS,
 } from '../data/content';
+import { HomeHero } from '../components/HomeHero';
+import { StructuralThemesSection } from '../components/StructuralThemes';
 import { PhilosophyPillars } from '../components/PhilosophyPillars';
 import { SchedulerCta } from '../components/SchedulerCta';
 import { StrategyShowcase } from '../components/StrategyShowcase';
-import { SectionHeading, Disclaimer } from '../components/shared';
+import { GrowthShowcase } from '../components/GrowthShowcase';
+import { SectionHeading } from '../components/shared';
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
     <>
-      {/* ============ HERO — split layout with comparison engine ============ */}
-      <section className="relative bg-[#FAFAFA] pt-12 pb-24 overflow-hidden border-b border-slate-100 font-sans">
-        {/* Ambient background styling */}
-        <div className="absolute top-0 right-0 w-2/3 h-full pointer-events-none opacity-30">
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full text-ink-50">
-            <path d="M0,0 L100,0 L100,100 C80,80 60,95 0,80 Z" fill="currentColor"></path>
-          </svg>
-        </div>
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-ink-50/60 via-accent-50/30 to-transparent rounded-full filter blur-3xl"></div>
+      {/* ============ HERO — $10 Trillion structural-growth rebuild ============ */}
+      <HomeHero />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          {/* Trust badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ink-700/5 border border-ink-700/10 mb-8 mt-4">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="text-[10px] font-bold text-slate-700 tracking-wider uppercase font-mono">
-              {HERO.eyebrow}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left text */}
-            <div className="lg:col-span-7 space-y-6">
-              <h1 className="font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-[54px] leading-[1.1] text-slate-950">
-                Portfolio{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-                  Alpha
-                </span>
-                , Built on Discipline.
-              </h1>
-
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl font-light">
-                {HERO.subheadline}
-              </p>
-
-              {/* Sub features list */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-2 pt-2">
-                {HERO.proofStrip.map((item, idx) => (
-                  <div
-                    key={item.label}
-                    className="flex items-center gap-2.5 text-xs text-slate-700 font-medium font-mono"
-                  >
-                    <span
-                      className={`h-2 w-2 rounded-full shrink-0 ${
-                        idx < 2 ? 'bg-accent-500' : 'bg-slate-400'
-                      }`}
-                    ></span>
-                    {item.value} — {item.label}
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3.5 pt-4">
-                <Link
-                  to="/strategies"
-                  className="px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-ink-900 shadow-xl hover:shadow-2xl hover:bg-ink-800 transition-all duration-300 text-center flex items-center justify-center gap-2 focus:outline-none"
-                >
-                  <span>{HERO.primaryCta}</span>
-                  <ArrowRight className="w-4 h-4 text-amber-400" />
-                </Link>
-                <Link
-                  to="/contact"
-                  className="px-6 py-3.5 rounded-xl text-xs font-semibold bg-white text-slate-800 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition duration-200 text-center focus:outline-none shadow-sm flex items-center justify-center"
-                >
-                  {HERO.secondaryCta}
-                </Link>
-              </div>
-            </div>
-
-            {/* Right graphical stat core */}
-            <div className="lg:col-span-5 relative mt-8 lg:mt-0">
-              <div className="bg-ink-900 text-white rounded-2xl p-6 shadow-2xl border border-ink-800 space-y-6 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-5 pointer-events-none bg-grid-pattern"></div>
-
-                {/* Header widget */}
-                <div className="flex justify-between items-center pb-4 border-b border-ink-800">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                    <span className="text-[10px] text-ink-200/70 font-mono tracking-widest uppercase">
-                      ACMIIL STRATEGY COMPARISON
-                    </span>
-                  </div>
-                  <span className="text-[10px] bg-amber-500/10 text-amber-400 px-2.5 py-0.5 rounded font-mono">
-                    AS ON 30 JUN 2026
-                  </span>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-xs mb-1 text-ink-200/70">
-                      <span>ACE Multicap CAGR (Since inception)</span>
-                      <span className="font-bold text-white">18.6%</span>
-                    </div>
-                    <div className="w-full bg-ink-800 h-2.5 rounded-full overflow-hidden">
-                      <div
-                        className="bg-accent-500 h-full rounded-full transition-all duration-1000"
-                        style={{ width: '84%' }}
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between text-xs mb-1 text-ink-200/70">
-                      <span>BSE 500 TRI Benchmark CAGR</span>
-                      <span className="font-bold text-ink-100">12.5%</span>
-                    </div>
-                    <div className="w-full bg-ink-800 h-2.5 rounded-full overflow-hidden">
-                      <div
-                        className="bg-ink-400 h-full rounded-full transition-all duration-1000"
-                        style={{ width: '56%' }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-ink-800/50 rounded-xl p-4 border border-ink-800 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] text-ink-200/70 font-mono block uppercase">
-                      Since-inception Alpha
-                    </span>
-                    <span className="text-lg font-bold text-white">+6.2% Alpha*</span>
-                  </div>
-                  <div className="h-10 w-10 bg-emerald-500/10 rounded-lg flex items-center justify-center border border-emerald-500/20">
-                    <BarChart3 className="w-5 h-5 text-emerald-400" />
-                  </div>
-                </div>
-
-                <div className="text-[10px] text-ink-200/60 text-center italic">
-                  Underwritten by four decades of institutional trust &amp; stewardship.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ============ Structural Growth Themes (standalone) ============ */}
+      <StructuralThemesSection />
 
       {/* ============ Credibility metrics strip ============ */}
       <section className="bg-white border-b border-slate-200/80 py-8 font-sans">
@@ -276,46 +141,8 @@ export default function HomePage() {
         />
       </section>
 
-      {/* ============ Track record ============ */}
-      <section className="py-20 bg-white border-b border-slate-100 font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-5">
-              <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
-                TRACK RECORD
-              </span>
-              <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl">
-                {TRACK_RECORD.title}
-              </h2>
-              <p className="text-slate-500 text-xs sm:text-sm font-light leading-relaxed">
-                {TRACK_RECORD.body}
-              </p>
-              <Link
-                to="/performance"
-                className="text-xs font-bold text-ink-700 inline-flex items-center gap-1.5 border-b-2 border-accent-500 pb-0.5 hover:text-accent-600 transition"
-              >
-                See full performance &amp; disclosures <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {TRACK_RECORD.tiles.map((tile) => (
-                <div
-                  key={tile.label}
-                  className="bg-slate-50 rounded-xl p-5 border border-slate-100 space-y-1"
-                >
-                  <span className="text-2xl font-extrabold text-ink-700 block tracking-tight">
-                    {tile.value}
-                  </span>
-                  <span className="text-[10px] text-slate-500 font-mono uppercase leading-tight block">
-                    {tile.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <Disclaimer>{TRACK_RECORD.disclaimer}</Disclaimer>
-        </div>
-      </section>
+      {/* ============ Growth of ₹1 crore — proof, right after philosophy ============ */}
+      <GrowthShowcase />
 
       {/* ============ Why ACMIIL ============ */}
       <section className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">

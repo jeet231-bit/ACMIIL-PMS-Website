@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, ShieldCheck, ExternalLink } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, ShieldCheck } from 'lucide-react';
 import { CONTACT } from '../data/content';
 import { PageHero } from '../components/shared';
-import { SchedulerCta } from '../components/SchedulerCta';
 import { useToast } from '../components/toast';
 
 const CORPUS_OPTIONS = ['₹50 Lakh – ₹2 Crore', '₹2 Crore – ₹5 Crore', '₹5 Crore – ₹15 Crore', '₹15 Crore+'];
@@ -163,47 +162,11 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="bg-slate-50 rounded-2xl border border-slate-200/80 p-6 space-y-3">
-                <h4 className="font-bold text-sm text-slate-900">Investor protection</h4>
-                <ul className="space-y-2 text-xs">
-                  <li>
-                    <a
-                      href="https://www.investmentz.com/investor-charters"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-slate-600 hover:text-accent-600 transition inline-flex items-center gap-1.5"
-                    >
-                      Investor Charter <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://scores.sebi.gov.in/"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-slate-600 hover:text-accent-600 transition inline-flex items-center gap-1.5"
-                    >
-                      Grievance redressal — SEBI SCORES <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.investmentz.com/signup"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-slate-600 hover:text-accent-600 transition inline-flex items-center gap-1.5"
-                    >
-                      Invest with us / Login <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
               {/* Map */}
               <div className="rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm">
                 <iframe
                   title="ACMIIL Head Office — Pantomath Nucleus House"
-                  src="https://www.google.com/maps?q=Pantomath+Nucleus+House,+Saki+Vihar+Road,+Andheri+East,+Mumbai&output=embed"
+                  src="https://www.google.com/maps?q=Pantomath+Nucleus+House,+Saki-Vihar+Road,+Andheri+East,+Mumbai+400072&output=embed"
                   className="w-full h-56 border-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -211,21 +174,6 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Scheduler */}
-      <section className="py-20 bg-[#FAFAFA] font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
-              PREFER A SCHEDULED SLOT?
-            </span>
-            <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl">
-              Book a priority briefing session
-            </h2>
-          </div>
-          <SchedulerCta />
         </div>
       </section>
     </>

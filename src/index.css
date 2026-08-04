@@ -53,3 +53,36 @@
 .animate-fadeIn {
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Hero: rising curve draws in on load */
+@keyframes heroCurveDraw {
+  to { stroke-dashoffset: 0; }
+}
+.hero-curve {
+  stroke-dashoffset: var(--dash, 520);
+  animation: heroCurveDraw 1.2s ease-out forwards;
+}
+.hero-chip-in {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 1s forwards;
+}
+
+/* Hero: mobile structural-themes marquee */
+@keyframes heroMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.hero-marquee-track {
+  animation: heroMarquee 24s linear infinite;
+}
+.hero-marquee:hover .hero-marquee-track,
+.hero-marquee:focus-within .hero-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fadeIn,
+  .hero-chip-in { animation: none; opacity: 1; }
+  .hero-curve { animation: none; stroke-dashoffset: 0; }
+  .hero-marquee-track { animation: none; }
+}

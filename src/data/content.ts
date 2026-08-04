@@ -4,9 +4,8 @@
 export const CONTACT = {
   email: 'pms@acm.co.in',
   phones: ['022-2858 3759', '022-2858 3758'],
-  address:
-    '6th Floor, B Wing, Pantomath Nucleus House, Saki Vihar Road, Andheri (E), Mumbai – 400072, Maharashtra',
-  officeHours: 'Mon–Fri, 9:30am–6:00pm',
+  address: 'Pantomath Nucleus House, Saki-Vihar Road, Andheri (East), Mumbai: 400072',
+  officeHours: '9 to 6 pm',
 };
 
 export const REGULATORY = {
@@ -21,26 +20,38 @@ export const REGULATORY = {
 };
 
 export const HERO = {
-  eyebrow: 'SEBI-registered Portfolio Management Service',
-  headline: 'Portfolio Alpha, Built on Discipline.',
+  eyebrow:
+    'ACE PMS · By Asit C. Mehta Investment Intermediates Ltd. — A Pantomath Group Company',
+  headlineLead: "Built to Ride India's Ascent to a ",
+  headlineAccent: '$10 Trillion',
+  headlineTail: ' Economy',
   subheadline:
-    'A GARP-driven Portfolio Management Service with nearly a decade of track record — the Asit C. Mehta heritage, reimagined by the Pantomath Group.',
-  primaryCta: 'Explore our Strategies',
-  secondaryCta: 'Request a Callback',
-  proofStrip: [
-    { value: '40+', label: 'Years of financial-services heritage' },
-    { value: '~9 yr', label: 'PMS vintage' },
-    { value: '4', label: 'Purpose-built strategies' },
-    { value: 'Top-quartile', label: 'PMS Bazaar rankings, FY26*' },
-  ],
+    "Investing in businesses positioned to benefit from India's structural transformation.",
+  primaryCta: 'Explore Our Strategies',
+  secondaryCta: 'Schedule a Conversation',
+  chip: '$10 Tn · India 2035+',
+  rankingFootnote:
+    "*Rankings as per internal classification based on PMS Bazaar Report for March '26; AMCs with min. AUM of ₹200 crore and vintage of more than 3 years considered.",
 };
+
+// Structural growth themes — the 8 pillars of India's transformation.
+export const HERO_THEMES = [
+  { icon: 'Landmark', label: 'Financialisation' },
+  { icon: 'Factory', label: 'Manufacturing' },
+  { icon: 'Construction', label: 'Infrastructure' },
+  { icon: 'ShoppingCart', label: 'Consumption' },
+  { icon: 'Cpu', label: 'Digitisation' },
+  { icon: 'Leaf', label: 'Energy Transition' },
+  { icon: 'Shield', label: 'Defence' },
+  { icon: 'TrendingUp', label: 'Capital Markets' },
+];
 
 export const CREDIBILITY_BAR = [
   {
     label: 'HERITAGE',
     value: '40',
     suffix: '+ yrs',
-    text: 'Asit C. Mehta financial-services legacy — former BSE President on the board',
+    text: 'Asit C. Mehta financial-services legacy — four decades at the heart of Indian capital markets',
   },
   {
     label: 'GROUP STRENGTH',
@@ -287,7 +298,7 @@ export const GOAL_SELECTOR = [
 
 export const TRACK_RECORD = {
   title: 'A track record measured in cycles, not quarters',
-  body: '₹1 crore invested at inception in ACE Multicap has grown to ~₹3.9 crore, versus ~₹2.5 crore for the BSE 500 TRI.* Across our core strategies, we have delivered roughly 6% post-fee alpha over a near-decade vintage.*',
+  body: 'Across our core strategies we have delivered roughly 6% post-fee alpha over benchmark across a near-decade vintage — returns measured across full market cycles, not quarters.*',
   tiles: [
     { value: '~9 yr', label: 'PMS vintage' },
     { value: '~6%', label: 'Post-fee alpha across core strategies*' },
@@ -400,42 +411,76 @@ export const FAQS = [
 
 // ---------- About ----------
 export const ABOUT = {
-  heroTitle: 'Four decades of trust, reimagined for a new era of wealth creation',
-  heroBody:
-    'Asit C. Mehta Investment Interrmediates Ltd. (ACMIIL) is a SEBI-registered Portfolio Manager and part of the Pantomath Group. We manage focused, GARP-driven equity and multi-asset portfolios for HNI and UHNI investors — combining a four-decade capital-markets heritage with a modern, institutionalised investment process and a near-decade PMS track record.',
-  heritage: {
-    title: 'A name Indian investors have trusted for 40 years',
-    body: 'Founded on a legacy in Indian capital markets that spans four decades, ACMIIL has served investors across broking, depository and research services, and is an ISO 9001:2015-certified organisation. Our roots include leadership at the very heart of India\'s market infrastructure — including a former President of the BSE on our board.',
+  breadcrumb: [
+    { label: 'Pantomath Group', href: '#group-structure' },
+    { label: 'Asit C. Mehta Investment Intermediates Ltd.', href: '#group-structure' },
+    { label: 'ACE PMS', href: '#leadership' },
+  ],
+  hero: {
+    title: 'A Pantomath Group Company, Full-service Financial Conglomerate.',
+    sub: "The Asit C. Mehta heritage — 40 years of trust and legacy — reimagined by Pantomath, India's fastest-growing investment bank.",
+    equation: [
+      'Trust & Legacy of ACMIIL',
+      'Energy & Execution of Pantomath',
+      'A sharper, stronger PMS business',
+    ],
   },
-  pantomath: {
-    title: 'Heritage meets execution',
-    body: "ACMIIL's PMS business has been reimagined in collaboration with the Pantomath Group — one of India's fastest-growing investment banks, with leadership across AIFs, research and execution. The result pairs the trust and legacy of ACMIIL with the energy, research infrastructure and execution strength of Pantomath: a sharper, stronger PMS built to create more value for investors.",
-    formula: ['Trust & Legacy of ACMIIL', 'Energy & Execution of Pantomath', 'A stronger PMS'],
+  groupStructure: {
+    eyebrow: 'THE GROUP BEHIND THE PLATFORM',
+    title: 'One conglomerate, four institutional platforms',
+    entities: [
+      {
+        name: 'Asit C. Mehta Investment Intermediates Ltd',
+        credential:
+          'Strong and established platform of over 40 years in Institutional Equities, Retail Broking and Portfolio Management Services.',
+        primary: true,
+        badge: 'ACE PMS',
+        caption:
+          'ACE PMS is the SEBI-registered portfolio management platform of ACMIIL (Reg. No. INP000005801).',
+      },
+      {
+        name: 'Wealth Company Asset Management Pvt Ltd',
+        credential:
+          'Bharat Value Fund across various series manages ~₹7,000 crores in client assets.',
+      },
+      {
+        name: 'Wealth Company Asset Management Holdings Pvt Ltd',
+        credential:
+          "India's first female-founded mutual fund house; launched four active funds simultaneously in 2025; ₹2,000 cr in debut NFO collections.",
+      },
+      {
+        name: 'Pantomath Capital Advisors Pvt Ltd',
+        credential:
+          'Leading full-service investment bank — IPOs, QIPs, M&A, PE advisory; 150+ ECM transactions executed to date.',
+      },
+    ],
+  },
+  scale: {
+    serviceLines: [
+      'Investment Banking',
+      'Asset Management',
+      'Institutional Equities',
+      'Stock Broking',
+      'Wealth Management',
+    ],
+    stats: [
+      { icon: 'Users', value: 600, suffix: '+', label: 'Team, Human Capital' },
+      { icon: 'Building2', value: 200, suffix: '+', label: 'Franchise Offices' },
+      { icon: 'MapPin', value: 14, suffix: '', label: 'Cities across 20+ states' },
+    ],
+    footnote: 'Group figures as on 30 June 2026.',
   },
   leadership: {
-    title: 'Leadership that combines wisdom, strategy and execution',
-    members: [
-      {
-        name: 'Mrs. Deena Mehta',
-        role: 'Co-Promoter',
-        bio: 'Co-Promoter of ACMIIL, Independent Director on several listed-company boards, a recognised compliance & governance leader, and a former President of the BSE.',
-      },
-      {
-        name: 'CA. Prathmesh Agrawal',
-        role: 'Principal Officer & Fund Manager',
-        bio: 'Investment strategist with 15+ years in Indian equities and the PMS industry; earlier stints at Enam AMC, Varanium Group, Religare and Moody\'s Analytics.',
-      },
-    ],
-    supportLine: "Supported by the Pantomath Group's extensive research infrastructure.",
+    title: 'Leadership',
+    name: 'CA. Prathmesh Agrawal',
+    role: 'Principal Officer & Fund Manager',
+    photo: '/team/prathmesh-agrawal.png',
+    bio: "Investment strategist with a proven track record of alpha creation and 15+ years' experience in Indian equities and the PMS industry. Earlier stints include Enam AMC, Varanium Group, Religare and Moody's Analytics.",
+    timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'ACE PMS'],
+    closingLine: "Supported by Pantomath Group's extensive research infrastructure.",
   },
-  values: {
-    title: 'Principles that guide every portfolio',
-    items: [
-      { title: 'Discipline', body: 'A defined philosophy, applied consistently across cycles' },
-      { title: 'Alignment', body: 'Minority-shareholder focus in what we own, transparency in how we report' },
-      { title: 'Governance', body: 'Governance, valuation and capital allocation as non-negotiable filters' },
-      { title: 'Partnership', body: 'Direct, ongoing engagement with every client' },
-    ],
+  cta: {
+    title: 'Four decades of heritage. One disciplined platform.',
   },
 };
 
@@ -558,16 +603,6 @@ export const PERFORMANCE = {
       },
     },
     {
-      strategy: 'ACE Blue-chip',
-      since: 'since 29 Dec 2017',
-      benchmarkName: 'BSE 500 TRI',
-      rows: {
-        portfolio: [5.7, 19.1, 16.8, 12.8],
-        benchmark: [-2.0, 12.5, 12.2, 12.2],
-        alpha: [7.7, 6.6, 4.6, 0.6],
-      },
-    },
-    {
       strategy: 'ACE Multi-Asset',
       since: 'since 04 Oct 2018',
       benchmarkName: 'Nifty Multi-Asset',
@@ -577,23 +612,45 @@ export const PERFORMANCE = {
         alpha: [3.2, 12.7, 9.4, 4.9],
       },
     },
+    {
+      strategy: 'ACE Blue-chip',
+      since: 'since 29 Dec 2017',
+      benchmarkName: 'BSE 500 TRI',
+      rows: {
+        portfolio: [5.7, 19.1, 16.8, 12.8],
+        benchmark: [-2.0, 12.5, 12.2, 12.2],
+        alpha: [7.7, 6.6, 4.6, 0.6],
+      },
+    },
   ],
   tableNote:
     'Figures per the ACE PMS deck (data as on 30 June 2026), verified against the latest available performance material.',
+  // Growth of ₹1 crore since inception (as on 30 June 2026). Values in ₹ crore.
   growth: [
-    { strategy: 'ACE Multicap', value: '₹1 cr → ~₹3.9 cr', benchmark: 'vs ~₹2.5 cr for BSE 500 TRI' },
-    { strategy: 'ACE Ten Trillion', value: '₹1 cr → ~₹4.4 cr', benchmark: 'vs ~₹3.1 cr for BSE 500 TRI' },
-    { strategy: 'ACE Multi-Asset', value: '₹1 cr → ~₹3.2 cr', benchmark: 'vs ~₹2.3 cr for Nifty Multi-Asset' },
+    {
+      strategy: 'ACE Multicap',
+      terminalValue: 3.9,
+      benchmarkValue: 2.5,
+      benchmarkName: 'BSE 500 TRI',
+      inception: '23 Aug 2018',
+    },
+    {
+      strategy: 'ACE Ten Trillion',
+      terminalValue: 4.4,
+      benchmarkValue: 3.1,
+      benchmarkName: 'BSE 500 TRI',
+      inception: '29 Dec 2017',
+    },
+    {
+      strategy: 'ACE Multi-Asset',
+      terminalValue: 3.2,
+      benchmarkValue: 2.3,
+      benchmarkName: 'Nifty Multi-Asset',
+      inception: '04 Oct 2018',
+    },
   ],
-  growthNote: 'Since inception, as on 30 June 2026.',
-  rolling: {
-    title: 'Rolling returns & risk metrics',
-    items: [
-      'ACE Multicap 3-yr rolling mean ~30.3% (median ~32.9%) vs BSE 500 ~17.9%',
-      'ACE Multicap 5-yr rolling mean ~30.2% vs ~17.5%',
-      'Risk metrics per strategy: Standard Deviation, Beta, Sharpe, Weighted market cap, P/E — e.g. Multicap Sharpe 0.62 vs 0.33 for the benchmark',
-    ],
-  },
+  growthNote:
+    'Since inception, as on 30 June 2026. Returns are annualised (TWRR) and net of expenses. Past performance is not indicative of future returns.',
   rankings: {
     title: 'PMS Bazaar rankings, FY26',
     header: ['Strategy', '1-Yr rank', '3-Yr rank', '5-Yr rank'],
@@ -609,20 +666,11 @@ export const PERFORMANCE = {
 
 // ---------- Insights ----------
 export const INSIGHTS_CATEGORIES = [
-  { title: 'Market notes', body: 'Short monthly view from the fund manager' },
   { title: 'Strategy commentary', body: 'What drove each portfolio, tied to the monthly factsheets' },
   { title: 'In the media', body: 'Interviews, quotes and press mentions' },
-  { title: 'Explainers', body: 'Evergreen education (GARP, PMS vs MF, taxation of PMS)' },
 ];
 
 export const INSIGHT_PLACEHOLDERS = [
-  {
-    category: 'Market notes',
-    title: 'From the fund manager\'s desk — monthly market view',
-    summary: 'A short monthly view from the fund manager on markets, positioning and what we are watching.',
-    date: 'June 2026',
-    readTime: '4 min',
-  },
   {
     category: 'Strategy commentary',
     title: 'What drove our portfolios this month',

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { TrendingUp, FileText, ArrowRight } from 'lucide-react';
+import { FileText, ArrowRight } from 'lucide-react';
 import { PERFORMANCE, REGULATORY } from '../data/content';
 import { PageHero, SectionHeading, Disclaimer } from '../components/shared';
 
@@ -68,8 +68,8 @@ export default function PerformancePage() {
                           </td>
                         ))}
                       </tr>
-                      <tr className="bg-ink-900 text-white">
-                        <td className="py-3 px-3 font-bold text-amber-400 font-mono uppercase text-[10px] tracking-wider rounded-l-lg">
+                      <tr className="bg-slate-200/70">
+                        <td className="py-3 px-3 font-bold text-ink-900 font-mono uppercase text-[10px] tracking-wider rounded-l-lg">
                           Alpha
                         </td>
                         {table.rows.alpha.map((v, i) => (
@@ -77,9 +77,10 @@ export default function PerformancePage() {
                             key={i}
                             className={`py-3 px-3 text-right font-mono font-bold ${
                               i === table.rows.alpha.length - 1 ? 'rounded-r-lg' : ''
-                            } ${v >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}
+                            } ${v >= 0 ? 'text-emerald-700' : 'text-rose-600'}`}
                           >
-                            +{fmt(v)}
+                            {v >= 0 ? '+' : ''}
+                            {fmt(v)}
                           </td>
                         ))}
                       </tr>
@@ -90,57 +91,6 @@ export default function PerformancePage() {
             ))}
           </div>
           <Disclaimer>{PERFORMANCE.tableNote}</Disclaimer>
-        </div>
-      </section>
-
-      {/* Growth of ₹1 crore */}
-      <section className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="GROWTH OF ₹1 CRORE"
-            title="What ₹1 crore at inception became"
-            center
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {PERFORMANCE.growth.map((g) => (
-              <div
-                key={g.strategy}
-                className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm space-y-3 text-center"
-              >
-                <div className="h-10 w-10 bg-emerald-50 rounded-lg flex items-center justify-center border border-emerald-100 mx-auto">
-                  <TrendingUp className="w-5 h-5 text-emerald-600" />
-                </div>
-                <h4 className="font-bold text-sm text-slate-900">{g.strategy}</h4>
-                <span className="text-xl font-extrabold text-ink-700 block tracking-tight">
-                  {g.value}
-                </span>
-                <span className="text-[11px] text-slate-500 font-mono block">{g.benchmark}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-[10px] text-slate-400 italic mt-6">
-            {PERFORMANCE.growthNote}
-          </p>
-        </div>
-      </section>
-
-      {/* Rolling returns */}
-      <section className="py-20 bg-white border-b border-slate-100 font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="CONSISTENCY OVER CYCLES"
-            title={PERFORMANCE.rolling.title}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {PERFORMANCE.rolling.items.map((item) => (
-              <div
-                key={item}
-                className="border-l-2 border-accent-500 pl-5 py-2 text-xs sm:text-sm text-slate-600 font-light leading-relaxed"
-              >
-                {item}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

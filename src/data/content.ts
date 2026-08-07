@@ -1,5 +1,5 @@
 // All copy sourced from ACMIIL_PMS_Content_Revamp_All_Pages.docx — teal (proposed) blocks only.
-// Figures as on 30 June 2026, per the ACE PMS deck & factsheets.
+// Figures per the ACE PMS deck & factsheets. ACE Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026.
 
 export const CONTACT = {
   email: 'pms@acm.co.in',
@@ -16,7 +16,7 @@ export const REGULATORY = {
   researchAnalyst: 'INH000016490',
   dp: 'IN-DP-685-2022',
   footnote:
-    'Data as on 30 June 2026. Returns are CAGR/TWRR; returns over 1 year are annualised. Past performance is not indicative of future results and is based on model client portfolios, post-expenses. PMS Bazaar rankings are for AMCs with minimum ₹200 cr AUM, FY26. Investments in the securities market are subject to market risk; read all related documents carefully before investing.',
+    'Data as on 31 July 2026 (ACE Multi-Asset as on 30 June 2026). Returns are CAGR/TWRR; returns over 1 year are annualised. Past performance is not indicative of future results and is based on model client portfolios, post-expenses. PMS Bazaar rankings are for AMCs with minimum ₹200 cr AUM, FY26. Investments in the securities market are subject to market risk; read all related documents carefully before investing.',
 };
 
 export const HERO = {
@@ -48,28 +48,34 @@ export const HERO_THEMES = [
 
 export const CREDIBILITY_BAR = [
   {
-    label: 'HERITAGE',
-    value: '40',
-    suffix: '+ yrs',
-    text: 'Asit C. Mehta financial-services legacy — four decades at the heart of Indian capital markets',
-  },
-  {
     label: 'GROUP STRENGTH',
     value: 'Pantomath',
     suffix: '',
     text: "One of India's fastest-growing investment banks — AIFs, research, execution",
   },
   {
-    label: 'REGULATION',
-    value: 'SEBI',
-    suffix: ' PM',
-    text: 'Registered Portfolio Manager — Reg. No. INP000005801',
+    label: 'VINTAGE',
+    value: '9',
+    suffix: '+ yrs',
+    text: 'Proven track record navigating multiple bull & bear cycles',
   },
   {
-    label: 'RECOGNITION',
-    value: 'Top',
-    suffix: '-quartile',
-    text: 'PMS Bazaar 3-yr & 5-yr category rankings, FY26*',
+    label: 'PEER RANKING',
+    value: 'Top 10',
+    suffix: '',
+    text: 'Ranked PMS schemes in 3-yr & 5-yr timeframes by PMS Bazaar*',
+  },
+  {
+    label: 'ALPHA DELIVERED',
+    value: '5–7',
+    suffix: '%',
+    text: 'Annualised alpha over benchmark BSE 500 TRI#',
+  },
+  {
+    label: 'PHILOSOPHY',
+    value: 'Q·V·C',
+    suffix: '',
+    text: 'Management quality, entry valuation & industry capital cycle — the foundation of every decision',
   },
 ];
 
@@ -147,14 +153,22 @@ export interface StrategyContent {
   tag: string;
   name: string;
   tagline: string;
-  positioning: string;
-  whoFor: string;
-  bullets: string[];
+  // Positioning broken into point statements — shown as check-cards.
+  points: string[];
   keyFacts: { k: string; v: string }[];
   performanceNote: string;
   homeCard: { description: string; metric: string; metricLabel: string };
-  // Illustrative growth of ₹1 crore since inception (as on 30 June 2026)
-  growth: { strategy: string; benchmark: string; strategyCagr: number; benchmarkCagr: number };
+  /** Data date for this strategy's figures (mixed across strategies). */
+  asOn: string;
+  // Growth of ₹1 crore since inception. *Value fields are ₹ crore (numeric) for charting.
+  growth: {
+    strategy: string;
+    benchmark: string;
+    strategyValue: number;
+    benchmarkValue: number;
+    strategyCagr: number;
+    benchmarkCagr: number;
+  };
 }
 
 export const STRATEGIES: StrategyContent[] = [
@@ -163,14 +177,10 @@ export const STRATEGIES: StrategyContent[] = [
     tag: 'Flagship',
     name: 'ACE Multicap',
     tagline: 'Built for balanced performance',
-    positioning:
+    points: [
       'Our flagship. Large-cap stability blended with mid- and small-cap growth for an optimal balance of consistency and compounding.',
-    whoFor: 'Investors seeking smart equity diversification and balanced long-term growth.',
-    bullets: [
-      'GARP-led core of 18–25 high-quality businesses, agnostic to benchmark weights, market cap and sector',
-      'Anchor + tactical construction to enhance alpha with long-term compounding',
-      'Prioritises stability, leadership and earnings consistency',
-      'Sectoral & thematic diversification to reduce volatility and drawdown',
+      'Enables quick repositioning as valuations, liquidity, macro conditions and sector leadership evolve.',
+      'Track record of 7%+ alpha since inception, and ranked Top Five PMS scheme in 3 & 5-yr by PMS Bazaar.*',
     ],
     keyFacts: [
       { k: 'Inception', v: '23 Aug 2018' },
@@ -182,27 +192,32 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Fee', v: '2.5% of AUM' },
     ],
     performanceNote:
-      'Since-inception CAGR 18.6% vs 12.5% for BSE 500 TRI; ~6%+ post-fee alpha; top-5 PMS in 3 & 5-yr by PMS Bazaar, FY26.* Full data on the Performance page.',
+      'Since-inception CAGR 19.2% vs 12.7% for BSE 500 TRI; ~7%+ alpha; top-5 PMS in 3 & 5-yr by PMS Bazaar, FY26.* Full data on the Performance page.',
     homeCard: {
       description:
         'Large-cap stability blended with mid/small-cap growth. For balanced, long-term compounding.',
-      metric: '18.6%',
+      metric: '19.2%',
       metricLabel: 'Since-inception CAGR*',
     },
-    growth: { strategy: '~₹3.9 Cr', benchmark: '~₹2.5 Cr', strategyCagr: 18.6, benchmarkCagr: 12.5 },
+    asOn: '31 Jul 2026',
+    growth: {
+      strategy: '~₹4 Cr',
+      benchmark: '~₹2.6 Cr',
+      strategyValue: 4.0,
+      benchmarkValue: 2.6,
+      strategyCagr: 19.2,
+      benchmarkCagr: 12.7,
+    },
   },
   {
     id: 'tentrillion',
     tag: 'Growth',
     name: 'ACE Ten Trillion Opportunities',
     tagline: "Built to ride India's ascent to a $10-trillion economy",
-    positioning:
-      "A small–mid-cap (SMID) strategy backing future leaders in the sectors driving India's shift from consumption to infrastructure, manufacturing and formalisation.",
-    whoFor: 'Investors early in their wealth-creation journey seeking long-term, scalable growth.',
-    bullets: [
-      'Selects scalable, future-ready businesses executing consistently on stated guidance',
-      'Focus on sectors leading the formalisation and capital-formation cycle',
-      'Sectoral & thematic diversification to reduce volatility and drawdown',
+    points: [
+      "A small–mid (SMID) strategy built to capture India's rise to a $10-trillion economy.",
+      "Capturing India's structural shift from services-led growth to financialisation, manufacturing and digitisation.",
+      'Track record of 7%+ alpha since inception, and ranked Top Ten in SMID schemes in 3 & 5-yr by PMS Bazaar.*',
     ],
     keyFacts: [
       { k: 'Inception', v: '29 Dec 2017' },
@@ -214,59 +229,33 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Fee', v: '2.5% of AUM' },
     ],
     performanceNote:
-      'Since-inception CAGR 18.9% vs 12.2% for BSE 500 TRI; ~6%+ post-fee alpha since inception; among top-10 mid-small PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
+      'Since-inception CAGR 19.5% vs 12.4% for BSE 500 TRI; ~7%+ alpha since inception; top-10 SMID PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
     homeCard: {
       description:
         "Riding India's shift from consumption to infrastructure and manufacturing.",
-      metric: '18.9%',
+      metric: '19.5%',
       metricLabel: 'Since-inception CAGR*',
     },
-    growth: { strategy: '~₹4.4 Cr', benchmark: '~₹3.1 Cr', strategyCagr: 18.9, benchmarkCagr: 12.2 },
-  },
-  {
-    id: 'bluechip',
-    tag: 'Stability',
-    name: 'ACE Blue-chip',
-    tagline: 'Built for leadership, stability and proven execution',
-    positioning:
-      "India's top-150 companies by market cap, blended with a small allocation to our best mid/small-cap ideas — for equity participation with lower volatility.",
-    whoFor: 'Risk-averse investors who want peace of mind in their equity allocation.',
-    bullets: [
-      'GARP-led portfolio of 18–20 high-quality blue-chips with a high active share (agnostic to benchmark weights)',
-      'Large-cap ~70% / mid-small ~30% allocation',
-      'Prioritises stability, leadership and proven execution',
-    ],
-    keyFacts: [
-      { k: 'Inception', v: '29 Dec 2017' },
-      { k: 'Benchmark', v: 'BSE 500 TRI' },
-      { k: 'Style', v: 'GARP' },
-      { k: 'Horizon', v: '3–5 yrs' },
-      { k: 'Minimum', v: '₹50 lakh' },
-      { k: 'Fee', v: '2% of AUM' },
-    ],
-    performanceNote:
-      'Top-ranked PMS in the large-cap category for FY26 by PMS Bazaar; ~4.6% alpha over 5 years.* Full data on the Performance page.',
-    homeCard: {
-      description:
-        "India's top 150 companies with select mid and small-cap best ideas.",
-      metric: '#1',
-      metricLabel: 'Large-cap PMS, FY26*',
+    asOn: '31 Jul 2026',
+    growth: {
+      strategy: '~₹4.6 Cr',
+      benchmark: '~₹3.2 Cr',
+      strategyValue: 4.6,
+      benchmarkValue: 3.2,
+      strategyCagr: 19.5,
+      benchmarkCagr: 12.4,
     },
-    growth: { strategy: '~₹2.8 Cr', benchmark: '~₹2.7 Cr', strategyCagr: 12.8, benchmarkCagr: 12.2 },
   },
   {
     id: 'multiasset',
     tag: 'Income',
     name: 'ACE Multi-Asset',
     tagline: 'Asset-class diversification with an optional 0.5% monthly payout',
-    positioning:
-      'One portfolio spanning equity, global ETFs, fixed income, gold/silver, REITs/InvITs and alternates — for a balanced return goal with an optional regular income.',
-    whoFor:
-      'Income-seeking investors who want balanced allocation without giving up equity growth, and without juggling multiple folios.',
-    bullets: [
-      'Optional monthly payout of 0.5% of NAV (~6% p.a.), from the 7th month, for regular-income seekers',
-      'Payout drawn from dividend, interest, capital gains and invested capital',
-      'Limits volatility through asset diversification; limits drawdown through GARP discipline',
+    points: [
+      'No asset class outperforms all the time.',
+      'Our Multi-Asset strategy invests across equity, fixed income, gold, silver and listed alternatives to participate across every market cycle.',
+      'Dynamic asset allocation across uncorrelated asset classes, driven by valuations and market cycles, aims to reduce volatility while capturing opportunities.',
+      'A proven track record of 5%+ alpha since inception, complemented by the No. 1 Multi-Asset PMS ranking across both 3-year and 5-year periods by PMS Bazaar.',
     ],
     keyFacts: [
       { k: 'Inception', v: '4 Oct 2018' },
@@ -278,22 +267,23 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Fee', v: '2.5% of AUM' },
     ],
     performanceNote:
-      'Since-inception CAGR 16.4% vs 11.5% for Nifty Multi-Asset; ~5%+ alpha since inception; top-ranked multi-asset PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
+      'Since-inception CAGR 16.4% vs 11.5% for Nifty Multi-Asset; ~5%+ alpha since inception; No. 1 multi-asset PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
     homeCard: {
       description:
         'Equity, debt and alternates in one portfolio, with an optional 0.5% monthly payout.',
       metric: '16.4%',
       metricLabel: 'Since-inception CAGR*',
     },
-    growth: { strategy: '~₹3.2 Cr', benchmark: '~₹2.3 Cr', strategyCagr: 16.4, benchmarkCagr: 11.5 },
+    asOn: '30 Jun 2026',
+    growth: {
+      strategy: '~₹3.2 Cr',
+      benchmark: '~₹2.3 Cr',
+      strategyValue: 3.2,
+      benchmarkValue: 2.3,
+      strategyCagr: 16.4,
+      benchmarkCagr: 11.5,
+    },
   },
-];
-
-export const GOAL_SELECTOR = [
-  { question: 'Looking for growth and leadership?', strategy: 'ACE Multicap', id: 'multicap' },
-  { question: 'Early in your wealth-creation journey?', strategy: 'ACE Ten Trillion Opportunities', id: 'tentrillion' },
-  { question: 'Want peace of mind in equity allocation?', strategy: 'ACE Blue-chip', id: 'bluechip' },
-  { question: 'Seeking balanced allocation with regular income?', strategy: 'ACE Multi-Asset', id: 'multiasset' },
 ];
 
 export const TRACK_RECORD = {
@@ -348,7 +338,7 @@ export const FEES = {
   title: 'Transparent, simple terms',
   points: [
     'Minimum investment: ₹50 lakh (₹1 crore for Multi-Asset)',
-    'Fee options: 2.5% of AUM flat (Blue-chip 2%), or 1.5% + 15% performance fee over a 10% hurdle with high-water-mark',
+    'Fee options: 2.5% of AUM flat, or 1.5% + 15% performance fee over a 10% hurdle with high-water-mark',
     'No lock-in; exit load 1% up to 1 year',
     'Paperless digital onboarding; regular engagement & reviews',
   ],
@@ -357,7 +347,7 @@ export const FEES = {
 };
 
 export const PMS_EXPLAINER = {
-  title: "New to PMS? Here's the short version.",
+  title: "New to PMS?",
   body: 'A Portfolio Management Service gives you a tailor-made portfolio of direct securities, managed by a SEBI-registered portfolio manager to your risk and return goals. Versus mutual funds, PMS offers greater transparency, customisation and direct ownership — designed for investors with ₹50 lakh or more to deploy.',
   tiles: [
     { title: 'Direct ownership & transparency', body: 'Securities held in your own name, with full transparency.' },
@@ -389,7 +379,7 @@ export const FAQS = [
   },
   {
     q: 'What are the fees, and is there a lock-in?',
-    a: 'You can choose a flat 2.5% of AUM (2% for ACE Blue-chip), or a 1.5% base plus a 15% performance fee over a 10% hurdle with a high-water-mark. There is no lock-in. An exit load of 1% applies for withdrawals within the first year.*',
+    a: 'You can choose a flat 2.5% of AUM, or a 1.5% base plus a 15% performance fee over a 10% hurdle with a high-water-mark. There is no lock-in. An exit load of 1% applies for withdrawals within the first year.*',
   },
   {
     q: 'Can NRIs invest in PMS?',
@@ -423,9 +413,14 @@ export const ABOUT = {
   groupStructure: {
     eyebrow: 'THE GROUP BEHIND THE PLATFORM',
     title: 'One conglomerate, four institutional platforms',
+    tagline: ['United by a shared vision.', 'Powered by deep expertise.', 'Built to create lasting impact.'],
     entities: [
       {
         name: 'Asit C. Mehta Investment Intermediates Ltd',
+        monogram: 'ACE',
+        logo: '/logos/investmentz-trim.png',
+        short:
+          '40+ years in Institutional Equities, Retail Broking and Portfolio Management Services. SEBI-registered PMS (Reg. No. INP000005801).',
         credential:
           'Strong and established platform of over 40 years in Institutional Equities, Retail Broking and Portfolio Management Services.',
         primary: true,
@@ -435,16 +430,26 @@ export const ABOUT = {
       },
       {
         name: 'Wealth Company Asset Management Pvt Ltd',
+        monogram: 'WC',
+        logo: '/logos/wc-alternates-trim.png',
+        short: 'Bharat Value Fund across its series manages ~₹7,000 crore in client assets.',
         credential:
           'Bharat Value Fund across various series manages ~₹7,000 crores in client assets.',
       },
       {
         name: 'Wealth Company Asset Management Holdings Pvt Ltd',
+        monogram: 'WCH',
+        logo: '/logos/wc-mutualfund-trim.png',
+        short:
+          "India's first female-founded mutual fund house; ₹2,000 cr in debut NFO collections.",
         credential:
           "India's first female-founded mutual fund house; launched four active funds simultaneously in 2025; ₹2,000 cr in debut NFO collections.",
       },
       {
         name: 'Pantomath Capital Advisors Pvt Ltd',
+        monogram: 'PCA',
+        logo: '/logos/pantomath-trim.png',
+        short: 'Full-service investment bank — IPOs, QIPs, M&A and PE advisory; 150+ ECM deals.',
         credential:
           'Leading full-service investment bank — IPOs, QIPs, M&A, PE advisory; 150+ ECM transactions executed to date.',
       },
@@ -452,18 +457,19 @@ export const ABOUT = {
   },
   scale: {
     serviceLines: [
-      'Investment Banking',
-      'Asset Management',
+      'Portfolio Management',
       'Institutional Equities',
       'Stock Broking',
+      'Asset Management',
       'Wealth Management',
+      'Investment Banking',
     ],
     stats: [
       { icon: 'Users', value: 600, suffix: '+', label: 'Team, Human Capital' },
       { icon: 'Building2', value: 200, suffix: '+', label: 'Franchise Offices' },
-      { icon: 'MapPin', value: 14, suffix: '', label: 'Cities across 20+ states' },
+      { icon: 'MapPin', value: 114, suffix: '', label: 'Cities across 20+ states' },
     ],
-    footnote: 'Group figures as on 30 June 2026.',
+    footnote: '',
   },
   leadership: {
     title: 'Leadership',
@@ -573,7 +579,7 @@ export const PHILOSOPHY_PAGE = {
 export const PERFORMANCE = {
   intro: {
     title: 'Performance, in full',
-    body: 'All figures are as on 30 June 2026. Returns up to 1 year are absolute; beyond 1 year are annualised (CAGR/TWRR). Figures are based on model client portfolios, post-expenses; individual portfolio returns may vary. Past performance is not indicative of future results. Investments are subject to market risk.',
+    body: 'ACE Multicap & ACE Ten Trillion figures are as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Returns up to 1 year are absolute; beyond 1 year are annualised (CAGR/TWRR). Figures are based on model client portfolios, post-expenses; individual portfolio returns may vary. Past performance is not indicative of future results. Investments are subject to market risk.',
   },
   // CAGR %, as on 30 June 2026
   tables: [
@@ -582,9 +588,9 @@ export const PERFORMANCE = {
       since: 'since 23 Aug 2018',
       benchmarkName: 'BSE 500 TRI',
       rows: {
-        portfolio: [2.9, 25.8, 23.0, 18.6],
-        benchmark: [-2.0, 12.5, 12.2, 12.5],
-        alpha: [4.8, 13.3, 10.8, 6.2],
+        portfolio: [10.2, 24.3, 23.4, 19.2],
+        benchmark: [3.0, 11.9, 12.4, 12.7],
+        alpha: [7.2, 12.4, 11.0, 6.5],
       },
     },
     {
@@ -592,9 +598,9 @@ export const PERFORMANCE = {
       since: 'since 29 Dec 2017',
       benchmarkName: 'BSE 500 TRI',
       rows: {
-        portfolio: [12.4, 29.5, 24.6, 18.9],
-        benchmark: [-2.0, 12.5, 12.2, 12.2],
-        alpha: [14.4, 17.0, 12.4, 6.8],
+        portfolio: [19.8, 26.7, 24.8, 19.5],
+        benchmark: [3.0, 11.9, 12.4, 12.4],
+        alpha: [16.8, 14.8, 12.4, 7.1],
       },
     },
     {
@@ -607,34 +613,26 @@ export const PERFORMANCE = {
         alpha: [3.2, 12.7, 9.4, 4.9],
       },
     },
-    {
-      strategy: 'ACE Blue-chip',
-      since: 'since 29 Dec 2017',
-      benchmarkName: 'BSE 500 TRI',
-      rows: {
-        portfolio: [5.7, 19.1, 16.8, 12.8],
-        benchmark: [-2.0, 12.5, 12.2, 12.2],
-        alpha: [7.7, 6.6, 4.6, 0.6],
-      },
-    },
   ],
   tableNote:
-    'Figures per the ACE PMS deck (data as on 30 June 2026), verified against the latest available performance material.',
-  // Growth of ₹1 crore since inception (as on 30 June 2026). Values in ₹ crore.
+    'Figures per the ACE PMS deck. ACE Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026.',
+  // Growth of ₹1 crore since inception. Values in ₹ crore.
   growth: [
     {
       strategy: 'ACE Multicap',
-      terminalValue: 3.9,
-      benchmarkValue: 2.5,
+      terminalValue: 4.0,
+      benchmarkValue: 2.6,
       benchmarkName: 'BSE 500 TRI',
       inception: '23 Aug 2018',
+      asOn: '31 Jul 2026',
     },
     {
       strategy: 'ACE Ten Trillion',
-      terminalValue: 4.4,
-      benchmarkValue: 3.1,
+      terminalValue: 4.6,
+      benchmarkValue: 3.2,
       benchmarkName: 'BSE 500 TRI',
       inception: '29 Dec 2017',
+      asOn: '31 Jul 2026',
     },
     {
       strategy: 'ACE Multi-Asset',
@@ -642,10 +640,11 @@ export const PERFORMANCE = {
       benchmarkValue: 2.3,
       benchmarkName: 'Nifty Multi-Asset',
       inception: '04 Oct 2018',
+      asOn: '30 Jun 2026',
     },
   ],
   growthNote:
-    'Since inception, as on 30 June 2026. Returns are annualised (TWRR) and net of expenses. Past performance is not indicative of future returns.',
+    'Since inception. ACE Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Returns are annualised (TWRR) and net of expenses. Past performance is not indicative of future returns.',
   rankings: {
     title: 'PMS Bazaar rankings, FY26',
     header: ['Strategy', '1-Yr rank', '3-Yr rank', '5-Yr rank'],
@@ -653,7 +652,6 @@ export const PERFORMANCE = {
       ['ACE Multicap', '25 / 143', '4 / 143', '1 / 112'],
       ['ACE Multi-Asset', '5 / 13', '1 / 13', '1 / 8'],
       ['ACE Ten Trillion Opportunities', '15 / 56', '7 / 56', '11 / 48'],
-      ['ACE Blue-chip', '1 / 28', '3 / 28', '5 / 25'],
     ],
     note: 'PMS Bazaar rankings for relevant schemes with minimum 3-yr vintage and AMCs with minimum ₹200 cr AUM, as on 31 March 2026.',
   },
@@ -689,12 +687,12 @@ export const RESOURCES = {
     {
       title: 'Product decks',
       body: 'One current deck per strategy',
-      items: ['ACE Multicap', 'ACE Ten Trillion Opportunities', 'ACE Blue-chip', 'ACE Multi-Asset'],
+      items: ['ACE Multicap', 'ACE Ten Trillion Opportunities', 'ACE Multi-Asset'],
     },
     {
       title: 'Monthly factsheets',
       body: 'Filter by strategy + month/year; latest four surfaced at the top',
-      items: ['ACE Multicap — June 2026', 'ACE Ten Trillion — June 2026', 'ACE Blue-chip — June 2026', 'ACE Multi-Asset — June 2026'],
+      items: ['ACE Multicap — June 2026', 'ACE Ten Trillion — June 2026', 'ACE Multi-Asset — June 2026'],
     },
     {
       title: 'Compliance & disclosures',

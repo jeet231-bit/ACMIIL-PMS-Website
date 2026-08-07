@@ -33,8 +33,6 @@ const HeroContent: FC = () => (
         {HERO.secondaryCta}
       </Link>
     </div>
-
-    <p className="mt-10 text-[10px] text-slate-400/90 leading-relaxed">{HERO.rankingFootnote}</p>
   </div>
 );
 

@@ -18,7 +18,7 @@ function GrowthCard({ g }: { g: (typeof PERFORMANCE.growth)[number] }) {
 
       {/* The number — the hero of the card */}
       <div className="space-y-1">
-        <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">₹1 cr →</div>
+        <div className="text-[12px] font-mono font-bold text-accent-600 uppercase tracking-wider">₹1 cr →</div>
         <div className="text-[44px] sm:text-[52px] font-extrabold text-ink-800 tracking-tight leading-none tabular-nums">
           ₹<CountUp value={g.terminalValue} active={inView} decimals={1} /> cr
         </div>
@@ -53,7 +53,7 @@ function GrowthCard({ g }: { g: (typeof PERFORMANCE.growth)[number] }) {
       </div>
 
       <div className="text-[11px] text-slate-500 font-light border-t border-slate-200 pt-4">
-        vs ~₹{g.benchmarkValue} cr for {g.benchmarkName} · Inception {g.inception}
+        Inception {g.inception}
       </div>
     </div>
   );

@@ -115,7 +115,7 @@ export const Footer = () => {
           <p>*{REGULATORY.footnote}</p>
 
           <p>
-            Past performance is not indicative of future results. Returns as on 30 June 2026.
+            Past performance is not indicative of future results. Returns as on 31 July 2026 (ACE Multi-Asset as on 30 June 2026).
             Subject to market risk. See the Performance page for methodology and full disclosures.
           </p>
 

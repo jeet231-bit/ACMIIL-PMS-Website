@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, ChevronDown, Sparkles } from 'lucide-react';
 import {
   CREDIBILITY_BAR,
-  HERITAGE,
   GARP_TEASER,
-  WHY_PILLARS,
   PMS_EXPLAINER,
   GETTING_STARTED,
-  INSIGHT_PLACEHOLDERS,
   FAQS,
 } from '../data/content';
+import { useCmsArticles } from '../lib/cms/store';
 import { HomeHero } from '../components/HomeHero';
 import { StructuralThemesSection } from '../components/StructuralThemes';
 import { PhilosophyPillars } from '../components/PhilosophyPillars';
@@ -19,8 +17,12 @@ import { StrategyShowcase } from '../components/StrategyShowcase';
 import { GrowthShowcase } from '../components/GrowthShowcase';
 import { SectionHeading } from '../components/shared';
 
+const fmtMonth = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const latestInsights = useCmsArticles().slice(0, 3);
 
   return (
     <>
@@ -31,9 +33,9 @@ export default function HomePage() {
       <StructuralThemesSection />
 
       {/* ============ Credibility metrics strip ============ */}
-      <section className="bg-white border-b border-slate-200/80 py-8 font-sans">
+      <section className="bg-white border-b border-slate-200/80 py-10 font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
             {CREDIBILITY_BAR.map((item) => (
               <div key={item.label} className="space-y-1 p-2">
                 <span className="text-[10px] text-slate-400 font-mono tracking-widest uppercase block font-bold">
@@ -53,45 +55,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ============ Heritage, reimagined ============ */}
-      <section className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="THE HERITAGE, REIMAGINED"
-            title="Two strengths, one Portfolio Management Service"
-            lead={HERITAGE.body}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm space-y-2">
-              <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase font-mono block">
-                HERITAGE
-              </span>
-              <h3 className="font-extrabold text-xl text-slate-900">
-                Trust &amp; Legacy of ACMIIL
-              </h3>
-              <p className="text-xs text-slate-500 font-light">40+ years in Indian capital markets.</p>
-            </div>
-            <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm space-y-2">
-              <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase font-mono block">
-                ENERGY
-              </span>
-              <h3 className="font-extrabold text-xl text-slate-900">
-                Research &amp; Execution of Pantomath
-              </h3>
-              <p className="text-xs text-slate-500 font-light">AIFs · research · execution.</p>
-            </div>
-            <div className="bg-ink-900 rounded-2xl border border-ink-800 p-6 shadow-md space-y-2 text-white">
-              <span className="text-[10px] font-bold text-amber-400 tracking-widest uppercase font-mono block">
-                RESULT
-              </span>
-              <h3 className="font-extrabold text-xl">A sharper, stronger PMS</h3>
-              <p className="text-xs text-ink-100/70 font-light">More value for every investor.</p>
-            </div>
-          </div>
-          <div className="mt-8">
+          <div className="mt-10 text-center">
             <Link
               to="/about"
               className="text-xs font-bold text-ink-700 inline-flex items-center gap-1.5 border-b-2 border-accent-500 pb-0.5 hover:text-accent-600 transition"
@@ -101,6 +65,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ============ Growth of ₹1 crore — right after the 'Read our story' CTA ============ */}
+      <GrowthShowcase />
 
       {/* ============ Philosophy — 4 pillars in dual-engine card style ============ */}
       <section className="py-20 bg-white border-b border-slate-100 font-sans relative overflow-hidden">
@@ -136,32 +103,9 @@ export default function HomePage() {
         <StrategyShowcase
           compact
           eyebrow="OUR STRATEGIES"
-          title="Four purpose-built strategies, one philosophy"
+          title="Purpose-built strategies, one philosophy"
           lead="Sorted by what you want to achieve, not by product jargon — select a mandate for a snapshot."
         />
-      </section>
-
-      {/* ============ Growth of ₹1 crore — proof, right after philosophy ============ */}
-      <GrowthShowcase />
-
-      {/* ============ Why ACMIIL ============ */}
-      <section className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="WHY ACE PMS" title="Process over personality" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
-            {WHY_PILLARS.map((pillar, idx) => (
-              <div key={pillar.title} className="relative pl-14">
-                <span className="absolute left-0 top-0.5 font-mono text-sm text-accent-600 border border-slate-200 w-10 h-10 rounded-lg grid place-items-center font-semibold bg-white">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-                <h3 className="font-bold text-sm text-slate-900 leading-snug">{pillar.title}</h3>
-                <p className="text-xs text-slate-500 font-light leading-relaxed mt-1">
-                  {pillar.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ============ Understanding PMS ============ */}
@@ -245,9 +189,9 @@ export default function HomePage() {
             center
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {INSIGHT_PLACEHOLDERS.map((item) => (
+            {latestInsights.map((item) => (
               <div
-                key={item.title}
+                key={item.id}
                 className="bg-slate-50 rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between hover:shadow-md transition"
               >
                 <div className="space-y-4">
@@ -255,7 +199,7 @@ export default function HomePage() {
                     <span className="text-accent-700 font-bold uppercase bg-accent-50 border border-accent-100 px-2 py-0.5 rounded">
                       {item.category}
                     </span>
-                    <span className="text-slate-400">{item.date}</span>
+                    <span className="text-slate-400">{fmtMonth(item.publishedAt)}</span>
                   </div>
                   <h4 className="font-extrabold text-slate-900 text-lg leading-snug min-h-[52px]">
                     {item.title}
@@ -263,10 +207,12 @@ export default function HomePage() {
                   <p className="text-xs text-slate-500 leading-relaxed font-light">{item.summary}</p>
                 </div>
                 <div className="pt-5 border-t border-slate-200 mt-5 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-700">ACMIIL PMS Desk</span>
-                  <span className="text-[10px] text-slate-400 font-mono bg-white px-2 py-1 rounded border border-slate-100">
-                    {item.readTime}
-                  </span>
+                  <span className="text-xs font-semibold text-slate-700">{item.publishedBy}</span>
+                  {item.readTime && (
+                    <span className="text-[10px] text-slate-400 font-mono bg-white px-2 py-1 rounded border border-slate-100">
+                      {item.readTime}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}

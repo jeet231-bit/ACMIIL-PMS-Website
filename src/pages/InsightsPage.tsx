@@ -1,20 +1,23 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, ArrowRight } from 'lucide-react';
-import { INSIGHTS_CATEGORIES, INSIGHT_PLACEHOLDERS } from '../data/content';
+import { Mail, ArrowRight, ExternalLink } from 'lucide-react';
+import { INSIGHTS_CATEGORIES } from '../data/content';
 import { PageHero, SectionHeading } from '../components/shared';
 import { useToast } from '../components/toast';
+import { useCmsArticles } from '../lib/cms/store';
+
+const fmtMonth = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
 
 export default function InsightsPage() {
   const showToast = useToast();
+  const articles = useCmsArticles();
   const [email, setEmail] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const categories = ['All', ...INSIGHTS_CATEGORIES.map((c) => c.title)];
+  const categories = ['All', ...Array.from(new Set(articles.map((a) => a.category)))];
   const filtered =
-    activeCategory === 'All'
-      ? INSIGHT_PLACEHOLDERS
-      : INSIGHT_PLACEHOLDERS.filter((i) => i.category === activeCategory);
+    activeCategory === 'All' ? articles : articles.filter((a) => a.category === activeCategory);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +35,7 @@ export default function InsightsPage() {
         eyebrow="INSIGHTS & MEDIA"
         title={
           <>
-            Perspectives, notes and <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">coverage</span>
+            Perspectives and <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">coverage</span>
           </>
         }
         lead="Market notes from the fund manager, strategy commentary tied to the monthly factsheets, press coverage and evergreen explainers."
@@ -63,9 +66,7 @@ export default function InsightsPage() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={`px-3 py-1.5 rounded-md transition font-semibold whitespace-nowrap ${
-                    activeCategory === cat
-                      ? 'bg-ink-700 text-white shadow-sm'
-                      : 'hover:text-slate-950'
+                    activeCategory === cat ? 'bg-ink-700 text-white shadow-sm' : 'hover:text-slate-950'
                   }`}
                 >
                   {cat}
@@ -74,40 +75,59 @@ export default function InsightsPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {filtered.map((item) => (
-              <div
-                key={item.title}
-                className="bg-white rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between hover:shadow-md transition"
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between text-[10px] font-mono">
-                    <span className="text-accent-700 font-bold uppercase bg-accent-50 border border-accent-100 px-2 py-0.5 rounded">
-                      {item.category}
-                    </span>
-                    <span className="text-slate-400">{item.date}</span>
+          {filtered.length === 0 ? (
+            <p className="text-sm text-slate-400 italic text-center py-16">
+              No insights published yet — new notes appear here as the team publishes them.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {filtered.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between hover:shadow-md transition"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-[10px] font-mono">
+                      <span className="text-accent-700 font-bold uppercase bg-accent-50 border border-accent-100 px-2 py-0.5 rounded">
+                        {item.category}
+                      </span>
+                      <span className="text-slate-400">{fmtMonth(item.publishedAt)}</span>
+                    </div>
+                    <h4 className="font-extrabold text-slate-900 text-lg leading-snug min-h-[52px]">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs text-slate-500 leading-relaxed font-light min-h-[56px]">
+                      {item.summary}
+                    </p>
                   </div>
-                  <h4 className="font-extrabold text-slate-900 text-lg leading-snug min-h-[52px]">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-slate-500 leading-relaxed font-light min-h-[56px]">
-                    {item.summary}
-                  </p>
+                  <div className="pt-5 border-t border-slate-200 mt-5 flex items-center justify-between">
+                    {item.link ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[11px] font-bold text-ink-700 inline-flex items-center gap-1 hover:text-accent-600 transition"
+                      >
+                        Read more <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ) : (
+                      <Link
+                        to="/contact"
+                        className="text-[11px] font-bold text-ink-700 inline-flex items-center gap-1 hover:text-accent-600 transition"
+                      >
+                        Request a callback <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    )}
+                    {item.readTime && (
+                      <span className="text-[10px] text-slate-400 font-mono bg-slate-50 px-2 py-1 rounded border border-slate-100">
+                        {item.readTime}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <div className="pt-5 border-t border-slate-200 mt-5 flex items-center justify-between">
-                  <Link
-                    to="/contact"
-                    className="text-[11px] font-bold text-ink-700 inline-flex items-center gap-1 hover:text-accent-600 transition"
-                  >
-                    Request a callback <ArrowRight className="w-3 h-3" />
-                  </Link>
-                  <span className="text-[10px] text-slate-400 font-mono bg-slate-50 px-2 py-1 rounded border border-slate-100">
-                    {item.readTime}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
           <p className="text-[11px] text-slate-400 italic mt-8 text-center">
             New notes are published monthly, alongside each strategy factsheet.
           </p>

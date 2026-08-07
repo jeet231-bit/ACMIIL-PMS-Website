@@ -13,6 +13,9 @@ import WhyPage from './pages/WhyPage';
 import InsightsPage from './pages/InsightsPage';
 import ResourcesPage from './pages/ResourcesPage';
 import ContactPage from './pages/ContactPage';
+import LoginPage from './pages/LoginPage';
+import AdminPage from './pages/AdminPage';
+import OnboardingPage from './pages/OnboardingPage';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -31,6 +34,8 @@ function ScrollToTop() {
 
 export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const { pathname } = useLocation();
+  const chromeless = pathname === '/admin'; // the Console has its own top bar
 
   const showToast = useCallback((msg: string) => {
     setToastMessage(msg);
@@ -56,7 +61,7 @@ export default function App() {
           </div>
         )}
 
-        <Header />
+        {!chromeless && <Header />}
 
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -69,10 +74,13 @@ export default function App() {
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/onboarding" element={<OnboardingPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
 
-        <Footer />
+        {!chromeless && <Footer />}
       </div>
     </ToastContext.Provider>
   );

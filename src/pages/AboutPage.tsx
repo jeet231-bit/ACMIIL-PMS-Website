@@ -1,104 +1,88 @@
-import { useState, type FC } from 'react';
+import { type FC } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Plus, Equal, Users, Building2, MapPin, ArrowRight } from 'lucide-react';
+import { useReducedMotion } from 'framer-motion';
+import {
+  Plus,
+  Equal,
+  Users,
+  Building2,
+  MapPin,
+  ArrowRight,
+  PieChart,
+  Landmark,
+  TrendingUp,
+  Briefcase,
+} from 'lucide-react';
 import { ABOUT } from '../data/content';
 import { CountUp, useInView } from '../components/motion';
 import { PageHero } from '../components/shared';
 
 const STAT_ICONS: Record<string, FC<{ className?: string }>> = { Users, Building2, MapPin };
 
-/* ---------------- 7.3 Group structure ---------------- */
-const GroupStructure: FC = () => {
-  const reduce = useReducedMotion();
-  const [open, setOpen] = useState(0);
-  const spring = reduce ? { duration: 0 } : { type: 'spring' as const, stiffness: 240, damping: 29 };
+const SERVICE_ICONS: Record<string, FC<{ className?: string }>> = {
+  'Portfolio Management': PieChart,
+  'Institutional Equities': Landmark,
+  'Stock Broking': TrendingUp,
+  'Asset Management': Briefcase,
+  'Wealth Management': Users,
+  'Investment Banking': Building2,
+};
 
+/* ---------------- 7.3 Group structure — one conglomerate, four platforms ---------------- */
+const GroupStructure: FC = () => {
+  const gs = ABOUT.groupStructure;
   return (
     <section id="group-structure" className="py-20 bg-white border-b border-slate-100 font-sans">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="space-y-3 mb-12 text-center max-w-2xl mx-auto">
-          <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
-            {ABOUT.groupStructure.eyebrow}
-          </span>
-          <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl">
-            {ABOUT.groupStructure.title}
-          </h2>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          {/* Heading + tagline */}
+          <div className="lg:col-span-4">
+            <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono mb-4">
+              {gs.eyebrow}
+            </span>
+            <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl leading-tight">
+              {gs.title}
+            </h2>
+            <div className="mt-6 space-y-1">
+              {gs.tagline.map((t) => (
+                <p key={t} className="text-sm text-slate-500 font-light leading-relaxed">
+                  {t}
+                </p>
+              ))}
+            </div>
+            <div className="mt-6 w-12 h-0.5 bg-accent-500" aria-hidden="true" />
+          </div>
 
-        {/* Connector rail + rows */}
-        <div className="relative">
-          <div className="absolute left-[19px] top-6 bottom-6 w-px bg-slate-200 hidden sm:block" aria-hidden="true" />
-          <div className="space-y-3">
-            {ABOUT.groupStructure.entities.map((e, i) => {
-              const isOpen = open === i;
-              return (
-                <div key={e.name} className="relative sm:pl-12">
-                  {/* connector node */}
-                  <span
-                    className={`hidden sm:block absolute left-[19px] top-7 -translate-x-1/2 w-2.5 h-2.5 rounded-full ring-4 ring-white ${
-                      e.primary ? 'bg-accent-500' : 'bg-slate-300'
-                    }`}
-                    aria-hidden="true"
-                  />
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    aria-expanded={isOpen}
-                    onMouseEnter={() => setOpen(i)}
-                    onFocus={() => setOpen(i)}
-                    onClick={() => setOpen(i)}
-                    onKeyDown={(ev) => {
-                      if (ev.key === 'Enter' || ev.key === ' ') {
-                        ev.preventDefault();
-                        setOpen(i);
-                      }
-                    }}
-                    className={`rounded-2xl bg-white cursor-pointer transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2 ${
-                      e.primary
-                        ? 'border border-l-4 border-l-accent-500 border-slate-200 p-5 sm:p-6 shadow-sm'
-                        : 'border border-slate-200/80 p-4 sm:p-5'
-                    } ${isOpen ? 'shadow-md' : 'hover:shadow-sm'}`}
-                  >
-                    <div className="flex items-center gap-3 flex-wrap">
-                      {e.badge && (
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-white bg-accent-500 px-2.5 py-1 rounded-md shrink-0">
-                          {e.badge}
-                        </span>
-                      )}
-                      <h3
-                        className={`font-bold text-slate-900 ${
-                          e.primary ? 'text-base sm:text-lg' : 'text-sm sm:text-base'
-                        }`}
-                      >
-                        {e.name}
-                      </h3>
-                    </div>
-
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={reduce ? false : { opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={reduce ? undefined : { opacity: 0, height: 0 }}
-                          transition={spring}
-                          className="overflow-hidden"
-                        >
-                          <p className="text-xs sm:text-sm text-slate-500 font-light leading-relaxed mt-3">
-                            {e.credential}
-                          </p>
-                          {e.caption && (
-                            <p className="text-[11px] text-ink-600 font-medium mt-3 pt-3 border-t border-slate-100">
-                              {e.caption}
-                            </p>
-                          )}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+          {/* Entity cards */}
+          <div className="lg:col-span-8 grid sm:grid-cols-2 gap-4">
+            {gs.entities.map((e) => (
+              <div
+                key={e.name}
+                className={`rounded-2xl bg-white p-5 flex flex-col transition-shadow hover:shadow-md ${
+                  e.primary
+                    ? 'border border-slate-200 border-l-4 border-l-accent-500 shadow-sm'
+                    : 'border border-slate-200/80'
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="h-16 flex items-center rounded-lg bg-white ring-1 ring-slate-200/70 shadow-sm px-4">
+                    <img
+                      src={encodeURI(e.logo)}
+                      alt={e.name}
+                      className="max-h-12 max-w-[190px] w-auto object-contain"
+                      loading="lazy"
+                    />
                   </div>
+                  {e.badge && (
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-accent-700 bg-accent-50 border border-accent-100 px-2 py-0.5 rounded shrink-0">
+                      {e.badge}
+                    </span>
+                  )}
                 </div>
-              );
-            })}
+                <h3 className="font-bold text-sm text-slate-900 mt-3.5 leading-snug">{e.name}</h3>
+                <p className="text-xs text-slate-500 font-light leading-relaxed mt-1.5">{e.short}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -106,60 +90,85 @@ const GroupStructure: FC = () => {
   );
 };
 
-/* ---------------- 7.4 Group scale strip ---------------- */
+/* ---------------- 7.4 Group service lines + scale ---------------- */
 const GroupScale: FC = () => {
   const { ref, inView } = useInView<HTMLDivElement>();
   return (
-    <section id="group-scale" className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Service lines */}
-        <div className="text-center mb-14">
-          <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono mb-5">
+    <section
+      id="group-scale"
+      className="relative py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans overflow-hidden"
+    >
+      {/* Subtle full-width skyline backdrop */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <img
+          src="/skyline-strip.png"
+          alt=""
+          className="w-full h-full object-cover object-center opacity-[0.14]"
+        />
+        {/* vertical wash keeps content legible and blends the edges */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAFA] via-[#FAFAFA]/55 to-[#FAFAFA]" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Service lines — icon per line */}
+        <div className="text-center mb-12">
+          <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono mb-8">
             Group Service Lines
           </span>
-          <div className="flex flex-wrap justify-center gap-2.5">
-            {ABOUT.scale.serviceLines.map((s) => (
-              <span
-                key={s}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-xs font-semibold text-slate-700"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-accent-500" aria-hidden="true" />
-                {s}
-              </span>
-            ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
+            {ABOUT.scale.serviceLines.map((s) => {
+              const Icon = SERVICE_ICONS[s] ?? Briefcase;
+              return (
+                <div
+                  key={s}
+                  className="flex flex-col items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="w-12 h-12 rounded-full grid place-items-center bg-accent-50 border border-accent-100 text-accent-600">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <span className="text-[11px] font-semibold text-slate-700 text-center leading-tight">
+                    {s}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Stats with count-up */}
-        <div ref={ref} className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {/* Scale stats — single band */}
+        <div
+          ref={ref}
+          className="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200/80 shadow-sm grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100"
+        >
           {ABOUT.scale.stats.map((stat) => {
             const Icon = STAT_ICONS[stat.icon] ?? Users;
             return (
-              <div
-                key={stat.label}
-                className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm text-center space-y-2"
-              >
-                <div className="h-11 w-11 bg-ink-50 rounded-xl flex items-center justify-center border border-ink-100 mx-auto">
+              <div key={stat.label} className="p-6 flex items-center gap-4 justify-center sm:justify-start">
+                <div className="h-11 w-11 bg-ink-50 rounded-xl flex items-center justify-center border border-ink-100 shrink-0">
                   <Icon className="w-5 h-5 text-ink-700" />
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-ink-800 tracking-tight tabular-nums">
-                  <CountUp value={stat.value} active={inView} suffix={stat.suffix} />
-                </div>
-                <div className="text-[11px] text-slate-500 font-mono uppercase tracking-wide">
-                  {stat.label}
+                <div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-ink-800 tracking-tight tabular-nums leading-none">
+                    <CountUp value={stat.value} active={inView} suffix={stat.suffix} />
+                  </div>
+                  <div className="text-[10px] text-slate-500 font-mono uppercase tracking-wide mt-1">
+                    {stat.label}
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
 
-        <p className="text-center text-[10px] text-slate-400 italic mt-8">{ABOUT.scale.footnote}</p>
+        {ABOUT.scale.footnote && (
+          <p className="text-center text-[10px] text-slate-400 italic mt-8">{ABOUT.scale.footnote}</p>
+        )}
       </div>
     </section>
   );
 };
 
-/* ---------------- 7.5 Leadership ---------------- */
+/* ---------------- 7.5 Leadership — medallion card ---------------- */
 const Leadership: FC = () => {
   const { ref, inView } = useInView<HTMLDivElement>(0.3);
   const reduce = useReducedMotion();
@@ -169,28 +178,25 @@ const Leadership: FC = () => {
   return (
     <section id="leadership" className="py-20 bg-white border-b border-slate-100 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12">
-          <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono mb-2">
-            LEADERSHIP
-          </span>
-          <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl">
-            {L.title}
-          </h2>
-        </div>
+        <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl mb-12">
+          {L.title}
+        </h2>
 
-        <div className="bg-slate-50 rounded-3xl border border-slate-200/70 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
-          {/* Photograph */}
-          <div className="lg:col-span-4 relative bg-ink-900 min-h-[320px]">
-            <img
-              src={L.photo}
-              alt={`${L.name}, ${L.role}`}
-              className="absolute inset-0 w-full h-full object-cover object-top"
-              loading="lazy"
-            />
+        <div className="bg-slate-50 rounded-3xl border border-slate-200/70 p-7 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          {/* Photograph — circular medallion */}
+          <div className="lg:col-span-4 flex justify-center">
+            <div className="relative w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden ring-1 ring-slate-200 shadow-sm bg-gradient-to-br from-ink-50 via-white to-accent-50">
+              <img
+                src={L.photo}
+                alt={`${L.name}, ${L.role}`}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           {/* Narrative */}
-          <div className="lg:col-span-8 p-8 sm:p-10 space-y-5">
+          <div className="lg:col-span-8 space-y-5">
             <div>
               <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-accent-600">
                 {L.name}
@@ -210,7 +216,6 @@ const Leadership: FC = () => {
                 Career milestones
               </span>
               <div className="relative">
-                {/* draw-in line */}
                 <div
                   className="absolute left-0 top-[7px] h-0.5 bg-accent-500/70 origin-left transition-transform duration-1000 ease-out"
                   style={{ right: 0, transform: revealed ? 'scaleX(1)' : 'scaleX(0)' }}
@@ -259,7 +264,7 @@ export default function AboutPage() {
         eyebrow="A Pantomath Group Company"
         title={
           <>
-            A full-service{' '}
+            A complete{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
               financial conglomerate
             </span>
@@ -285,13 +290,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 7.3 Group structure */}
       <GroupStructure />
-
-      {/* 7.4 Group scale */}
       <GroupScale />
-
-      {/* 7.5 Leadership */}
       <Leadership />
 
       {/* 7.6 Closing CTA band */}

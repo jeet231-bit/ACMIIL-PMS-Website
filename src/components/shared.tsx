@@ -1,26 +1,65 @@
 import React from 'react';
 
-// Full-viewport light hero for inner pages — same color language as the home hero
+/* Subtle, brand-coloured flowing artwork for the light inner-page heroes.
+   Soft indigo→orange→amber ribbons on #FAFAFA — the light, understated
+   cousin of an aurora-ribbon hero. */
+export const HeroArt: React.FC = () => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    {/* soft brand glows */}
+    <div
+      className="absolute -top-40 right-[-8%] w-[42rem] h-[42rem] rounded-full blur-3xl"
+      style={{ background: 'radial-gradient(circle at center, rgba(228,97,31,0.16), transparent 62%)' }}
+    />
+    <div
+      className="absolute -bottom-48 left-[-12%] w-[38rem] h-[38rem] rounded-full blur-3xl"
+      style={{ background: 'radial-gradient(circle at center, rgba(44,31,88,0.12), transparent 62%)' }}
+    />
+    {/* flowing ribbons */}
+    <svg
+      className="absolute inset-0 w-full h-full"
+      viewBox="0 0 1440 520"
+      preserveAspectRatio="xMidYMid slice"
+      fill="none"
+    >
+      <defs>
+        <linearGradient id="heroRibbonA" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#2C1F58" stopOpacity="0" />
+          <stop offset="0.5" stopColor="#4C3A82" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#E4611F" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="heroRibbonB" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#E4611F" stopOpacity="0" />
+          <stop offset="0.55" stopColor="#E4611F" stopOpacity="0.5" />
+          <stop offset="1" stopColor="#F59E0B" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="heroRibbonC" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#E4611F" stopOpacity="0" />
+          <stop offset="0.5" stopColor="#E4611F" stopOpacity="0.7" />
+          <stop offset="1" stopColor="#E4611F" stopOpacity="0" />
+        </linearGradient>
+        <filter id="heroSoft" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="9" />
+        </filter>
+      </defs>
+      <g filter="url(#heroSoft)" opacity="0.4">
+        <path d="M -120 260 C 360 150, 820 340, 1560 110" stroke="url(#heroRibbonA)" strokeWidth="30" strokeLinecap="round" />
+        <path d="M -120 340 C 420 230, 940 420, 1560 200" stroke="url(#heroRibbonB)" strokeWidth="18" strokeLinecap="round" />
+        <path d="M -120 200 C 320 130, 780 280, 1560 60" stroke="url(#heroRibbonC)" strokeWidth="7" strokeLinecap="round" />
+      </g>
+    </svg>
+  </div>
+);
+
+// Full-viewport light hero for inner pages — same colour language as the home hero
 export const PageHero: React.FC<{
-  eyebrow: string;
+  eyebrow?: string; // retained for callers; no longer rendered as a pill
   title: React.ReactNode;
   lead?: string;
-}> = ({ eyebrow, title, lead }) => (
-  <section className="relative bg-[#FAFAFA] pt-16 pb-20 overflow-hidden border-b border-slate-100 font-sans">
-    {/* Ambient background styling */}
-    <div className="absolute top-0 right-0 w-2/3 h-full pointer-events-none opacity-30">
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full text-ink-50">
-        <path d="M0,0 L100,0 L100,100 C80,80 60,95 0,80 Z" fill="currentColor"></path>
-      </svg>
-    </div>
-    <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-ink-50/60 via-accent-50/30 to-transparent rounded-full filter blur-3xl pointer-events-none"></div>
+}> = ({ title, lead }) => (
+  <section className="relative bg-[#FAFAFA] pt-20 pb-20 overflow-hidden border-b border-slate-100 font-sans">
+    <HeroArt />
 
     <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center space-y-6">
-      <div className="inline-flex items-center px-3 py-1 rounded-full bg-ink-700/5 border border-ink-700/10">
-        <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest font-mono">
-          {eyebrow}
-        </span>
-      </div>
       <h1 className="font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-[54px] leading-[1.1] text-slate-950">
         {title}
       </h1>

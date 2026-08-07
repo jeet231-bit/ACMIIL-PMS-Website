@@ -106,7 +106,7 @@ const impactCards: ImpactCard[] = [
     id: 'ranked',
     metric: 'Top 10',
     title: 'Ranked PMS schemes',
-    description: 'Top 10 ranked PMS schemes in 3-yr and 5-yr timeframes by PMS Bazaar.*',
+    description: 'Top 10 ranked PMS schemes in 3-yr and 5-yr timeframes by PMS Bazaar.',
     redirect: '/performance',
     cta: 'Learn more',
     Illustration: IllustrationAward,
@@ -121,7 +121,7 @@ const impactCards: ImpactCard[] = [
   {
     id: 'alpha',
     metric: '5–7%',
-    title: 'Annualised alpha#',
+    title: 'Annualised alpha',
     description: 'Delivered 5–7% annualised alpha over benchmark BSE 500 TRI across strategies.',
     redirect: '/performance',
     cta: 'Learn more',
@@ -271,14 +271,6 @@ export const WhyAcePmsSection = () => {
           </Link>
         </div>
 
-        {/* Compliance footnotes */}
-        <div className="mt-8 space-y-1 text-[10px] text-slate-400 leading-relaxed">
-          <p>
-            *As per PMS Bazaar category rankings; AMCs with minimum ₹200 cr AUM and vintage of 3+
-            years, as on March 2026.
-          </p>
-          <p>#Alpha data as on 30 June 2026.</p>
-        </div>
       </div>
     </section>
   );

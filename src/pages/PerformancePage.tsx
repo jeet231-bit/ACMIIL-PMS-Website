@@ -14,7 +14,7 @@ export default function PerformancePage() {
         eyebrow="PERFORMANCE"
         title={
           <>
-            Performance, <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">in full</span>
+            Performance <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">in full</span>
           </>
         }
         lead={PERFORMANCE.intro.body}
@@ -25,7 +25,7 @@ export default function PerformancePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="TIME-WEIGHTED LEDGER"
-            title="Strategy performance (CAGR %, as on 30 June 2026)"
+            title="Strategy performance (CAGR %)"
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {PERFORMANCE.tables.map((table) => (
@@ -77,7 +77,7 @@ export default function PerformancePage() {
                             key={i}
                             className={`py-3 px-3 text-right font-mono font-bold ${
                               i === table.rows.alpha.length - 1 ? 'rounded-r-lg' : ''
-                            } ${v >= 0 ? 'text-emerald-700' : 'text-rose-600'}`}
+                            } ${v >= 0 ? 'text-accent-600' : 'text-rose-600'}`}
                           >
                             {v >= 0 ? '+' : ''}
                             {fmt(v)}
@@ -91,52 +91,6 @@ export default function PerformancePage() {
             ))}
           </div>
           <Disclaimer>{PERFORMANCE.tableNote}</Disclaimer>
-        </div>
-      </section>
-
-      {/* PMS Bazaar rankings */}
-      <section className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="RECOGNITION" title={PERFORMANCE.rankings.title} center />
-          <div className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse text-left text-xs font-sans min-w-[520px]">
-                <thead>
-                  <tr className="bg-ink-700 text-white font-mono uppercase tracking-widest text-[9px]">
-                    {PERFORMANCE.rankings.header.map((h, i) => (
-                      <th
-                        key={h}
-                        className={`py-3 px-4 ${i === 0 ? 'rounded-l-lg' : 'text-center'} ${
-                          i === PERFORMANCE.rankings.header.length - 1 ? 'rounded-r-lg' : ''
-                        }`}
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 text-slate-700">
-                  {PERFORMANCE.rankings.rows.map((row) => (
-                    <tr key={row[0]} className="hover:bg-slate-50/60 transition">
-                      <td className="py-3.5 px-4 font-bold text-slate-900">{row[0]}</td>
-                      {row.slice(1).map((cell, i) => (
-                        <td key={i} className="py-3.5 px-4 text-center font-mono">
-                          {cell.startsWith('1 /') ? (
-                            <span className="px-2 py-0.5 bg-amber-100 text-amber-900 rounded font-bold text-[10px]">
-                              {cell}
-                            </span>
-                          ) : (
-                            cell
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <Disclaimer>{PERFORMANCE.rankings.note}</Disclaimer>
-          </div>
         </div>
       </section>
 

@@ -7,6 +7,38 @@ import { useToast } from './toast';
 
 const PERIOD_LABELS = ['1 Year', '3 Years', '5 Years', 'Since Inception'];
 
+// Data-driven compounding growth curves (₹1 cr → end value) for the SVG chart.
+// value(f) = end^f, so both lines start at ₹1 cr (f=0) and reach their actual
+// since-inception value (f=1). The strategy line sets the y-scale.
+function buildGrowthChart(sEnd: number, bEnd: number) {
+  const N = 32;
+  const x0 = 8;
+  const x1 = 492;
+  const yBottom = 186;
+  const yTop = 16;
+  const maxV = sEnd;
+  const yFor = (v: number) => yBottom - ((v - 1) / (maxV - 1)) * (yBottom - yTop);
+  const xFor = (f: number) => x0 + f * (x1 - x0);
+  const s: Array<[number, number]> = [];
+  const b: Array<[number, number]> = [];
+  for (let i = 0; i <= N; i++) {
+    const f = i / N;
+    s.push([xFor(f), yFor(Math.pow(sEnd, f))]);
+    b.push([xFor(f), yFor(Math.pow(bEnd, f))]);
+  }
+  const toPath = (pts: Array<[number, number]>) =>
+    pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+  const sPath = toPath(s);
+  return {
+    sPath,
+    bPath: toPath(b),
+    sArea: `${sPath} L ${x1},${yBottom} L ${x0},${yBottom} Z`,
+    start: s[0],
+    sEndPt: s[s.length - 1],
+    bEndPt: b[b.length - 1],
+  };
+}
+
 interface StrategyShowcaseProps {
   eyebrow: string;
   title: string;
@@ -50,6 +82,9 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
 
   const active = STRATEGIES.find((s) => s.id === activeId) || STRATEGIES[0];
   const perf = PERFORMANCE.tables.find((t) => t.strategy === active.name);
+  const chart = buildGrowthChart(active.growth.strategyValue, active.growth.benchmarkValue);
+  // Rendered y (px) of a viewBox y within the h-56 (224px) SVG, offset by pt-4 (16px).
+  const topPx = (vy: number) => 16 + (vy / 200) * 224;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,8 +100,8 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
           <p className="text-slate-500 text-xs sm:text-sm font-light max-w-xl">{lead}</p>
         </div>
 
-        {/* Strategy selection tabs — 2x2 grid */}
-        <div className="grid grid-cols-2 gap-2 sm:min-w-[320px] shrink-0">
+        {/* Strategy selection tabs */}
+        <div className="flex flex-wrap gap-2 shrink-0 sm:justify-end">
           {STRATEGIES.map((s) => (
             <button
               key={s.id}
@@ -90,9 +125,6 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
         {/* Left objectives card — 5 cols */}
         <div className="lg:col-span-5 bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/60 shadow-sm space-y-6">
           <div className="space-y-1.5 pb-4 border-b border-slate-200">
-            <span className="text-[10px] font-bold text-accent-600 tracking-wider font-mono block uppercase">
-              ACTIVE MANAGEMENT OBJECTIVES · {active.tag.toUpperCase()}
-            </span>
             <h3 className="font-extrabold tracking-tight text-slate-900 text-xl sm:text-2xl">
               {active.name}
             </h3>
@@ -101,21 +133,23 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
             </span>
           </div>
 
-          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
-            {active.positioning}
-          </p>
-
-          <div className="bg-white rounded-xl p-3.5 border border-slate-100 shadow-sm">
-            <span className="text-[9px] text-slate-400 block font-mono uppercase mb-0.5">
-              WHO IT'S FOR
-            </span>
-            <span className="text-xs text-slate-700 font-light leading-relaxed">
-              {active.whoFor}
-            </span>
+          {/* Positioning points as check-cards */}
+          <div className="space-y-2.5">
+            {active.points.map((point) => (
+              <div
+                key={point}
+                className="flex items-start gap-2.5 p-3 bg-white rounded-xl border border-slate-100 shadow-sm"
+              >
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span className="text-[11px] sm:text-xs font-medium text-slate-700 leading-relaxed">
+                  {point}
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* Key facts grid */}
-          <div className="grid grid-cols-2 gap-4 border-t border-b border-slate-200 py-5 text-xs">
+          <div className="grid grid-cols-2 gap-4 border-t border-slate-200 pt-5 text-xs">
             {active.keyFacts.map((fact) => (
               <div key={fact.k}>
                 <span className="text-slate-400 block font-mono text-[9px] uppercase">{fact.k}</span>
@@ -123,28 +157,6 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Strategy construction checklist — full view only */}
-          {!compact && (
-            <div className="space-y-3">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-mono">
-                STRATEGY CONSTRUCTION PILLARS
-              </span>
-              <div className="grid grid-cols-1 gap-2">
-                {active.bullets.map((bullet) => (
-                  <div
-                    key={bullet}
-                    className="flex items-center gap-2 p-2.5 bg-white rounded-lg border border-slate-100 shadow-sm"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span className="text-[11px] font-medium text-slate-800 leading-snug">
-                      {bullet}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           <div className="flex flex-col sm:flex-row gap-3 pt-1">
             <button
@@ -192,12 +204,13 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
             </div>
 
             <div className="relative pt-4">
-              <svg className="w-full h-56 text-slate-300" viewBox="0 0 500 200" preserveAspectRatio="none">
+              <svg className="w-full h-56" viewBox="0 0 500 200" preserveAspectRatio="none">
                 {/* Background grid */}
-                <line x1="0" y1="40" x2="500" y2="40" stroke="#f1f5f9" strokeWidth="1" />
-                <line x1="0" y1="90" x2="500" y2="90" stroke="#f1f5f9" strokeWidth="1" />
-                <line x1="0" y1="140" x2="500" y2="140" stroke="#f1f5f9" strokeWidth="1" />
-                <line x1="0" y1="190" x2="500" y2="190" stroke="#f1f5f9" strokeWidth="1" />
+                <line x1="0" y1="16" x2="500" y2="16" stroke="#f1f5f9" strokeWidth="1" />
+                <line x1="0" y1="59" x2="500" y2="59" stroke="#f1f5f9" strokeWidth="1" />
+                <line x1="0" y1="101" x2="500" y2="101" stroke="#f1f5f9" strokeWidth="1" />
+                <line x1="0" y1="143" x2="500" y2="143" stroke="#f1f5f9" strokeWidth="1" />
+                <line x1="0" y1="186" x2="500" y2="186" stroke="#f1f5f9" strokeWidth="1" />
 
                 <defs>
                   <linearGradient id="strategyGrad" x1="0" y1="0" x2="0" y2="1">
@@ -206,41 +219,41 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                   </linearGradient>
                 </defs>
 
-                {/* Benchmark path */}
-                <path
-                  d="M 10,190 L 100,165 L 200,140 L 300,125 L 400,110 L 490,95"
-                  fill="none"
-                  stroke="#cbd5e1"
-                  strokeWidth="2"
-                  strokeDasharray="4"
-                />
+                {/* Strategy area + benchmark + strategy lines (data-driven) */}
+                <path d={chart.sArea} fill="url(#strategyGrad)" />
+                <path d={chart.bPath} fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4" />
+                <path d={chart.sPath} fill="none" stroke="#E4611F" strokeWidth="3" />
 
-                {/* Strategy area */}
-                <path
-                  d="M 10,190 L 100,150 L 200,115 L 300,85 L 400,55 L 490,25 L 490,190 Z"
-                  fill="url(#strategyGrad)"
-                />
-
-                {/* Strategy path */}
-                <path
-                  d="M 10,190 L 100,150 L 200,115 L 300,85 L 400,55 L 490,25"
-                  fill="none"
-                  stroke="#E4611F"
-                  strokeWidth="3.5"
-                />
-
-                <circle cx="10" cy="190" r="4" fill="#E4611F" />
-                <circle cx="100" cy="150" r="4" fill="#E4611F" />
-                <circle cx="200" cy="115" r="4" fill="#E4611F" />
-                <circle cx="300" cy="85" r="4" fill="#E4611F" />
-                <circle cx="400" cy="55" r="4" fill="#E4611F" />
-                <circle cx="490" cy="25" r="5" fill="#E4611F" stroke="#ffffff" strokeWidth="2" />
-                <circle cx="490" cy="95" r="4" fill="#94a3b8" />
+                <circle cx={chart.start[0]} cy={chart.start[1]} r="3.5" fill="#94a3b8" />
+                <circle cx={chart.bEndPt[0]} cy={chart.bEndPt[1]} r="4" fill="#94a3b8" />
+                <circle cx={chart.sEndPt[0]} cy={chart.sEndPt[1]} r="5" fill="#E4611F" stroke="#ffffff" strokeWidth="2" />
               </svg>
 
+              {/* Start-value label at inception — mirrors the end-value labels */}
+              <span
+                className="absolute left-1 -translate-y-1/2 text-[11px] font-bold text-slate-500 bg-white/85 px-1 rounded"
+                style={{ top: topPx(chart.start[1]) - 14 }}
+              >
+                ₹1 Cr
+              </span>
+
+              {/* End-value labels, aligned to each line's end */}
+              <span
+                className="absolute right-1 -translate-y-1/2 text-xs font-extrabold text-accent-600 bg-white/85 px-1 rounded"
+                style={{ top: topPx(chart.sEndPt[1]) }}
+              >
+                {active.growth.strategy}
+              </span>
+              <span
+                className="absolute right-1 -translate-y-1/2 text-[11px] font-bold text-slate-400 bg-white/85 px-1 rounded"
+                style={{ top: topPx(chart.bEndPt[1]) }}
+              >
+                {active.growth.benchmark}
+              </span>
+
               <div className="flex justify-between items-center text-[10px] text-slate-400 font-mono mt-2 uppercase">
-                <span>Inception (₹1 Cr)</span>
-                <span>As on 30 Jun 2026</span>
+                <span>Inception</span>
+                <span>As on {active.asOn}</span>
               </div>
             </div>
 
@@ -282,7 +295,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                     <span className="text-[10px] text-slate-400 font-mono tracking-widest uppercase block font-bold">
                       RETURNS ACROSS HORIZONS (CAGR %)
                     </span>
-                    <span className="text-[10px] text-slate-400 italic">As on 30 June 2026</span>
+                    <span className="text-[10px] text-slate-400 italic">As on {active.asOn}</span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -332,14 +345,15 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
             to="/strategies"
             className="text-xs font-bold text-ink-700 inline-flex items-center gap-1.5 border-b-2 border-accent-500 pb-0.5 hover:text-accent-600 transition"
           >
-            Compare all four strategies in full detail →
+            Compare all our strategies in full detail →
           </Link>
         </div>
       ) : (
         <Disclaimer>
-          Data as on 30 June 2026. Growth-of-₹1-crore values are illustrative, derived from stated
-          since-inception CAGR. Past performance is not indicative of future results and is subject
-          to market risk. See the Performance page for methodology and full disclosures.
+          Growth-of-₹1-crore curves reflect each strategy's actual since-inception CAGR. ACE
+          Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Past
+          performance is not indicative of future results and is subject to market risk. See the
+          Performance page for methodology and full disclosures.
         </Disclaimer>
       )}
     </div>

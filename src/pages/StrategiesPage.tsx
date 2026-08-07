@@ -12,18 +12,18 @@ export default function StrategiesPage() {
         eyebrow="OUR STRATEGIES"
         title={
           <>
-            Your goals, our strategy —{' '}
+            Strategies built around{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-              a perfect fit
+              your goals
             </span>
           </>
         }
-        lead="Four purpose-built strategies, united by one GARP philosophy. Sorted by what you want to achieve, not by product jargon."
+        lead="Purpose-built strategies, united by one GARP philosophy. Sorted by what you want to achieve, not by product jargon."
       />
 
       <section id="strategies" className="py-20 bg-white font-sans">
         <StrategyShowcase
-          eyebrow="FOUR STRATEGIES, ONE PHILOSOPHY"
+          eyebrow="OUR STRATEGIES, ONE PHILOSOPHY"
           title="Purpose-built portfolio strategies"
           lead="Each strategy is run on the same GARP discipline — select a mandate to review its construction, key facts and track record."
           initialTabId={tabFromUrl}

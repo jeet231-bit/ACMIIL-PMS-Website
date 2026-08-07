@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X, Mail, ArrowRight, ChevronDown } from 'lucide-react';
+import { Menu, X, Mail, ArrowRight, LogIn, LayoutGrid } from 'lucide-react';
 import { CONTACT } from '../data/content';
-import { useToast } from './toast';
+import { useAuth } from '../lib/cms/store';
 
-// Regular routed items (Downloads and Contact are rendered separately so the
-// Downloads dropdown can sit between Insights and Contact).
 const MENU_ITEMS = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
@@ -14,14 +12,12 @@ const MENU_ITEMS = [
   { to: '/strategies', label: 'Strategies' },
   { to: '/performance', label: 'Performance' },
   { to: '/insights', label: 'Insights' },
+  { to: '/resources', label: 'Resources' },
 ];
 
-const DOWNLOADS = ['Presentation', 'Factsheet', 'Disclosure'];
-
 export const Header = () => {
-  const showToast = useToast();
+  const { isTeam } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [downloadsOpen, setDownloadsOpen] = useState(false);
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded-lg text-[11px] font-semibold tracking-wide uppercase transition duration-150 relative whitespace-nowrap ${
@@ -29,12 +25,6 @@ export const Header = () => {
         ? 'text-ink-700 font-bold bg-ink-50'
         : 'text-slate-500 hover:text-ink-700 hover:bg-slate-50/70'
     }`;
-
-  const handleDownload = (doc: string) => {
-    showToast(`The latest ${doc} will be available for download shortly.`);
-    setDownloadsOpen(false);
-    setMobileMenuOpen(false);
-  };
 
   return (
     <header className="sticky top-0 z-[90] w-full bg-white/90 backdrop-blur-md border-b border-slate-100/90 shadow-[0_2px_15px_rgba(0,0,0,0.02)] transition-all">
@@ -53,59 +43,20 @@ export const Header = () => {
               </NavLink>
             ))}
 
-            {/* Downloads dropdown (does not navigate) */}
-            <div
-              className="relative"
-              onMouseEnter={() => setDownloadsOpen(true)}
-              onMouseLeave={() => setDownloadsOpen(false)}
-              onKeyDown={(e) => {
-                if (e.key === 'Escape') setDownloadsOpen(false);
-              }}
-            >
-              <button
-                type="button"
-                aria-haspopup="menu"
-                aria-expanded={downloadsOpen}
-                onClick={() => setDownloadsOpen((o) => !o)}
-                className={`px-3 py-2 rounded-lg text-[11px] font-semibold tracking-wide uppercase transition duration-150 whitespace-nowrap inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 ${
-                  downloadsOpen
-                    ? 'text-ink-700 font-bold bg-ink-50'
-                    : 'text-slate-500 hover:text-ink-700 hover:bg-slate-50/70'
-                }`}
-              >
-                Downloads
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform ${downloadsOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              {downloadsOpen && (
-                <div
-                  role="menu"
-                  className="absolute left-0 top-full mt-1 w-52 bg-white rounded-xl border border-slate-200 shadow-lg py-2 z-50 animate-fadeIn"
-                >
-                  {DOWNLOADS.map((doc) => (
-                    <button
-                      key={doc}
-                      role="menuitem"
-                      type="button"
-                      onClick={() => handleDownload(doc)}
-                      className="w-full text-left px-4 py-2.5 text-xs font-medium text-slate-600 hover:bg-slate-50 hover:text-ink-700 transition focus:outline-none focus-visible:bg-slate-50"
-                    >
-                      {doc}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
             <NavLink to="/contact" className={navClass}>
               Contact
             </NavLink>
           </nav>
 
           {/* CTA */}
-          <div className="hidden sm:flex items-center shrink-0">
+          <div className="hidden sm:flex items-center gap-1.5 shrink-0">
+            <Link
+              to={isTeam ? '/admin' : '/login'}
+              className="px-3 py-2.5 text-[11px] font-bold uppercase tracking-wider text-slate-500 hover:text-ink-700 hover:bg-slate-50/70 rounded-xl transition inline-flex items-center gap-1.5 whitespace-nowrap"
+            >
+              {isTeam ? <LayoutGrid className="w-3.5 h-3.5" /> : <LogIn className="w-3.5 h-3.5" />}
+              <span>{isTeam ? 'Studio' : 'Login'}</span>
+            </Link>
             <Link
               to="/contact"
               className="px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white bg-accent-500 hover:bg-accent-600 shadow-sm rounded-xl transition-all duration-200 inline-flex items-center gap-1.5 whitespace-nowrap"
@@ -147,25 +98,6 @@ export const Header = () => {
             </NavLink>
           ))}
 
-          {/* Downloads group (non-navigating) */}
-          <div className="px-4 pt-3">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono block mb-1.5">
-              Downloads
-            </span>
-            <div className="flex flex-col gap-0.5">
-              {DOWNLOADS.map((doc) => (
-                <button
-                  key={doc}
-                  type="button"
-                  onClick={() => handleDownload(doc)}
-                  className="w-full text-left px-2 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition"
-                >
-                  {doc}
-                </button>
-              ))}
-            </div>
-          </div>
-
           <NavLink
             to="/contact"
             onClick={() => setMobileMenuOpen(false)}
@@ -176,6 +108,19 @@ export const Header = () => {
             }
           >
             Contact
+          </NavLink>
+
+          <NavLink
+            to={isTeam ? '/admin' : '/login'}
+            onClick={() => setMobileMenuOpen(false)}
+            className={({ isActive }) =>
+              `w-full text-left px-4 py-3 rounded-xl text-xs font-semibold uppercase tracking-wider flex items-center gap-2 ${
+                isActive ? 'bg-ink-700 text-white' : 'text-slate-600 hover:bg-slate-50'
+              }`
+            }
+          >
+            {isTeam ? <LayoutGrid className="w-4 h-4" /> : <LogIn className="w-4 h-4" />}
+            {isTeam ? 'Content Studio' : 'Login'}
           </NavLink>
 
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-2.5">

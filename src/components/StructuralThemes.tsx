@@ -52,7 +52,7 @@ export const StructuralThemesSection: FC = () => (
               className="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 p-4 flex flex-col items-center text-center gap-2.5"
             >
               <Icon className="w-7 h-7 text-accent-500" strokeWidth={1.7} />
-              <span className="text-[11px] font-bold text-ink-900 leading-tight">{t.label}</span>
+              <span className="text-[13px] font-bold text-ink-900 leading-tight">{t.label}</span>
               <span className="h-0.5 w-5 bg-accent-500 rounded-full" />
             </div>
           );

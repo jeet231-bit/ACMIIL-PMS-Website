@@ -11,6 +11,7 @@ import StrategiesPage from './pages/StrategiesPage';
 import PerformancePage from './pages/PerformancePage';
 import WhyPage from './pages/WhyPage';
 import InsightsPage from './pages/InsightsPage';
+import InsightDetailPage from './pages/InsightDetailPage';
 import ResourcesPage from './pages/ResourcesPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
@@ -72,6 +73,7 @@ export default function App() {
           <Route path="/why-ace-pms" element={<WhyPage />} />
           <Route path="/why-acmiil" element={<Navigate to="/why-ace-pms" replace />} />
           <Route path="/insights" element={<InsightsPage />} />
+          <Route path="/insights/:slug" element={<InsightDetailPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<LoginPage />} />

@@ -1,23 +1,19 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, ArrowRight, ExternalLink } from 'lucide-react';
+import { Mail, ArrowRight } from 'lucide-react';
 import { INSIGHTS_CATEGORIES } from '../data/content';
+import { INSIGHTS, insightCategories, fmtInsightDate } from '../content/insights';
 import { PageHero, SectionHeading } from '../components/shared';
 import { useToast } from '../components/toast';
-import { useCmsArticles } from '../lib/cms/store';
-
-const fmtMonth = (iso: string) =>
-  new Date(iso).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
 
 export default function InsightsPage() {
   const showToast = useToast();
-  const articles = useCmsArticles();
   const [email, setEmail] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const categories = ['All', ...Array.from(new Set(articles.map((a) => a.category)))];
+  const categories = ['All', ...insightCategories()];
   const filtered =
-    activeCategory === 'All' ? articles : articles.filter((a) => a.category === activeCategory);
+    activeCategory === 'All' ? INSIGHTS : INSIGHTS.filter((i) => i.category === activeCategory);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,54 +73,41 @@ export default function InsightsPage() {
 
           {filtered.length === 0 ? (
             <p className="text-sm text-slate-400 italic text-center py-16">
-              No insights published yet — new notes appear here as the team publishes them.
+              No insights in this category yet.
             </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {filtered.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between hover:shadow-md transition"
+                <Link
+                  key={item.slug}
+                  to={`/insights/${item.slug}`}
+                  className="bg-white rounded-2xl border border-slate-200/80 p-6 flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition group"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between text-[10px] font-mono">
                       <span className="text-accent-700 font-bold uppercase bg-accent-50 border border-accent-100 px-2 py-0.5 rounded">
                         {item.category}
                       </span>
-                      <span className="text-slate-400">{fmtMonth(item.publishedAt)}</span>
+                      <span className="text-slate-400">{fmtInsightDate(item.date)}</span>
                     </div>
-                    <h4 className="font-extrabold text-slate-900 text-lg leading-snug min-h-[52px]">
+                    <h4 className="font-extrabold text-slate-900 text-lg leading-snug min-h-[52px] group-hover:text-ink-700 transition">
                       {item.title}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed font-light min-h-[56px]">
-                      {item.summary}
+                      {item.excerpt}
                     </p>
                   </div>
                   <div className="pt-5 border-t border-slate-200 mt-5 flex items-center justify-between">
-                    {item.link ? (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[11px] font-bold text-ink-700 inline-flex items-center gap-1 hover:text-accent-600 transition"
-                      >
-                        Read more <ExternalLink className="w-3 h-3" />
-                      </a>
-                    ) : (
-                      <Link
-                        to="/contact"
-                        className="text-[11px] font-bold text-ink-700 inline-flex items-center gap-1 hover:text-accent-600 transition"
-                      >
-                        Request a callback <ArrowRight className="w-3 h-3" />
-                      </Link>
-                    )}
+                    <span className="text-[11px] font-bold text-ink-700 inline-flex items-center gap-1 group-hover:text-accent-600 transition">
+                      Read more <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
                     {item.readTime && (
                       <span className="text-[10px] text-slate-400 font-mono bg-slate-50 px-2 py-1 rounded border border-slate-100">
                         {item.readTime}
                       </span>
                     )}
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}

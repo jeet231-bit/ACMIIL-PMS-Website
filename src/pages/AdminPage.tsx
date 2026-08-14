@@ -46,13 +46,13 @@ interface Section {
   kinds?: ArticleKind[];
 }
 
+// Note: Insights/blog posts are file-managed in src/content/insights.json,
+// so the Console handles documents, onboarding and access only.
 const SECTIONS: Section[] = [
   { key: 'factsheets', label: 'Factsheets', icon: FileSpreadsheet, type: 'doc', category: 'Monthly factsheets' },
   { key: 'decks', label: 'Product Decks', icon: FileText, type: 'doc', category: 'Product decks' },
   { key: 'compliance', label: 'Compliance', icon: ShieldCheck, type: 'doc', category: 'Compliance & disclosures' },
   { key: 'forms', label: 'Forms', icon: ClipboardList, type: 'doc', category: 'Forms' },
-  { key: 'insights', label: 'Insights', icon: Newspaper, type: 'article', kinds: ['Article', 'Blog'] },
-  { key: 'media', label: 'Media', icon: Clapperboard, type: 'article', kinds: ['Media'] },
   { key: 'onboarding', label: 'Onboarding', icon: Inbox, type: 'onboarding' },
   { key: 'access', label: 'Access', icon: Users, type: 'access' },
 ];

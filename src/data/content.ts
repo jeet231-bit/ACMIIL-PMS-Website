@@ -189,7 +189,8 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Risk', v: 'High' },
       { k: 'Horizon', v: '3–5 yrs' },
       { k: 'Minimum', v: '₹50 lakh' },
-      { k: 'Fee', v: '2.5% of AUM' },
+      { k: 'Fixed Fee', v: '2.5% of AUM' },
+      { k: 'Hybrid Fee', v: '1.5% of AUM + 15% Performance Fee | 10% Hurdle | High Watermark' },
     ],
     performanceNote:
       'Since-inception TWRR 19.2% vs 12.7% for BSE 500 TRI; ~7%+ alpha; top-5 PMS in 3 & 5-yr by PMS Bazaar, FY26.* Full data on the Performance page.',
@@ -226,7 +227,8 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Risk', v: 'High' },
       { k: 'Horizon', v: '3–5 yrs' },
       { k: 'Minimum', v: '₹50 lakh' },
-      { k: 'Fee', v: '2.5% of AUM' },
+      { k: 'Fixed Fee', v: '2.5% of AUM' },
+      { k: 'Hybrid Fee', v: '1.5% of AUM + 15% Performance Fee | 10% Hurdle | High Watermark' },
     ],
     performanceNote:
       'Since-inception TWRR 19.5% vs 12.4% for BSE 500 TRI; ~7%+ alpha since inception; top-10 SMID PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
@@ -264,7 +266,8 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Risk', v: 'Moderate' },
       { k: 'Horizon', v: '3–5 yrs' },
       { k: 'Minimum', v: '₹1 crore' },
-      { k: 'Fee', v: '2.5% of AUM' },
+      { k: 'Fixed Fee', v: '2.5% of AUM' },
+      { k: 'Hybrid Fee', v: '1.5% of AUM + 15% Performance Fee | 10% Hurdle | High Watermark' },
     ],
     performanceNote:
       'Since-inception TWRR 16.4% vs 11.5% for Nifty Multi-Asset; ~5%+ alpha since inception; No. 1 multi-asset PMS in 3 & 5-yr by PMS Bazaar, FY26.*',

@@ -192,12 +192,12 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Fee', v: '2.5% of AUM' },
     ],
     performanceNote:
-      'Since-inception CAGR 19.2% vs 12.7% for BSE 500 TRI; ~7%+ alpha; top-5 PMS in 3 & 5-yr by PMS Bazaar, FY26.* Full data on the Performance page.',
+      'Since-inception TWRR 19.2% vs 12.7% for BSE 500 TRI; ~7%+ alpha; top-5 PMS in 3 & 5-yr by PMS Bazaar, FY26.* Full data on the Performance page.',
     homeCard: {
       description:
         'Large-cap stability blended with mid/small-cap growth. For balanced, long-term compounding.',
       metric: '19.2%',
-      metricLabel: 'Since-inception CAGR*',
+      metricLabel: 'Since-inception TWRR*',
     },
     asOn: '31 Jul 2026',
     growth: {
@@ -229,12 +229,12 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Fee', v: '2.5% of AUM' },
     ],
     performanceNote:
-      'Since-inception CAGR 19.5% vs 12.4% for BSE 500 TRI; ~7%+ alpha since inception; top-10 SMID PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
+      'Since-inception TWRR 19.5% vs 12.4% for BSE 500 TRI; ~7%+ alpha since inception; top-10 SMID PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
     homeCard: {
       description:
         "Riding India's shift from consumption to infrastructure and manufacturing.",
       metric: '19.5%',
-      metricLabel: 'Since-inception CAGR*',
+      metricLabel: 'Since-inception TWRR*',
     },
     asOn: '31 Jul 2026',
     growth: {
@@ -267,12 +267,12 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Fee', v: '2.5% of AUM' },
     ],
     performanceNote:
-      'Since-inception CAGR 16.4% vs 11.5% for Nifty Multi-Asset; ~5%+ alpha since inception; No. 1 multi-asset PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
+      'Since-inception TWRR 16.4% vs 11.5% for Nifty Multi-Asset; ~5%+ alpha since inception; No. 1 multi-asset PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
     homeCard: {
       description:
         'Equity, debt and alternates in one portfolio, with an optional 0.5% monthly payout.',
       metric: '16.4%',
-      metricLabel: 'Since-inception CAGR*',
+      metricLabel: 'Since-inception TWRR*',
     },
     asOn: '30 Jun 2026',
     growth: {
@@ -579,9 +579,9 @@ export const PHILOSOPHY_PAGE = {
 export const PERFORMANCE = {
   intro: {
     title: 'Performance, in full',
-    body: 'ACE Multicap & ACE Ten Trillion figures are as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Returns up to 1 year are absolute; beyond 1 year are annualised (CAGR/TWRR). Figures are based on model client portfolios, post-expenses; individual portfolio returns may vary. Past performance is not indicative of future results. Investments are subject to market risk.',
+    body: 'ACE Multicap & ACE Ten Trillion figures are as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Returns up to 1 year are absolute; beyond 1 year are annualised (TWRR). Figures are based on model client portfolios, post-expenses; individual portfolio returns may vary. Past performance is not indicative of future results. Investments are subject to market risk.',
   },
-  // CAGR %, as on 30 June 2026
+  // TWRR %, as on 30 June 2026
   tables: [
     {
       strategy: 'ACE Multicap',
@@ -606,7 +606,7 @@ export const PERFORMANCE = {
     {
       strategy: 'ACE Multi-Asset',
       since: 'since 04 Oct 2018',
-      benchmarkName: 'Nifty Multi-Asset Index 2',
+      benchmarkName: 'Nifty Multi-Asset',
       rows: {
         portfolio: [6.7, 24.0, 19.6, 16.4],
         benchmark: [3.5, 11.3, 10.2, 11.5],

@@ -84,6 +84,8 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
   const perf = PERFORMANCE.tables.find((t) => t.strategy === active.name);
   const benchmarkName =
     perf?.benchmarkName ?? active.keyFacts.find((f) => f.k === 'Benchmark')?.v ?? 'Benchmark';
+  // Chart-friendly short name (drops "Opportunities" so it fits one line).
+  const stratLabel = active.name.replace(' Opportunities', '');
   const chart = buildGrowthChart(active.growth.strategyValue, active.growth.benchmarkValue);
   // Rendered y (px) of a viewBox y within the h-56 (224px) SVG, offset by pt-4 (16px).
   const topPx = (vy: number) => 16 + (vy / 200) * 224;
@@ -190,13 +192,13 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                   SINCE-INCEPTION VALUE EXPANSION
                 </span>
                 <span className="text-xs text-slate-500">
-                  Illustrative growth of ₹1 crore at actual since-inception CAGR
+                  Illustrative growth of ₹1 crore at actual since-inception TWRR
                 </span>
               </div>
               <div className="flex gap-4 text-xs font-mono font-bold">
                 <div className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-accent-500"></span>
-                  <span>{active.name}</span>
+                  <span>{stratLabel}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-slate-300"></span>
@@ -263,13 +265,13 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
                 <span className="text-[9px] text-accent-700 font-mono tracking-wider font-bold block uppercase">
-                  {active.name}
+                  {stratLabel}
                 </span>
                 <span className="text-xl sm:text-2xl font-extrabold text-slate-950 block mt-0.5">
                   {active.growth.strategy}
                 </span>
                 <span className="text-[10px] text-slate-500 font-medium font-mono">
-                  At {active.growth.strategyCagr}% since-inception CAGR*
+                  At {active.growth.strategyCagr}% since-inception TWRR*
                 </span>
               </div>
 
@@ -281,7 +283,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                   {active.growth.benchmark}
                 </span>
                 <span className="text-[10px] text-slate-400 font-mono">
-                  At {active.growth.benchmarkCagr}% since-inception CAGR
+                  At {active.growth.benchmarkCagr}% since-inception TWRR
                 </span>
               </div>
             </div>
@@ -295,7 +297,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                 <>
                   <div className="flex justify-between items-center gap-3 flex-wrap">
                     <span className="text-[10px] text-slate-400 font-mono tracking-widest uppercase block font-bold">
-                      RETURNS ACROSS HORIZONS (CAGR %)
+                      RETURNS ACROSS HORIZONS (TWRR %)
                     </span>
                     <span className="text-[10px] text-slate-400 italic">As on {active.asOn}</span>
                   </div>
@@ -352,7 +354,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
         </div>
       ) : (
         <Disclaimer>
-          Growth-of-₹1-crore curves reflect each strategy's actual since-inception CAGR. ACE
+          Growth-of-₹1-crore curves reflect each strategy's actual since-inception TWRR. ACE
           Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Past
           performance is not indicative of future results and is subject to market risk. See the
           Performance page for methodology and full disclosures.

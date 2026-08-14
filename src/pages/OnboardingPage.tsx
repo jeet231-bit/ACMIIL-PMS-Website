@@ -72,7 +72,7 @@ export default function OnboardingPage() {
             <>
               Application{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-                received
+                Received
               </span>
             </>
           }
@@ -105,9 +105,9 @@ export default function OnboardingPage() {
         eyebrow="NEW CLIENT ONBOARDING"
         title={
           <>
-            Open your{' '}
+            Open Your{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-              PMS account
+              PMS Account
             </span>
           </>
         }

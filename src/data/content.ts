@@ -22,9 +22,9 @@ export const REGULATORY = {
 export const HERO = {
   eyebrow:
     'ACE PMS · By Asit C. Mehta Investment Intermediates Ltd. — A Pantomath Group Company',
-  headlineLead: "Built to ride India's ascent to a ",
-  headlineAccent: '$10 trillion',
-  headlineTail: ' economy',
+  headlineLead: "Built to Ride India's Ascent to a ",
+  headlineAccent: '$10 Trillion',
+  headlineTail: ' Economy',
   subheadline:
     "Investing in businesses positioned to benefit from India's structural transformation.",
   primaryCta: 'Explore Our Strategies',
@@ -685,21 +685,27 @@ export const INSIGHT_PLACEHOLDERS = [
 
 // ---------- Resources ----------
 export const RESOURCES = {
-  title: 'Everything in one place',
+  title: 'Everything in One Place',
+  // `categories` map each display card to the CMS document categories it pulls
+  // from (the Console manages docs under those categories). `items` is the
+  // fallback shown when a card has no uploaded documents yet.
   groups: [
     {
-      title: 'Monthly factsheets',
+      title: 'Factsheets',
       body: 'Filter by strategy + month/year; latest four surfaced at the top',
+      categories: ['Monthly factsheets'],
       items: ['ACE Multicap — June 2026', 'ACE Ten Trillion — June 2026', 'ACE Multi-Asset — June 2026'],
     },
     {
-      title: 'Compliance & disclosures',
+      title: 'Compliance & Disclosures',
       body: 'Regulatory documents and investor protections',
+      categories: ['Compliance & disclosures'],
       items: ['Investor Charter', 'SEBI Disclosure Document', 'Fee illustration', 'Grievance redressal (SCORES)', 'PMS regulations'],
     },
     {
-      title: 'Product deck & forms',
+      title: 'Product Deck & Forms',
       body: 'Strategy deck and account-opening / onboarding forms',
+      categories: ['Product decks', 'Forms'],
       items: ['ACE PMS Product Deck', 'Account opening form', 'PIS account guidance for NRIs'],
     },
   ],

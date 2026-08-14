@@ -38,7 +38,7 @@ export default function ContactPage() {
         eyebrow="CONTACT"
         title={
           <>
-            Let's build your portfolio <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">together</span>
+            Let's Build Your Portfolio <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Together</span>
           </>
         }
         lead="Speak to a portfolio specialist about the strategy that fits your goals. We typically respond within one business day."

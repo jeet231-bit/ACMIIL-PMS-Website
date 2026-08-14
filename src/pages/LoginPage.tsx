@@ -55,7 +55,7 @@ export default function LoginPage() {
         eyebrow="SECURE ACCESS"
         title={
           <>
-            Sign in to{' '}
+            Sign In to{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
               ACE PMS
             </span>

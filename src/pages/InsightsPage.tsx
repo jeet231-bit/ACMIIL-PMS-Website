@@ -31,7 +31,7 @@ export default function InsightsPage() {
         eyebrow="INSIGHTS & MEDIA"
         title={
           <>
-            Perspectives and <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">coverage</span>
+            Perspectives and <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Coverage</span>
           </>
         }
         lead="Market notes from the fund manager, strategy commentary tied to the monthly factsheets, press coverage and evergreen explainers."

@@ -12,10 +12,9 @@ export default function PerformancePage() {
         eyebrow="PERFORMANCE"
         title={
           <>
-            The full <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">picture</span>
+            Consistency <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Delivered</span>
           </>
         }
-        lead={PERFORMANCE.intro.body}
       />
 
       {/* Strategy performance tables */}

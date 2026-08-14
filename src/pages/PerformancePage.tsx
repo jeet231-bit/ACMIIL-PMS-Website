@@ -12,7 +12,7 @@ export default function PerformancePage() {
         eyebrow="PERFORMANCE"
         title={
           <>
-            Performance <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">in full</span>
+            The full <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">picture</span>
           </>
         }
         lead={PERFORMANCE.intro.body}

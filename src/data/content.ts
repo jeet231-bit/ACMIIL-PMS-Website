@@ -259,7 +259,7 @@ export const STRATEGIES: StrategyContent[] = [
     ],
     keyFacts: [
       { k: 'Inception', v: '4 Oct 2018' },
-      { k: 'Benchmark', v: 'Nifty Multi-Asset' },
+      { k: 'Benchmark', v: 'Nifty Multi-Asset Index 2' },
       { k: 'Style', v: 'GARP' },
       { k: 'Risk', v: 'Moderate' },
       { k: 'Horizon', v: '3–5 yrs' },
@@ -357,7 +357,7 @@ export const PMS_EXPLAINER = {
 };
 
 export const GETTING_STARTED = {
-  title: 'Investing with us is straightforward',
+  title: 'Investing with us is Straightforward',
   steps: [
     { title: 'Talk to a specialist', body: 'A short conversation on goals, risk and corpus.' },
     { title: 'Choose your strategy', body: 'Aligned to your objective and horizon.' },
@@ -403,7 +403,7 @@ export const FAQS = [
 export const ABOUT = {
   hero: {
     title: 'A Pantomath Group Company, Full-service Financial Conglomerate.',
-    sub: "The Asit C. Mehta heritage — 40 years of trust and legacy — reimagined by Pantomath, India's fastest-growing investment bank.",
+    sub: 'An established capital market platform backed by 40+ years legacy in Institutional Equities, Retail Broking, and Distribution.',
     equation: [
       'Trust & Legacy of ACMIIL',
       'Energy & Execution of Pantomath',
@@ -412,8 +412,8 @@ export const ABOUT = {
   },
   groupStructure: {
     eyebrow: 'THE GROUP BEHIND THE PLATFORM',
-    title: 'One conglomerate, four institutional platforms',
-    tagline: ['United by a shared vision.', 'Powered by deep expertise.', 'Built to create lasting impact.'],
+    title: 'A Pantomath Group Company',
+    tagline: ['12 Years of Progress', 'Backed by 40 years of legacy.'],
     entities: [
       {
         name: 'Asit C. Mehta Investment Intermediates Ltd',
@@ -685,11 +685,6 @@ export const RESOURCES = {
   title: 'Everything in one place',
   groups: [
     {
-      title: 'Product decks',
-      body: 'One current deck per strategy',
-      items: ['ACE Multicap', 'ACE Ten Trillion Opportunities', 'ACE Multi-Asset'],
-    },
-    {
       title: 'Monthly factsheets',
       body: 'Filter by strategy + month/year; latest four surfaced at the top',
       items: ['ACE Multicap — June 2026', 'ACE Ten Trillion — June 2026', 'ACE Multi-Asset — June 2026'],
@@ -700,9 +695,9 @@ export const RESOURCES = {
       items: ['Investor Charter', 'SEBI Disclosure Document', 'Fee illustration', 'Grievance redressal (SCORES)', 'PMS regulations'],
     },
     {
-      title: 'Forms',
-      body: 'Onboarding and account opening',
-      items: ['Account opening form', 'PIS account guidance for NRIs'],
+      title: 'Product deck & forms',
+      body: 'Strategy deck and account-opening / onboarding forms',
+      items: ['ACE PMS Product Deck', 'Account opening form', 'PIS account guidance for NRIs'],
     },
   ],
 };

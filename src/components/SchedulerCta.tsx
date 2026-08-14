@@ -53,9 +53,6 @@ export const SchedulerCta: React.FC = () => {
 
         {/* Right — booking form */}
         <div className="p-6 sm:p-10 space-y-5">
-          <span className="text-[10px] font-bold text-slate-500 tracking-wider font-mono uppercase block">
-            Direct member advisement
-          </span>
           <h3 className="font-extrabold text-slate-900 text-2xl sm:text-3xl leading-snug">
             Schedule a priority briefing session
           </h3>

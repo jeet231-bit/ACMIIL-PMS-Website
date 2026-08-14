@@ -24,28 +24,24 @@ const AUDIENCES: Array<{
   id: Exclude<Mode, 'hub'>;
   Icon: typeof ShieldCheck;
   label: string;
-  blurb: string;
   accent: string;
 }> = [
   {
     id: 'team',
     Icon: ShieldCheck,
     label: 'Admin Team',
-    blurb: 'Sign in with your company email to upload factsheets, decks and publish insights.',
     accent: 'text-accent-600 bg-accent-50 border-accent-100',
   },
   {
     id: 'client',
     Icon: UserRound,
     label: 'Existing/New Client',
-    blurb: 'Existing investors access their portfolio on the Orbis portal. New? Start onboarding.',
     accent: 'text-ink-700 bg-ink-50 border-ink-100',
   },
   {
     id: 'partner',
     Icon: Handshake,
     label: 'Existing/New Partner',
-    blurb: 'Registered partners sign in via Orbis. New entities can request onboarding.',
     accent: 'text-amber-700 bg-amber-50 border-amber-100',
   },
 ];
@@ -85,7 +81,7 @@ export default function LoginPage() {
 function Hub({ onSelect }: { onSelect: (m: Mode) => void }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {AUDIENCES.map(({ id, Icon, label, blurb, accent }) => (
+      {AUDIENCES.map(({ id, Icon, label, accent }) => (
         <button
           key={id}
           type="button"
@@ -96,8 +92,7 @@ function Hub({ onSelect }: { onSelect: (m: Mode) => void }) {
             <Icon className="w-6 h-6" />
           </div>
           <h3 className="font-extrabold text-lg text-slate-900 mt-5">{label}</h3>
-          <p className="text-xs text-slate-500 font-light leading-relaxed mt-2">{blurb}</p>
-          <span className="inline-flex items-center gap-1.5 mt-5 text-[11px] font-bold uppercase tracking-wider text-ink-700 group-hover:text-accent-600 transition">
+          <span className="inline-flex items-center gap-1.5 mt-4 text-[11px] font-bold uppercase tracking-wider text-ink-700 group-hover:text-accent-600 transition">
             Continue <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </span>
         </button>

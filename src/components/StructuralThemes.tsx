@@ -35,7 +35,7 @@ export const StructuralThemesSection: FC = () => (
       </div>
 
       <h2 className="text-center font-extrabold tracking-tight text-slate-900 text-2xl sm:text-3xl">
-        The engines of India's structural transformation
+        The Engines of India's Structural Transformation
       </h2>
       <p className="text-center text-slate-500 text-xs sm:text-sm font-light max-w-2xl mx-auto mt-3 leading-relaxed">
         We invest in businesses positioned to benefit from the eight forces reshaping India's

@@ -1,22 +1,12 @@
-import { FileText, FileSpreadsheet, ShieldCheck, ClipboardList, Download } from 'lucide-react';
+import { FileSpreadsheet, ShieldCheck, FileText, Download } from 'lucide-react';
 import { RESOURCES } from '../data/content';
 import { PageHero } from '../components/shared';
 import { useToast } from '../components/toast';
-import { useCmsDocuments } from '../lib/cms/store';
 
-const GROUP_ICONS = [FileText, FileSpreadsheet, ShieldCheck, ClipboardList];
+const GROUP_ICONS = [FileSpreadsheet, ShieldCheck, FileText];
 
 export default function ResourcesPage() {
   const showToast = useToast();
-  const documents = useCmsDocuments();
-
-  // Group live CMS documents under the four resource categories.
-  const groups = RESOURCES.groups.map((group, idx) => ({
-    title: group.title,
-    body: group.body,
-    Icon: GROUP_ICONS[idx % GROUP_ICONS.length],
-    items: documents.filter((d) => d.category === group.title),
-  }));
 
   return (
     <>
@@ -27,14 +17,14 @@ export default function ResourcesPage() {
             Everything in <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">one place</span>
           </>
         }
-        lead="Product decks, factsheets, compliance documents & onboarding forms."
+        lead="Product deck, monthly factsheets, compliance & disclosure documents and onboarding forms."
       />
 
       <section className="py-20 bg-white font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {groups.map((group) => {
-              const Icon = group.Icon;
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {RESOURCES.groups.map((group, idx) => {
+              const Icon = GROUP_ICONS[idx % GROUP_ICONS.length];
               return (
                 <div
                   key={group.title}
@@ -51,46 +41,22 @@ export default function ResourcesPage() {
                   </div>
 
                   <div className="space-y-2">
-                    {group.items.length === 0 && (
-                      <p className="text-xs text-slate-400 italic px-1 py-3">
-                        No documents in this category yet.
-                      </p>
-                    )}
-                    {group.items.map((item) =>
-                      item.fileUrl ? (
-                        <a
-                          key={item.id}
-                          href={item.fileUrl}
-                          download={item.fileName ?? item.title}
-                          className="w-full flex items-center justify-between gap-3 p-3.5 bg-white rounded-xl border border-slate-200 hover:border-ink-400 transition text-left group"
-                        >
-                          <span className="text-xs font-semibold text-slate-800">
-                            {item.title}
-                            {item.strategy ? (
-                              <span className="text-slate-400 font-normal"> · {item.strategy}</span>
-                            ) : null}
-                          </span>
-                          <span className="flex items-center gap-1.5 text-[10px] font-mono text-accent-600 border border-slate-200 rounded-md px-2 py-1 group-hover:bg-accent-50 transition shrink-0">
-                            <Download className="w-3 h-3" /> {fileBadge(item.fileType)}
-                          </span>
-                        </a>
-                      ) : (
-                        <button
-                          key={item.id}
-                          onClick={() =>
-                            showToast(
-                              `"${item.title}" will be available for download once documents are uploaded to the portal.`,
-                            )
-                          }
-                          className="w-full flex items-center justify-between gap-3 p-3.5 bg-white rounded-xl border border-slate-200 hover:border-ink-400 transition text-left group"
-                        >
-                          <span className="text-xs font-semibold text-slate-800">{item.title}</span>
-                          <span className="flex items-center gap-1.5 text-[10px] font-mono text-accent-600 border border-slate-200 rounded-md px-2 py-1 group-hover:bg-accent-50 transition shrink-0">
-                            <Download className="w-3 h-3" /> PDF
-                          </span>
-                        </button>
-                      ),
-                    )}
+                    {group.items.map((item) => (
+                      <button
+                        key={item}
+                        onClick={() =>
+                          showToast(
+                            `"${item}" will be available for download once documents are uploaded to the portal.`,
+                          )
+                        }
+                        className="w-full flex items-center justify-between gap-3 p-3.5 bg-white rounded-xl border border-slate-200 hover:border-ink-400 transition text-left group"
+                      >
+                        <span className="text-xs font-semibold text-slate-800">{item}</span>
+                        <span className="flex items-center gap-1.5 text-[10px] font-mono text-accent-600 border border-slate-200 rounded-md px-2 py-1 group-hover:bg-accent-50 transition shrink-0">
+                          <Download className="w-3 h-3" /> PDF
+                        </span>
+                      </button>
+                    ))}
                   </div>
                 </div>
               );
@@ -106,13 +72,4 @@ export default function ResourcesPage() {
       </section>
     </>
   );
-}
-
-function fileBadge(type?: string): string {
-  if (!type) return 'FILE';
-  if (type.includes('pdf')) return 'PDF';
-  if (type.includes('image')) return 'IMG';
-  if (type.includes('spreadsheet') || type.includes('excel') || type.includes('csv')) return 'XLS';
-  if (type.includes('word') || type.includes('document')) return 'DOC';
-  return 'FILE';
 }

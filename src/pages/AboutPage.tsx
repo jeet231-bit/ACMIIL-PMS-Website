@@ -264,9 +264,9 @@ export default function AboutPage() {
         eyebrow="A Pantomath Group Company"
         title={
           <>
-            Full Service{' '}
+            Asit C. Mehta{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-              Financial Conglomerate
+              Investment Intermediates Ltd.
             </span>
           </>
         }

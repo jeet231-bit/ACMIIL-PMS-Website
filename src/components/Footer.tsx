@@ -14,7 +14,7 @@ export const Footer = () => {
               <img src="/investmentz-logo.jpg" alt="Investmentz — Investor First" className="h-10 w-auto" />
             </div>
             <div>
-              <span className="font-bold text-white tracking-tight text-base block">ACMIIL PMS</span>
+              <span className="font-bold text-white tracking-tight text-base block">ACE PMS</span>
               <span className="text-[9px] text-ink-200/60 tracking-wider block font-mono uppercase">
                 {REGULATORY.legalName}
               </span>

@@ -245,9 +245,11 @@ const Leadership: FC = () => {
               </div>
             </div>
 
-            <p className="text-xs text-slate-500 font-light italic border-t border-slate-200 pt-5 mt-2">
-              {L.closingLine}
-            </p>
+            {L.closingLine && (
+              <p className="text-xs text-slate-500 font-light italic border-t border-slate-200 pt-5 mt-2">
+                {L.closingLine}
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -123,9 +123,9 @@ insert into public.articles (kind, category, title, summary, read_time, publishe
 select * from (values
   ('Article', 'Strategy commentary', 'What drove our portfolios this month',
    'Strategy-wise commentary tied to the monthly factsheets — attribution, changes and outlook.',
-   '6 min', 'ACMIIL PMS Desk', true),
-  ('Article', 'In the media', 'ACMIIL PMS in the press',
+   '6 min', 'ACE PMS Desk', true),
+  ('Article', 'In the media', 'ACE PMS in the press',
    'Interviews, quotes and coverage of our strategies and market views.',
-   '3 min', 'ACMIIL PMS Desk', true)
+   '3 min', 'ACE PMS Desk', true)
 ) as v(kind, category, title, summary, read_time, published_by, seeded)
 where not exists (select 1 from public.articles);

@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-import { FileText, ArrowRight } from 'lucide-react';
-import { PERFORMANCE, REGULATORY } from '../data/content';
+import { PERFORMANCE } from '../data/content';
 import { PageHero, SectionHeading, Disclaimer } from '../components/shared';
 
 const PERIODS = ['1 Yr', '3 Yr', '5 Yr', 'Since Incep.'];
@@ -23,10 +21,7 @@ export default function PerformancePage() {
       {/* Strategy performance tables */}
       <section className="py-20 bg-white border-b border-slate-100 font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="TIME-WEIGHTED LEDGER"
-            title="Strategy performance (CAGR %)"
-          />
+          <SectionHeading title="Performance (TWRR)" />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {PERFORMANCE.tables.map((table) => (
               <div
@@ -91,31 +86,6 @@ export default function PerformancePage() {
             ))}
           </div>
           <Disclaimer>{PERFORMANCE.tableNote}</Disclaimer>
-        </div>
-      </section>
-
-      {/* Full disclosures */}
-      <section className="py-20 bg-white font-sans">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-50 rounded-2xl border border-slate-200/80 p-8 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="p-2 bg-ink-50 rounded-lg text-ink-700">
-                <FileText className="w-5 h-5" />
-              </div>
-              <h3 className="font-extrabold text-xl text-slate-900">Full disclosures</h3>
-            </div>
-            <p className="text-xs sm:text-sm text-slate-500 font-light leading-relaxed">
-              {PERFORMANCE.intro.body}
-            </p>
-            <p className="text-xs text-slate-500 font-light leading-relaxed">*{REGULATORY.footnote}</p>
-            <Link
-              to="/resources"
-              className="text-xs font-bold text-ink-700 inline-flex items-center gap-1.5 border-b-2 border-accent-500 pb-0.5 hover:text-accent-600 transition"
-            >
-              Monthly factsheets &amp; disclosure documents in Resources{' '}
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
         </div>
       </section>
     </>

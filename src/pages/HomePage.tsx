@@ -100,7 +100,7 @@ export default function HomePage() {
         <StrategyShowcase
           compact
           eyebrow="OUR STRATEGIES"
-          title="Purpose-built strategies, one philosophy"
+          title="3 Purpose-built Strategies, One Kitchen"
           lead="Sorted by what you want to achieve, not by product jargon — select a mandate for a snapshot."
         />
       </section>
@@ -231,7 +231,7 @@ export default function HomePage() {
       {/* ============ FAQ ============ */}
       <section className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="FAQ" title="Questions investors ask" center />
+          <SectionHeading eyebrow="FAQ" title="Questions Investors ask?" center />
           <div className="space-y-3">
             {FAQS.map((faq, idx) => (
               <div
@@ -266,16 +266,13 @@ export default function HomePage() {
       <section className="py-20 bg-ink-900/5 border-b border-slate-100 font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
+            <span className="text-[11px] font-bold text-accent-600 tracking-wide block font-mono">
               <Sparkles className="w-3.5 h-3.5 inline mr-1 -mt-0.5" />
-              READY TO BUILD A PORTFOLIO WITH AN EDGE?
+              Ready to build a portfolio with an edge,
             </span>
             <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl">
               Speak to a portfolio specialist
             </h2>
-            <p className="text-slate-500 text-xs sm:text-sm font-light">
-              About the strategy that fits your goals — schedule a session below.
-            </p>
           </div>
           <SchedulerCta />
         </div>

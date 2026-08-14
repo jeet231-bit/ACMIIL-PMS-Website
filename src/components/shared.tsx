@@ -73,15 +73,17 @@ export const PageHero: React.FC<{
 );
 
 export const SectionHeading: React.FC<{
-  eyebrow: string;
+  eyebrow?: string;
   title: React.ReactNode;
   lead?: string;
   center?: boolean;
 }> = ({ eyebrow, title, lead, center }) => (
   <div className={`space-y-3 mb-12 ${center ? 'text-center max-w-2xl mx-auto' : 'max-w-2xl'}`}>
-    <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
-      {eyebrow}
-    </span>
+    {eyebrow && (
+      <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
+        {eyebrow}
+      </span>
+    )}
     <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl">
       {title}
     </h2>

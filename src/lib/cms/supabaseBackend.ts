@@ -73,7 +73,7 @@ function mapArticle(row: any): CmsArticle {
     body: row.body ?? undefined,
     readTime: row.read_time ?? undefined,
     link: row.link ?? undefined,
-    publishedBy: row.published_by ?? 'ACMIIL PMS Desk',
+    publishedBy: row.published_by ?? 'ACE PMS Desk',
     publishedAt: row.created_at,
     seeded: row.seeded ?? false,
   };
@@ -244,7 +244,7 @@ class SupabaseBackend implements CmsBackend {
         body: input.body ?? null,
         read_time: input.readTime ?? null,
         link: input.link ?? null,
-        published_by: this.session?.user.name ?? 'ACMIIL PMS Desk',
+        published_by: this.session?.user.name ?? 'ACE PMS Desk',
       })
       .select()
       .single();

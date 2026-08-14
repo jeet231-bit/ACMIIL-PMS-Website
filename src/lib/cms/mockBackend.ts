@@ -106,7 +106,7 @@ function seedArticles(): CmsArticle[] {
     title: a.title,
     summary: a.summary,
     readTime: a.readTime,
-    publishedBy: 'ACMIIL PMS Desk',
+    publishedBy: 'ACE PMS Desk',
     publishedAt: nowIso(),
     seeded: true,
   }));
@@ -246,7 +246,7 @@ class MockBackend implements CmsBackend {
       readTime: input.readTime,
       coverUrl: input.coverUrl,
       link: input.link,
-      publishedBy: this.session?.user.name ?? 'ACMIIL PMS Desk',
+      publishedBy: this.session?.user.name ?? 'ACE PMS Desk',
       publishedAt: nowIso(),
     };
     this.articles = [article, ...this.articles];

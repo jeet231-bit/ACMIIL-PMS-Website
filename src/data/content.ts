@@ -474,11 +474,11 @@ export const ABOUT = {
   leadership: {
     title: 'Leadership',
     name: 'CA. Prathmesh Agrawal',
-    role: 'Principal Officer & Fund Manager',
+    role: 'President & Fund Manager',
     photo: '/team/prathmesh-agrawal.png',
     bio: "Investment strategist with a proven track record of alpha creation and 15+ years' experience in Indian equities and the PMS industry. Earlier stints include Enam AMC, Varanium Group, Religare and Moody's Analytics.",
     timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'Pantomath Group'],
-    closingLine: "Supported by Pantomath Group's extensive research infrastructure.",
+    closingLine: '',
   },
   cta: {
     title: 'Four decades of heritage. One disciplined platform.',
@@ -615,7 +615,7 @@ export const PERFORMANCE = {
     },
   ],
   tableNote:
-    'Figures per the ACE PMS deck. ACE Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026.',
+    'Data as on 31 July 2026. Returns ≤1 year are absolute and >1 year are annualised TWRR, based on aggregate portfolio returns post fees and expenses; individual portfolio returns may vary. Past performance is not indicative of future results. Investments in securities are subject to market risks; read all related documents carefully before investing.',
   // Growth of ₹1 crore since inception. Values in ₹ crore.
   growth: [
     {
@@ -673,7 +673,7 @@ export const INSIGHT_PLACEHOLDERS = [
   },
   {
     category: 'In the media',
-    title: 'ACMIIL PMS in the press',
+    title: 'ACE PMS in the press',
     summary: 'Interviews, quotes and coverage of our strategies and market views.',
     date: 'June 2026',
     readTime: '3 min',

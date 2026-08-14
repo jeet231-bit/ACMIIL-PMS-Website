@@ -606,7 +606,7 @@ export const PERFORMANCE = {
     {
       strategy: 'ACE Multi-Asset',
       since: 'since 04 Oct 2018',
-      benchmarkName: 'Nifty Multi-Asset',
+      benchmarkName: 'Nifty Multi-Asset Index 2',
       rows: {
         portfolio: [6.7, 24.0, 19.6, 16.4],
         benchmark: [3.5, 11.3, 10.2, 11.5],

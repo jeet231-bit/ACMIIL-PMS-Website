@@ -82,6 +82,8 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
 
   const active = STRATEGIES.find((s) => s.id === activeId) || STRATEGIES[0];
   const perf = PERFORMANCE.tables.find((t) => t.strategy === active.name);
+  const benchmarkName =
+    perf?.benchmarkName ?? active.keyFacts.find((f) => f.k === 'Benchmark')?.v ?? 'Benchmark';
   const chart = buildGrowthChart(active.growth.strategyValue, active.growth.benchmarkValue);
   // Rendered y (px) of a viewBox y within the h-56 (224px) SVG, offset by pt-4 (16px).
   const topPx = (vy: number) => 16 + (vy / 200) * 224;
@@ -194,11 +196,11 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
               <div className="flex gap-4 text-xs font-mono font-bold">
                 <div className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-accent-500"></span>
-                  <span>Strategy Value</span>
+                  <span>{active.name}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-slate-300"></span>
-                  <span>Benchmark Value</span>
+                  <span>{benchmarkName}</span>
                 </div>
               </div>
             </div>
@@ -261,7 +263,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
                 <span className="text-[9px] text-accent-700 font-mono tracking-wider font-bold block uppercase">
-                  STRATEGY COMPOUND VALUE
+                  {active.name}
                 </span>
                 <span className="text-xl sm:text-2xl font-extrabold text-slate-950 block mt-0.5">
                   {active.growth.strategy}
@@ -273,13 +275,13 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
 
               <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
                 <span className="text-[9px] text-slate-400 font-mono block uppercase font-bold">
-                  BENCHMARK COMPOUND VALUE
+                  {benchmarkName}
                 </span>
                 <span className="text-xl sm:text-2xl font-extrabold text-slate-700 block mt-0.5">
                   {active.growth.benchmark}
                 </span>
                 <span className="text-[10px] text-slate-400 font-mono">
-                  At {active.growth.benchmarkCagr}% ({perf?.benchmarkName})
+                  At {active.growth.benchmarkCagr}% since-inception CAGR
                 </span>
               </div>
             </div>

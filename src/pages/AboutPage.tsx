@@ -2,8 +2,6 @@ import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useReducedMotion } from 'framer-motion';
 import {
-  Plus,
-  Equal,
   Users,
   Building2,
   MapPin,
@@ -266,31 +264,14 @@ export default function AboutPage() {
         eyebrow="A Pantomath Group Company"
         title={
           <>
-            A complete{' '}
+            Full Service{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-              financial conglomerate
+              Financial Conglomerate
             </span>
           </>
         }
         lead={ABOUT.hero.sub}
       />
-
-      {/* Equation band */}
-      <section className="py-12 bg-white border-b border-slate-100 font-sans">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-4">
-          <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-sm text-xs font-semibold text-ink-800">
-            {ABOUT.hero.equation[0]}
-          </span>
-          <Plus className="w-4 h-4 text-accent-500 shrink-0" aria-hidden="true" />
-          <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-sm text-xs font-semibold text-ink-800">
-            {ABOUT.hero.equation[1]}
-          </span>
-          <Equal className="w-4 h-4 text-amber-500 shrink-0" aria-hidden="true" />
-          <span className="inline-flex items-center px-4 py-2.5 rounded-xl bg-ink-900 text-white shadow-md text-xs font-bold">
-            {ABOUT.hero.equation[2]}
-          </span>
-        </div>
-      </section>
 
       <GroupStructure />
       <GroupScale />

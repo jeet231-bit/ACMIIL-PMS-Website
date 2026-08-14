@@ -114,11 +114,6 @@ export const Footer = () => {
 
           <p>*{REGULATORY.footnote}</p>
 
-          <p>
-            Past performance is not indicative of future results. Returns as on 31 July 2026 (ACE Multi-Asset as on 30 June 2026).
-            Subject to market risk. See the Performance page for methodology and full disclosures.
-          </p>
-
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-ink-800 pt-6 text-[10px] text-ink-200/40 font-mono">
             <span>
               © {new Date().getFullYear()} {REGULATORY.legalName} All Rights Reserved. (ISO 9001:2015

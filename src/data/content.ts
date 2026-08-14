@@ -16,7 +16,7 @@ export const REGULATORY = {
   researchAnalyst: 'INH000016490',
   dp: 'IN-DP-685-2022',
   footnote:
-    'Data as on 31 July 2026 (ACE Multi-Asset as on 30 June 2026). Returns are CAGR/TWRR; returns over 1 year are annualised. Past performance is not indicative of future results and is based on model client portfolios, post-expenses. PMS Bazaar rankings are for AMCs with minimum ₹200 cr AUM, FY26. Investments in the securities market are subject to market risk; read all related documents carefully before investing.',
+    'Disclaimer: Data as on 31 July 2026. Returns ≤1 year are absolute and >1 year are annualised TWRR, based on aggregate portfolio returns post fees and expenses; individual portfolio returns may vary. Past performance is not indicative of future results. Investments in securities are subject to market risks; read all related documents carefully before investing. PMS is intended solely for HNI/UHNI investors. Rankings are based on PMS Bazaar monthly reports and internal classification criteria, excluding strategies with a vintage of less than 3 years and AMCs with aggregate AUM below ₹200 crore.',
 };
 
 export const HERO = {

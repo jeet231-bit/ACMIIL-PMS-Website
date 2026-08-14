@@ -27,7 +27,7 @@ export default function ResourcesPage() {
             Everything in <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">one place</span>
           </>
         }
-        lead="Product decks, monthly factsheets, compliance & disclosure documents, and onboarding forms."
+        lead="Product decks, factsheets, compliance documents & onboarding forms."
       />
 
       <section className="py-20 bg-white font-sans">

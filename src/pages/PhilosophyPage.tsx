@@ -21,7 +21,7 @@ export default function PhilosophyPage() {
         eyebrow="PHILOSOPHY & PROCESS"
         title={
           <>
-            Growth at a <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Reasonable</span> Price
+            Growth at a <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">reasonable</span> price
           </>
         }
         lead={P.heroBody}

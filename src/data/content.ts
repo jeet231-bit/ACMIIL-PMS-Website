@@ -22,9 +22,9 @@ export const REGULATORY = {
 export const HERO = {
   eyebrow:
     'ACE PMS · By Asit C. Mehta Investment Intermediates Ltd. — A Pantomath Group Company',
-  headlineLead: "Built to Ride India's Ascent to a ",
-  headlineAccent: '$10 Trillion',
-  headlineTail: ' Economy',
+  headlineLead: "Built to ride India's ascent to a ",
+  headlineAccent: '$10 trillion',
+  headlineTail: ' economy',
   subheadline:
     "Investing in businesses positioned to benefit from India's structural transformation.",
   primaryCta: 'Explore Our Strategies',

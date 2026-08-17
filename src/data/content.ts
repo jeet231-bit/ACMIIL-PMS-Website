@@ -1,5 +1,5 @@
 // All copy sourced from ACMIIL_PMS_Content_Revamp_All_Pages.docx — teal (proposed) blocks only.
-// Figures per the ACE PMS deck & factsheets. ACE Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026.
+// Figures per the ACE PMS deck & July 2026 factsheets. All strategies as on 31 July 2026.
 
 export const CONTACT = {
   email: 'pms@acm.co.in',
@@ -254,14 +254,13 @@ export const STRATEGIES: StrategyContent[] = [
     name: 'ACE Multi-Asset',
     tagline: 'Asset-class diversification with an optional 0.5% monthly payout',
     points: [
-      'No asset class outperforms all the time.',
       'Our Multi-Asset strategy invests across equity, fixed income, gold, silver and listed alternatives to participate across every market cycle.',
       'Dynamic asset allocation across uncorrelated asset classes, driven by valuations and market cycles, aims to reduce volatility while capturing opportunities.',
       'A proven track record of 5%+ alpha since inception, complemented by the No. 1 Multi-Asset PMS ranking across both 3-year and 5-year periods by PMS Bazaar.',
     ],
     keyFacts: [
       { k: 'Inception', v: '4 Oct 2018' },
-      { k: 'Benchmark', v: 'Nifty Multi-Asset Index 2' },
+      { k: 'Benchmark', v: 'Nifty Multi-Asset' },
       { k: 'Style', v: 'GARP' },
       { k: 'Risk', v: 'Moderate' },
       { k: 'Horizon', v: '3–5 yrs' },
@@ -270,21 +269,21 @@ export const STRATEGIES: StrategyContent[] = [
       { k: 'Hybrid Fee', v: '1.5% of AUM + 15% Performance Fee | 10% Hurdle | High Watermark' },
     ],
     performanceNote:
-      'Since-inception TWRR 16.4% vs 11.5% for Nifty Multi-Asset; ~5%+ alpha since inception; No. 1 multi-asset PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
+      'Since-inception TWRR 16.8% vs 11.6% for Nifty Multi-Asset; ~5%+ alpha since inception; No. 1 multi-asset PMS in 3 & 5-yr by PMS Bazaar, FY26.*',
     homeCard: {
       description:
         'Equity, debt and alternates in one portfolio, with an optional 0.5% monthly payout.',
-      metric: '16.4%',
+      metric: '16.8%',
       metricLabel: 'Since-inception TWRR*',
     },
-    asOn: '30 Jun 2026',
+    asOn: '31 Jul 2026',
     growth: {
-      strategy: '~₹3.2 Cr',
-      benchmark: '~₹2.3 Cr',
-      strategyValue: 3.2,
-      benchmarkValue: 2.3,
-      strategyCagr: 16.4,
-      benchmarkCagr: 11.5,
+      strategy: '~₹3.4 Cr',
+      benchmark: '~₹2.4 Cr',
+      strategyValue: 3.4,
+      benchmarkValue: 2.4,
+      strategyCagr: 16.8,
+      benchmarkCagr: 11.6,
     },
   },
 ];
@@ -298,7 +297,7 @@ export const TRACK_RECORD = {
     { value: 'Top-quartile', label: '3 & 5-yr PMS Bazaar rankings, FY26*' },
   ],
   disclaimer:
-    'Past performance is not indicative of future results. Returns as on 30 June 2026. Subject to market risk. See Performance page for methodology and full disclosures.',
+    'Past performance is not indicative of future results. Returns as on 31 July 2026. Subject to market risk. See Performance page for methodology and full disclosures.',
 };
 
 export const WHY_PILLARS = [
@@ -582,9 +581,9 @@ export const PHILOSOPHY_PAGE = {
 export const PERFORMANCE = {
   intro: {
     title: 'Performance, in full',
-    body: 'ACE Multicap & ACE Ten Trillion figures are as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Returns up to 1 year are absolute; beyond 1 year are annualised (TWRR). Figures are based on model client portfolios, post-expenses; individual portfolio returns may vary. Past performance is not indicative of future results. Investments are subject to market risk.',
+    body: 'All figures are as on 31 July 2026. Returns up to 1 year are absolute; beyond 1 year are annualised (TWRR). Figures are based on model client portfolios, post-expenses; individual portfolio returns may vary. Past performance is not indicative of future results. Investments are subject to market risk.',
   },
-  // TWRR %, as on 30 June 2026
+  // TWRR %, as on 31 July 2026
   tables: [
     {
       strategy: 'ACE Multicap',
@@ -611,9 +610,9 @@ export const PERFORMANCE = {
       since: 'since 04 Oct 2018',
       benchmarkName: 'Nifty Multi-Asset',
       rows: {
-        portfolio: [6.7, 24.0, 19.6, 16.4],
-        benchmark: [3.5, 11.3, 10.2, 11.5],
-        alpha: [3.2, 12.7, 9.4, 4.9],
+        portfolio: [11.6, 21.8, 19.9, 16.8],
+        benchmark: [6.0, 10.9, 10.2, 11.6],
+        alpha: [5.6, 10.9, 9.7, 5.2],
       },
     },
   ],
@@ -639,15 +638,15 @@ export const PERFORMANCE = {
     },
     {
       strategy: 'ACE Multi-Asset',
-      terminalValue: 3.2,
-      benchmarkValue: 2.3,
+      terminalValue: 3.4,
+      benchmarkValue: 2.4,
       benchmarkName: 'Nifty Multi-Asset',
       inception: '04 Oct 2018',
-      asOn: '30 Jun 2026',
+      asOn: '31 Jul 2026',
     },
   ],
   growthNote:
-    'Since inception. ACE Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Returns are annualised (TWRR) and net of expenses. Past performance is not indicative of future returns.',
+    'Since inception, all figures as on 31 July 2026. Returns are annualised (TWRR) and net of expenses. Past performance is not indicative of future returns.',
   rankings: {
     title: 'PMS Bazaar rankings, FY26',
     header: ['Strategy', '1-Yr rank', '3-Yr rank', '5-Yr rank'],
@@ -694,7 +693,7 @@ export const RESOURCES = {
       title: 'Factsheets',
       body: 'Filter by strategy + month/year; latest four surfaced at the top',
       categories: ['Monthly factsheets'],
-      items: ['ACE Multicap — June 2026', 'ACE Ten Trillion — June 2026', 'ACE Multi-Asset — June 2026'],
+      items: ['ACE Multicap — July 2026', 'ACE Ten Trillion — July 2026', 'ACE Multi-Asset — July 2026'],
     },
     {
       title: 'Compliance & Disclosures',

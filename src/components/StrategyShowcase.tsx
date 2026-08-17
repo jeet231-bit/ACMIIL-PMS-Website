@@ -2,30 +2,30 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, Download } from 'lucide-react';
 import { STRATEGIES, PERFORMANCE } from '../data/content';
+import strategyNav from '../data/strategyNav.json';
 import { Disclaimer } from './shared';
 import { useToast } from './toast';
 
+const NAV = strategyNav.strategies as Record<string, { since: string; asOf: string; points: number[][] }>;
+
 const PERIOD_LABELS = ['1 Year', '3 Years', '5 Years', 'Since Inception'];
 
-// Data-driven compounding growth curves (₹1 cr → end value) for the SVG chart.
-// value(f) = end^f, so both lines start at ₹1 cr (f=0) and reach their actual
-// since-inception value (f=1). The strategy line sets the y-scale.
-function buildGrowthChart(sEnd: number, bEnd: number) {
-  const N = 32;
+// Builds the SVG paths from a real since-inception NAV series (₹1 cr rebased).
+// `points` is [strategyNav, benchmarkNav][] — the actual monthly movement from
+// strategyNav.json (generated from data/strategy-nav.xlsx). The higher of the
+// two series sets the y-scale.
+function buildGrowthChart(points: number[][]) {
   const x0 = 8;
   const x1 = 492;
   const yBottom = 186;
   const yTop = 16;
-  const maxV = sEnd;
-  const yFor = (v: number) => yBottom - ((v - 1) / (maxV - 1)) * (yBottom - yTop);
-  const xFor = (f: number) => x0 + f * (x1 - x0);
-  const s: Array<[number, number]> = [];
-  const b: Array<[number, number]> = [];
-  for (let i = 0; i <= N; i++) {
-    const f = i / N;
-    s.push([xFor(f), yFor(Math.pow(sEnd, f))]);
-    b.push([xFor(f), yFor(Math.pow(bEnd, f))]);
-  }
+  const N = points.length;
+  let maxV = 1;
+  for (const p of points) maxV = Math.max(maxV, p[0], p[1]);
+  const yFor = (v: number) => yBottom - ((v - 1) / (maxV - 1 || 1)) * (yBottom - yTop);
+  const xFor = (i: number) => x0 + (N <= 1 ? 0 : i / (N - 1)) * (x1 - x0);
+  const s = points.map((p, i) => [xFor(i), yFor(p[0])] as [number, number]);
+  const b = points.map((p, i) => [xFor(i), yFor(p[1])] as [number, number]);
   const toPath = (pts: Array<[number, number]>) =>
     pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
   const sPath = toPath(s);
@@ -38,6 +38,13 @@ function buildGrowthChart(sEnd: number, bEnd: number) {
     bEndPt: b[b.length - 1],
   };
 }
+
+// Fallback smooth compounding curve (end^f) for a strategy without NAV data.
+const compoundingPoints = (sEnd: number, bEnd: number): number[][] =>
+  Array.from({ length: 33 }, (_, i) => {
+    const f = i / 32;
+    return [Math.pow(sEnd, f), Math.pow(bEnd, f)];
+  });
 
 interface StrategyShowcaseProps {
   eyebrow: string;
@@ -86,7 +93,12 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
     perf?.benchmarkName ?? active.keyFacts.find((f) => f.k === 'Benchmark')?.v ?? 'Benchmark';
   // Chart-friendly short name (drops "Opportunities" so it fits one line).
   const stratLabel = active.name.replace(' Opportunities', '');
-  const chart = buildGrowthChart(active.growth.strategyValue, active.growth.benchmarkValue);
+  const navPoints = NAV[active.id]?.points;
+  const chart = buildGrowthChart(
+    navPoints && navPoints.length > 1
+      ? navPoints
+      : compoundingPoints(active.growth.strategyValue, active.growth.benchmarkValue),
+  );
   // Rendered y (px) of a viewBox y within the h-56 (224px) SVG, offset by pt-4 (16px).
   const topPx = (vy: number) => 16 + (vy / 200) * 224;
 
@@ -192,7 +204,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                   SINCE-INCEPTION VALUE EXPANSION
                 </span>
                 <span className="text-xs text-slate-500">
-                  Illustrative growth of ₹1 crore at actual since-inception TWRR
+                  Actual growth of ₹1 crore invested at inception (month-end NAV)
                 </span>
               </div>
               <div className="flex gap-4 text-xs font-mono font-bold">
@@ -354,10 +366,9 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
         </div>
       ) : (
         <Disclaimer>
-          Growth-of-₹1-crore curves reflect each strategy's actual since-inception TWRR. ACE
-          Multicap & ACE Ten Trillion as on 31 July 2026; ACE Multi-Asset as on 30 June 2026. Past
-          performance is not indicative of future results and is subject to market risk. See the
-          Performance page for methodology and full disclosures.
+          Growth-of-₹1-crore curves reflect each strategy's actual month-end NAV since inception,
+          all figures as on 31 July 2026. Past performance is not indicative of future results and is
+          subject to market risk. See the Performance page for methodology and full disclosures.
         </Disclaimer>
       )}
     </div>

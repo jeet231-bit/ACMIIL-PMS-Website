@@ -15,6 +15,18 @@ import { ABOUT } from '../data/content';
 import { CountUp, useInView } from '../components/motion';
 import { PageHero } from '../components/shared';
 
+// Renders *phrase* segments as emphasised (bold) inline text.
+const withEmphasis = (text: string) =>
+  text.split(/(\*[^*]+\*)/g).map((seg, i) =>
+    seg.startsWith('*') && seg.endsWith('*') ? (
+      <strong key={i} className="font-semibold text-slate-900">
+        {seg.slice(1, -1)}
+      </strong>
+    ) : (
+      <span key={i}>{seg}</span>
+    ),
+  );
+
 const STAT_ICONS: Record<string, FC<{ className?: string }>> = { Users, Building2, MapPin };
 
 const SERVICE_ICONS: Record<string, FC<{ className?: string }>> = {
@@ -185,7 +197,7 @@ const Leadership: FC = () => {
           <div className="lg:col-span-4 flex justify-center">
             <div className="relative w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden ring-1 ring-slate-200 shadow-sm bg-gradient-to-br from-ink-50 via-white to-accent-50">
               <img
-                src={L.photo}
+                src={encodeURI(L.photo)}
                 alt={`${L.name}, ${L.role}`}
                 className="absolute inset-0 w-full h-full object-cover object-top"
                 loading="lazy"
@@ -204,9 +216,11 @@ const Leadership: FC = () => {
               </p>
             </div>
 
-            <p className="text-slate-600 text-sm sm:text-base font-light leading-relaxed max-w-2xl">
-              {L.bio}
-            </p>
+            <div className="text-slate-600 text-sm sm:text-base font-light leading-relaxed max-w-2xl space-y-4">
+              {L.bio.map((para, i) => (
+                <p key={i}>{withEmphasis(para)}</p>
+              ))}
+            </div>
 
             {/* Career timeline */}
             <div ref={ref} className="pt-4">

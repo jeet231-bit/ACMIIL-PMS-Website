@@ -125,7 +125,7 @@ export default function OnboardingPage() {
 
           <form onSubmit={submit} className="space-y-8">
             {/* Personal details */}
-            <div className="bg-slate-50 rounded-2xl border border-slate-200/80 p-6 sm:p-7 space-y-4">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-lg shadow-slate-200/60 p-6 sm:p-7 space-y-4">
               <h3 className="font-extrabold text-slate-900 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-accent-600" /> Your details
               </h3>
@@ -181,7 +181,7 @@ export default function OnboardingPage() {
             </div>
 
             {/* Documents */}
-            <div className="bg-slate-50 rounded-2xl border border-slate-200/80 p-6 sm:p-7 space-y-4">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-lg shadow-slate-200/60 p-6 sm:p-7 space-y-4">
               <div>
                 <h3 className="font-extrabold text-slate-900 flex items-center gap-2">
                   <FileCheck2 className="w-4 h-4 text-accent-600" /> Required documents
@@ -196,8 +196,8 @@ export default function OnboardingPage() {
                   return (
                     <label
                       key={doc.key}
-                      className={`block cursor-pointer rounded-xl border p-4 transition bg-white ${
-                        chosen ? 'border-emerald-300 ring-1 ring-emerald-100' : 'border-slate-200 hover:border-ink-400'
+                      className={`block cursor-pointer rounded-xl border p-4 transition ${
+                        chosen ? 'bg-emerald-50/40 border-emerald-300 ring-1 ring-emerald-100' : 'bg-slate-50 border-slate-200 hover:border-ink-400'
                       }`}
                     >
                       <div className="flex items-start gap-2.5">

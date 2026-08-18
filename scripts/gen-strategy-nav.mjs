@@ -26,6 +26,8 @@ const MAP = { multicap: [1, 2], multiasset: [3, 4], tentrillion: [5, 7] };
 
 const serialToDate = (n) => new Date(Date.UTC(1899, 11, 30) + Math.round(n) * 86400000);
 const ym = (d) => `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const label = (d) => `${MON[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 
 async function main() {
   if (!fs.existsSync(SRC)) {
@@ -53,6 +55,7 @@ async function main() {
     strategies[key] = {
       since: months[0].d.toISOString().slice(0, 10),
       asOf: months[months.length - 1].d.toISOString().slice(0, 10),
+      labels: months.map((m) => label(m.d)),
       points: months.map((m) => [
         Math.round((m.s / s0) * 10000) / 10000,
         Math.round((m.b / b0) * 10000) / 10000,

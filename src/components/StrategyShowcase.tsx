@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, Download } from 'lucide-react';
 import { STRATEGIES, PERFORMANCE } from '../data/content';
@@ -6,7 +6,10 @@ import strategyNav from '../data/strategyNav.json';
 import { Disclaimer } from './shared';
 import { useToast } from './toast';
 
-const NAV = strategyNav.strategies as Record<string, { since: string; asOf: string; points: number[][] }>;
+const NAV = strategyNav.strategies as Record<
+  string,
+  { since: string; asOf: string; labels: string[]; points: number[][] }
+>;
 
 const PERIOD_LABELS = ['1 Year', '3 Years', '5 Years', 'Since Inception'];
 
@@ -36,6 +39,10 @@ function buildGrowthChart(points: number[][]) {
     start: s[0],
     sEndPt: s[s.length - 1],
     bEndPt: b[b.length - 1],
+    sPts: s,
+    bPts: b,
+    x0,
+    x1,
   };
 }
 
@@ -75,6 +82,8 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
       ? initialTabId
       : STRATEGIES[0].id
   );
+  const [hover, setHover] = useState<number | null>(null);
+  const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (initialTabId && STRATEGIES.some((s) => s.id === initialTabId)) {
@@ -84,6 +93,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
 
   const selectTab = (id: string) => {
     setActiveId(id);
+    setHover(null);
     onTabChange?.(id);
   };
 
@@ -93,14 +103,27 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
     perf?.benchmarkName ?? active.keyFacts.find((f) => f.k === 'Benchmark')?.v ?? 'Benchmark';
   // Chart-friendly short name (drops "Opportunities" so it fits one line).
   const stratLabel = active.name.replace(' Opportunities', '');
-  const navPoints = NAV[active.id]?.points;
-  const chart = buildGrowthChart(
-    navPoints && navPoints.length > 1
-      ? navPoints
-      : compoundingPoints(active.growth.strategyValue, active.growth.benchmarkValue),
-  );
+  const nav = NAV[active.id];
+  const chartPoints =
+    nav?.points && nav.points.length > 1
+      ? nav.points
+      : compoundingPoints(active.growth.strategyValue, active.growth.benchmarkValue);
+  const chartLabels = nav?.labels;
+  const chart = buildGrowthChart(chartPoints);
   // Rendered y (px) of a viewBox y within the h-56 (224px) SVG, offset by pt-4 (16px).
   const topPx = (vy: number) => 16 + (vy / 200) * 224;
+
+  // Interactive hover: nearest data point → guide line, dots and a tooltip.
+  const hi = hover == null ? null : Math.min(hover, chartPoints.length - 1);
+  const onChartMove = (clientX: number) => {
+    const el = chartRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const vbX = ((clientX - rect.left) / rect.width) * 500;
+    const frac = (vbX - chart.x0) / (chart.x1 - chart.x0);
+    const idx = Math.max(0, Math.min(chartPoints.length - 1, Math.round(frac * (chartPoints.length - 1))));
+    setHover(idx);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -243,7 +266,71 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                 <circle cx={chart.start[0]} cy={chart.start[1]} r="3.5" fill="#94a3b8" />
                 <circle cx={chart.bEndPt[0]} cy={chart.bEndPt[1]} r="4" fill="#94a3b8" />
                 <circle cx={chart.sEndPt[0]} cy={chart.sEndPt[1]} r="5" fill="#E4611F" stroke="#ffffff" strokeWidth="2" />
+
+                {/* Hover guide line + markers */}
+                {hi != null && (
+                  <g>
+                    <line
+                      x1={chart.sPts[hi][0]}
+                      y1={16}
+                      x2={chart.sPts[hi][0]}
+                      y2={186}
+                      stroke="#94a3b8"
+                      strokeWidth="1"
+                      strokeDasharray="3"
+                      opacity="0.6"
+                    />
+                    <circle cx={chart.bPts[hi][0]} cy={chart.bPts[hi][1]} r="4" fill="#94a3b8" stroke="#ffffff" strokeWidth="1.5" />
+                    <circle cx={chart.sPts[hi][0]} cy={chart.sPts[hi][1]} r="5" fill="#E4611F" stroke="#ffffff" strokeWidth="2" />
+                  </g>
+                )}
               </svg>
+
+              {/* Hover capture overlay */}
+              <div
+                ref={chartRef}
+                className="absolute inset-x-0 top-4 h-56 cursor-crosshair"
+                onMouseMove={(e) => onChartMove(e.clientX)}
+                onMouseLeave={() => setHover(null)}
+                onTouchStart={(e) => onChartMove(e.touches[0].clientX)}
+                onTouchMove={(e) => onChartMove(e.touches[0].clientX)}
+              />
+
+              {/* Hover tooltip */}
+              {hi != null && (
+                <div
+                  className="absolute z-20 pointer-events-none"
+                  style={{
+                    left: `${Math.max(16, Math.min(84, (chart.sPts[hi][0] / 500) * 100))}%`,
+                    top:
+                      chart.sPts[hi][1] < 90
+                        ? topPx(chart.sPts[hi][1]) + 14
+                        : topPx(chart.sPts[hi][1]) - 14,
+                    transform:
+                      chart.sPts[hi][1] < 90 ? 'translate(-50%, 0)' : 'translate(-50%, -100%)',
+                  }}
+                >
+                  <div className="bg-white rounded-lg border border-slate-200 shadow-lg px-3 py-2 min-w-[152px]">
+                    <div className="text-[11px] font-extrabold text-slate-900 mb-1.5">
+                      {chartLabels?.[hi] ?? `Point ${hi + 1}`}
+                    </div>
+                    <div className="flex items-center gap-2 text-[11px] text-slate-600">
+                      <span className="h-2 w-2 rounded-full bg-accent-500 shrink-0" />
+                      <span>{stratLabel}</span>
+                      <span className="ml-auto font-bold text-slate-900">
+                        ₹{chartPoints[hi][0].toFixed(2)} Cr
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[11px] text-slate-600 mt-1">
+                      <span className="h-2 w-2 rounded-full bg-slate-300 shrink-0" />
+                      <span>{benchmarkName}</span>
+                      <span className="ml-auto font-bold text-slate-900">
+                        ₹{chartPoints[hi][1].toFixed(2)} Cr
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Start-value label at inception — mirrors the end-value labels */}
               <span
@@ -334,7 +421,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                             }}
                           ></div>
                         </div>
-                        <span className="text-[10px] text-slate-400 font-mono mt-1.5 block">
+                        <span className="text-[11.5px] text-slate-500 font-bold font-mono mt-1.5 block">
                           vs {perf.rows.benchmark[i].toFixed(1)}% benchmark · +
                           {perf.rows.alpha[i].toFixed(1)}% alpha
                         </span>

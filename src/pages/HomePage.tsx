@@ -43,7 +43,7 @@ export default function HomePage() {
                     {item.value}
                   </span>
                   {item.suffix && (
-                    <span className="text-sm sm:text-base font-bold text-amber-600">
+                    <span className="text-sm sm:text-base font-bold text-slate-950">
                       {item.suffix}
                     </span>
                   )}

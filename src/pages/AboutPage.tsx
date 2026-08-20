@@ -192,9 +192,9 @@ const Leadership: FC = () => {
           {L.title}
         </h2>
 
-        <div className="bg-slate-50 rounded-3xl border border-slate-200/70 p-7 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <div className="bg-slate-50 rounded-3xl border border-slate-200/70 p-7 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Photograph — circular medallion */}
-          <div className="lg:col-span-4 flex justify-center">
+          <div className="lg:col-span-4 flex justify-center lg:pt-1">
             <div className="relative w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden ring-1 ring-slate-200 shadow-sm bg-gradient-to-br from-ink-50 via-white to-accent-50">
               <img
                 src={encodeURI(L.photo)}
@@ -208,7 +208,7 @@ const Leadership: FC = () => {
           {/* Narrative */}
           <div className="lg:col-span-8 space-y-5">
             <div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-accent-600">
+              <h3 className="text-2xl sm:text-3xl font-normal tracking-tight text-accent-600">
                 {L.name}
               </h3>
               <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest font-mono mt-1.5">

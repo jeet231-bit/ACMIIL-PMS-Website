@@ -478,10 +478,10 @@ export const ABOUT = {
     name: 'CA. Prathmesh Agrawal',
     role: 'President & Fund Manager',
     photo: '/team/Professional Picture.png',
-    // Paragraphs; *phrase* renders as emphasised (bold).
+    // Paragraphs; wrap a phrase in *asterisks* to render it emphasised (bold).
     bio: [
-      'Mr. Prathmesh Agrawal is a seasoned Portfolio Management Services (PMS) professional with over *15 years of experience* in the Indian listed equity markets. He has managed and advised investment portfolios with aggregate *Assets Under Management (AUM) exceeding ₹1,000 crore*.',
-      "A *Qualified Chartered Accountant*, he has extensive expertise in *Portfolio Management, Investment Strategy, Equity Research, and Risk Management*. Over the course of his career, he has been associated with leading financial institutions, including *Enam Asset Management, Religare Group, Varanium Capital, and Moody's Analytics*, where he contributed to investment research, portfolio construction, and strategic investment decision-making.",
+      'Mr. Prathmesh Agrawal is a seasoned Portfolio Management Services (PMS) professional with over 15 years of experience in the Indian listed equity markets. He has managed and advised investment portfolios with aggregate Assets Under Management (AUM) exceeding ₹1,000 crore.',
+      "A Qualified Chartered Accountant, he has extensive expertise in Portfolio Management, Investment Strategy, Equity Research, and Risk Management. Over the course of his career, he has been associated with leading financial institutions, including Enam Asset Management, Religare Group, Varanium Capital, and Moody's Analytics, where he contributed to investment research, portfolio construction, and strategic investment decision-making.",
     ],
     timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'Pantomath Group'],
     closingLine: '',

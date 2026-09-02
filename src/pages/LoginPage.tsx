@@ -29,7 +29,7 @@ const AUDIENCES: Array<{
   {
     id: 'team',
     Icon: ShieldCheck,
-    label: 'Admin Team',
+    label: 'Team',
     accent: 'text-accent-600 bg-accent-50 border-accent-100',
   },
   {
@@ -41,7 +41,7 @@ const AUDIENCES: Array<{
   {
     id: 'partner',
     Icon: Handshake,
-    label: 'Existing/New Partner',
+    label: 'Existing/New Distributor',
     accent: 'text-amber-700 bg-amber-50 border-amber-100',
   },
 ];
@@ -55,13 +55,12 @@ export default function LoginPage() {
         eyebrow="SECURE ACCESS"
         title={
           <>
-            Sign In to{' '}
+            Sign in to{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
               ACE PMS
             </span>
           </>
         }
-        lead="Choose how you'd like to continue — team members, clients and partners each have their own secure route."
       />
 
       <section className="py-20 bg-white font-sans min-h-[50vh]">

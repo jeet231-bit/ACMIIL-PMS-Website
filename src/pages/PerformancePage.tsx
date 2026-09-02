@@ -12,16 +12,17 @@ export default function PerformancePage() {
         eyebrow="PERFORMANCE"
         title={
           <>
-            Consistency <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Delivered</span>
+            Proven Wealth <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Creation</span>
           </>
         }
+        lead="Three Strategies. One Investment Philosophy. Consistent Alpha Across Market Cycles."
       />
 
       {/* Strategy performance tables */}
       <section className="py-20 bg-white border-b border-slate-100 font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading title="Performance (TWRR)" />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {PERFORMANCE.tables.map((table) => (
               <div
                 key={table.strategy}
@@ -33,54 +34,39 @@ export default function PerformancePage() {
                   </h3>
                   <span className="text-[10px] text-slate-400 font-mono">({table.since})</span>
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse text-left text-xs font-sans min-w-[420px]">
-                    <thead>
-                      <tr className="border-b border-slate-200 text-slate-500 font-medium font-mono uppercase tracking-widest text-[9px]">
-                        <th className="py-2.5 px-3"></th>
-                        {PERIODS.map((p) => (
-                          <th key={p} className="py-2.5 px-3 text-right">
-                            {p}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200/70 text-slate-700">
-                      <tr>
-                        <td className="py-3 px-3 font-bold text-slate-900">Portfolio</td>
-                        {table.rows.portfolio.map((v, i) => (
-                          <td key={i} className="py-3 px-3 text-right font-mono font-semibold text-slate-900">
-                            {fmt(v)}
-                          </td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <td className="py-3 px-3 text-slate-500">{table.benchmarkName}</td>
-                        {table.rows.benchmark.map((v, i) => (
-                          <td key={i} className="py-3 px-3 text-right font-mono text-slate-500">
-                            {fmt(v)}
-                          </td>
-                        ))}
-                      </tr>
-                      <tr className="bg-slate-200/70">
-                        <td className="py-3 px-3 font-bold text-ink-900 font-mono uppercase text-[10px] tracking-wider rounded-l-lg">
-                          Alpha
+                <table className="w-full border-collapse text-left text-xs font-sans">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-slate-500 font-medium font-mono uppercase tracking-widest text-[9px]">
+                      <th className="py-2.5 px-2"></th>
+                      <th className="py-2.5 px-2 text-right">Portfolio</th>
+                      <th className="py-2.5 px-2 text-right normal-case tracking-normal">{table.benchmarkName}</th>
+                      <th className="py-2.5 px-2 text-right text-ink-900">Alpha</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200/70 text-slate-700">
+                    {PERIODS.map((period, i) => (
+                      <tr key={period}>
+                        <td className="py-3 px-2 font-bold text-slate-900 font-mono uppercase text-[10px] tracking-wider">
+                          {period}
                         </td>
-                        {table.rows.alpha.map((v, i) => (
-                          <td
-                            key={i}
-                            className={`py-3 px-3 text-right font-mono font-bold ${
-                              i === table.rows.alpha.length - 1 ? 'rounded-r-lg' : ''
-                            } ${v >= 0 ? 'text-accent-600' : 'text-rose-600'}`}
-                          >
-                            {v >= 0 ? '+' : ''}
-                            {fmt(v)}
-                          </td>
-                        ))}
+                        <td className="py-3 px-2 text-right font-mono font-semibold text-slate-900">
+                          {fmt(table.rows.portfolio[i])}
+                        </td>
+                        <td className="py-3 px-2 text-right font-mono text-slate-500">
+                          {fmt(table.rows.benchmark[i])}
+                        </td>
+                        <td
+                          className={`py-3 px-2 text-right font-mono font-bold ${
+                            table.rows.alpha[i] >= 0 ? 'text-accent-600' : 'text-rose-600'
+                          }`}
+                        >
+                          {table.rows.alpha[i] >= 0 ? '+' : ''}
+                          {fmt(table.rows.alpha[i])}
+                        </td>
                       </tr>
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             ))}
           </div>

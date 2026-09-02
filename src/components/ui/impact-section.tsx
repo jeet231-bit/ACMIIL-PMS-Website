@@ -87,7 +87,7 @@ interface ImpactCard {
 const impactCards: ImpactCard[] = [
   {
     id: 'track-record',
-    metric: '10+ Yrs',
+    metric: '9+ Yrs',
     title: 'Proven track record',
     description:
       'Navigating multiple bull and bear cycles since 2017 — longevity that compounds trust as reliably as capital.',
@@ -120,9 +120,9 @@ const impactCards: ImpactCard[] = [
   },
   {
     id: 'alpha',
-    metric: '5–7%',
+    metric: '7%',
     title: 'Annualised alpha',
-    description: 'Delivered 5–7% annualised alpha over benchmark BSE 500 TRI across strategies.',
+    description: 'Delivered 7% annualised alpha over benchmark BSE 500 TRI across strategies.',
     redirect: '/performance',
     cta: 'Learn more',
     Illustration: IllustrationChart,

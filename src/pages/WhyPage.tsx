@@ -8,9 +8,9 @@ export default function WhyPage() {
         eyebrow="WHY ACE PMS"
         title={
           <>
-            Process Over{' '}
+            Proven Across Cycles.{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-              Personality
+              Positioned for the Future
             </span>
           </>
         }

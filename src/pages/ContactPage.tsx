@@ -5,6 +5,7 @@ import { PageHero } from '../components/shared';
 import { useToast } from '../components/toast';
 
 const CORPUS_OPTIONS = ['₹50 Lakh – ₹2 Crore', '₹2 Crore – ₹5 Crore', '₹5 Crore – ₹15 Crore', '₹15 Crore+'];
+const VISITOR_OPTIONS = ['Client', 'Distributor'];
 
 export default function ContactPage() {
   const showToast = useToast();
@@ -13,6 +14,7 @@ export default function ContactPage() {
     mobile: '',
     email: '',
     corpus: CORPUS_OPTIONS[0],
+    visitorType: VISITOR_OPTIONS[0],
     city: '',
     message: '',
   });
@@ -26,7 +28,7 @@ export default function ContactPage() {
     showToast(
       `Thank you ${form.name}! Your enquiry has been recorded. A portfolio specialist will call you back — we typically respond within one business day.`
     );
-    setForm({ name: '', mobile: '', email: '', corpus: CORPUS_OPTIONS[0], city: '', message: '' });
+    setForm({ name: '', mobile: '', email: '', corpus: CORPUS_OPTIONS[0], visitorType: VISITOR_OPTIONS[0], city: '', message: '' });
   };
 
   const inputClass =
@@ -102,15 +104,29 @@ export default function ContactPage() {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[10px] text-slate-500 font-bold block uppercase">City</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Mumbai"
-                    value={form.city}
-                    onChange={(e) => setForm({ ...form, city: e.target.value })}
-                    className={inputClass}
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[10px] text-slate-500 font-bold block uppercase">City</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Mumbai"
+                      value={form.city}
+                      onChange={(e) => setForm({ ...form, city: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] text-slate-500 font-bold block uppercase">You are a</label>
+                    <select
+                      value={form.visitorType}
+                      onChange={(e) => setForm({ ...form, visitorType: e.target.value })}
+                      className={inputClass}
+                    >
+                      {VISITOR_OPTIONS.map((v) => (
+                        <option key={v}>{v}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
                 <div className="space-y-1">
                   <label className="text-[10px] text-slate-500 font-bold block uppercase">Message</label>

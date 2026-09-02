@@ -103,6 +103,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
     perf?.benchmarkName ?? active.keyFacts.find((f) => f.k === 'Benchmark')?.v ?? 'Benchmark';
   // Chart-friendly short name (drops "Opportunities" so it fits one line).
   const stratLabel = active.name.replace(' Opportunities', '');
+  const inceptionDate = active.keyFacts.find((f) => f.k === 'Inception')?.v ?? 'Inception';
   const nav = NAV[active.id];
   const chartPoints =
     nav?.points && nav.points.length > 1
@@ -355,7 +356,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
               </span>
 
               <div className="flex justify-between items-center text-[10px] text-slate-400 font-mono mt-2 uppercase">
-                <span>Inception</span>
+                <span>{inceptionDate}</span>
                 <span>As on {active.asOn}</span>
               </div>
             </div>
@@ -408,14 +409,14 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                         className="p-3 rounded-xl border bg-slate-50/60 border-slate-100 flex flex-col justify-between"
                       >
                         <div className="flex justify-between items-center w-full">
-                          <span className="text-xs font-semibold text-slate-900 block">{label}</span>
-                          <span className="text-xs font-extrabold tracking-tight text-slate-900">
+                          <span className="text-xs font-bold text-accent-600 block">{label}</span>
+                          <span className="text-xs font-extrabold tracking-tight text-accent-600">
                             {perf.rows.portfolio[i].toFixed(1)}%
                           </span>
                         </div>
                         <div className="w-full bg-slate-200/60 h-1.5 rounded-full overflow-hidden mt-2">
                           <div
-                            className="h-full rounded-full bg-accent-500 transition-all duration-300"
+                            className="h-full rounded-full bg-slate-500 transition-all duration-300"
                             style={{
                               width: `${Math.min(Math.max((perf.rows.portfolio[i] / 30) * 100, 4), 100)}%`,
                             }}
@@ -432,7 +433,6 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
               )}
 
               <p className="text-[11px] text-slate-500 font-light leading-relaxed pt-1">
-                {active.performanceNote}{' '}
                 <Link to="/performance" className="font-bold text-ink-700 hover:text-accent-600">
                   See the Performance page →
                 </Link>

@@ -114,12 +114,6 @@ export default function ResourcesPage() {
               );
             })}
           </div>
-
-          <p className="text-[11px] text-slate-400 italic mt-10 text-center">
-            Factsheet naming standardised to the current strategies. Retired scheme
-            factsheets (ACE Prime Equity / Leaders / Challengers / Payout) are archived under
-            Legacy schemes and available on request.
-          </p>
         </div>
       </section>
     </>

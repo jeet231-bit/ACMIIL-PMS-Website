@@ -21,7 +21,7 @@ export const REGULATORY = {
 
 export const HERO = {
   eyebrow:
-    'ACE PMS · By Asit C. Mehta Investment Interrmediates Ltd.  — A Pantomath Group Company',
+    'ACE PMS · By Asit C. Mehta Investment Interrmediates Ltd. — A Pantomath Group Company',
   headlineLead: "Built to Ride India's Ascent to a ",
   headlineAccent: '$10 Trillion',
   headlineTail: ' Economy',
@@ -43,7 +43,7 @@ export const HERO_THEMES = [
   { icon: 'Cpu', label: 'Digitisation' },
   { icon: 'Leaf', label: 'Energy Transition' },
   { icon: 'Shield', label: 'Defence' },
-  { icon: 'TrendingUp', label: 'Capital Markets' },
+  { icon: 'TrendingUp', label: 'Services' },
 ];
 
 export const CREDIBILITY_BAR = [
@@ -81,7 +81,7 @@ export const CREDIBILITY_BAR = [
 
 export const HERITAGE = {
   title: 'Trust & Legacy of ACMIIL + Energy & Execution of Pantomath',
-  body: "For four decades, the Asit C. Mehta name has stood for trust in Indian capital markets. That legacy is now paired with the Pantomath Group's research infrastructure and execution strength to build a sharper, stronger PMS — a strategic collaboration designed to create more value for investors.",
+  body: "For four decades, the Asit C. Mehta name has stood for trust in Indian Services. That legacy is now paired with the Pantomath Group's research infrastructure and execution strength to build a sharper, stronger PMS — a strategic collaboration designed to create more value for investors.",
   stats: ['40+ years of heritage', "Backed by Pantomath's research and AIF platform"],
 };
 
@@ -405,7 +405,7 @@ export const FAQS = [
 export const ABOUT = {
   hero: {
     title: 'A Pantomath Group Company, Full-service Financial Conglomerate.',
-    sub: 'An established capital market platform backed by 40+ years legacy in Institutional Equities, Retail Broking, and Distribution.',
+    sub: 'An established capital market platform backed by 40+ years of legacy in Institutional Equities, Retail Broking and Distribution.',
     equation: [
       'Trust & Legacy of ACMIIL',
       'Energy & Execution of Pantomath',
@@ -483,7 +483,7 @@ export const ABOUT = {
       'Mr. Prathmesh Agrawal is a seasoned Portfolio Management Services (PMS) professional with over 15 years of experience in the Indian listed equity markets. He has managed and advised investment portfolios with aggregate Assets Under Management (AUM) exceeding ₹1,000 crore.',
       "A Qualified Chartered Accountant, he has extensive expertise in Portfolio Management, Investment Strategy, Equity Research, and Risk Management. Over the course of his career, he has been associated with leading financial institutions, including Enam Asset Management, Religare Group, Varanium Capital, and Moody's Analytics, where he contributed to investment research, portfolio construction, and strategic investment decision-making.",
     ],
-    timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'Pantomath Group'],
+    timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'Asit C. Mehta Investment Intermediates Ltd.'],
     closingLine: '',
   },
   cta: {
@@ -561,9 +561,8 @@ export const PHILOSOPHY_PAGE = {
   risk: {
     title: "Risk management isn't an add-on — it's embedded",
     items: [
-      'Single-stock exposure capped at 15% (at cost/initiation)',
-      'Single-sector exposure monitored below 40%',
-      'Single corporate-group exposure capped at 25%',
+      'Single-stock exposure capped at 10% (at cost/initiation)',
+      'Single-sector exposure monitored below 35%',
       'Diversification across 10+ sectors and 5+ themes to control beta risk',
       'Thematic allocation reviewed for concentration; periodic rebalancing to hold risk limits',
     ],

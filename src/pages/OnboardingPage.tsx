@@ -1,23 +1,25 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useMemo, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { UploadCloud, CheckCircle2, Loader2, ArrowLeft, ShieldCheck, FileCheck2 } from 'lucide-react';
 import { PageHero } from '../components/shared';
 import { cms, REDIRECT_EMAIL } from '../lib/cms/backend';
-import { ONBOARDING_DOCS, type OnboardingDocKey, type OnboardingFile } from '../lib/cms/types';
+import type { OnboardingFile } from '../lib/cms/types';
+import { ONBOARDING_FLOWS, type OnboardingDoc } from '../data/onboarding';
 
 const inputCls =
   'w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:bg-white transition';
 
-const DOC_HINTS: Record<OnboardingDocKey, string> = {
-  pan: 'Clear scan/photo of your PAN card.',
-  aadhaar: 'Aadhaar card — front and back if applicable.',
-  bank: 'A personalised cancelled cheque showing your name.',
-  nominee: 'Government ID proof of your chosen nominee.',
-  signature: 'Your signature on plain white paper/background.',
-  photo: 'Recent passport-size colour photograph.',
-};
-
 export default function OnboardingPage() {
+  const [searchParams] = useSearchParams();
+  const [flowKey, setFlowKey] = useState<'client' | 'distributor'>(
+    searchParams.get('flow') === 'distributor' ? 'distributor' : 'client'
+  );
+  const flow = ONBOARDING_FLOWS.find((f) => f.key === flowKey)!;
+
+  const [categoryKey, setCategoryKey] = useState(flow.categories[0].key);
+  const category =
+    flow.categories.find((c) => c.key === categoryKey) ?? flow.categories[0];
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
@@ -28,10 +30,30 @@ export default function OnboardingPage() {
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
 
+  // Docs shown for the current category (core docs + any letterhead annexures).
+  const allDocs: OnboardingDoc[] = useMemo(
+    () => [...category.docs, ...(category.annexures ?? [])],
+    [category]
+  );
+  const requiredDocs = allDocs.filter((d) => !d.optional);
+  const missingDocs = requiredDocs.filter((d) => !files[d.key]);
+
+  const switchFlow = (key: 'client' | 'distributor') => {
+    const next = ONBOARDING_FLOWS.find((f) => f.key === key)!;
+    setFlowKey(key);
+    setCategoryKey(next.categories[0].key);
+    setFiles({});
+    setError(null);
+  };
+
+  const switchCategory = (key: string) => {
+    setCategoryKey(key);
+    setFiles({});
+    setError(null);
+  };
+
   const setDoc = (key: string, file: File | null) =>
     setFiles((prev) => ({ ...prev, [key]: file }));
-
-  const missingDocs = ONBOARDING_DOCS.filter((d) => !files[d.key]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,17 +64,16 @@ export default function OnboardingPage() {
     }
     setBusy(true);
     try {
-      const payload: OnboardingFile[] = ONBOARDING_DOCS.map((d) => ({
-        key: d.key,
-        label: d.label,
-        file: files[d.key] as File,
-      }));
+      const payload: OnboardingFile[] = allDocs
+        .filter((d) => files[d.key])
+        .map((d) => ({ key: d.key, label: d.label, file: files[d.key] as File }));
+      const context = `[${flow.label} · ${category.label}]`;
       await cms.submitOnboarding({
         fullName: fullName.trim(),
         email: email.trim(),
         mobile: mobile.trim(),
         pan: pan.trim().toUpperCase(),
-        notes: notes.trim() || undefined,
+        notes: [context, notes.trim()].filter(Boolean).join(' — ') || undefined,
         files: payload,
       });
       setDone(true);
@@ -84,8 +105,9 @@ export default function OnboardingPage() {
             </div>
             <h2 className="text-2xl font-extrabold text-slate-900">Thank you, {fullName || 'investor'}.</h2>
             <p className="text-sm text-slate-500 font-light leading-relaxed">
-              Your details and documents have been securely submitted to our onboarding desk. A
-              portfolio specialist will reach out to you shortly to complete your account opening.
+              Your details and documents ({flow.label} · {category.label}) have been securely
+              submitted to our onboarding desk. A specialist will reach out to you shortly to
+              complete your account opening.
             </p>
             <Link
               to="/"
@@ -102,7 +124,7 @@ export default function OnboardingPage() {
   return (
     <>
       <PageHero
-        eyebrow="NEW CLIENT ONBOARDING"
+        eyebrow="ONBOARDING"
         title={
           <>
             Open Your{' '}
@@ -111,7 +133,7 @@ export default function OnboardingPage() {
             </span>
           </>
         }
-        lead="Share your details and the required KYC documents. Everything is transmitted securely to our onboarding desk — a specialist will take it from there."
+        lead="Choose your account type, share your details and upload the documents required for that category. Everything is transmitted securely to our onboarding desk — a specialist will take it from there."
       />
 
       <section className="py-16 bg-white font-sans">
@@ -123,8 +145,48 @@ export default function OnboardingPage() {
             <ArrowLeft className="w-3.5 h-3.5" /> Back to sign-in
           </Link>
 
+          {/* Flow tabs: Client vs Distributor */}
+          <div className="grid grid-cols-2 gap-2 bg-slate-100 rounded-xl p-1 mb-5">
+            {ONBOARDING_FLOWS.map((f) => (
+              <button
+                key={f.key}
+                type="button"
+                onClick={() => switchFlow(f.key)}
+                className={`rounded-lg px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition ${
+                  flowKey === f.key
+                    ? 'bg-white text-ink-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Category tabs */}
+          <div className="flex flex-wrap gap-2 mb-2">
+            {flow.categories.map((c) => (
+              <button
+                key={c.key}
+                type="button"
+                onClick={() => switchCategory(c.key)}
+                className={`px-3.5 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider border transition ${
+                  categoryKey === c.key
+                    ? 'bg-accent-500 border-accent-500 text-white shadow-sm'
+                    : 'bg-white text-slate-600 border-slate-200 hover:border-accent-300'
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+          {category.note && (
+            <p className="text-[11px] text-slate-400 font-light mb-6">{category.note}</p>
+          )}
+          <div className="mb-6" />
+
           <form onSubmit={submit} className="space-y-8">
-            {/* Personal details */}
+            {/* Personal / contact details */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-lg shadow-slate-200/60 p-6 sm:p-7 space-y-4">
               <h3 className="font-extrabold text-slate-900 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-accent-600" /> Your details
@@ -132,21 +194,18 @@ export default function OnboardingPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <label className="block">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
-                    Full name (as per PAN)
+                    Full name / entity name
                   </span>
                   <input required value={fullName} onChange={(e) => setFullName(e.target.value)} className={inputCls} />
                 </label>
                 <label className="block">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
-                    PAN number
+                    PAN number (optional)
                   </span>
                   <input
-                    required
                     value={pan}
                     onChange={(e) => setPan(e.target.value.toUpperCase())}
                     maxLength={10}
-                    pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}"
-                    title="Enter a valid 10-character PAN (e.g. ABCDE1234F)"
                     placeholder="ABCDE1234F"
                     className={`${inputCls} font-mono uppercase`}
                   />
@@ -180,18 +239,20 @@ export default function OnboardingPage() {
               </label>
             </div>
 
-            {/* Documents */}
+            {/* Documents for the selected category */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-lg shadow-slate-200/60 p-6 sm:p-7 space-y-4">
               <div>
                 <h3 className="font-extrabold text-slate-900 flex items-center gap-2">
-                  <FileCheck2 className="w-4 h-4 text-accent-600" /> Required documents
+                  <FileCheck2 className="w-4 h-4 text-accent-600" /> Required documents · {category.label}
                 </h3>
                 <p className="text-[11px] text-slate-500 font-light mt-1">
-                  PDF or image (JPG/PNG), up to ~10 MB each. All six are required.
+                  PDF or image (JPG/PNG), up to ~10 MB each. Items marked{' '}
+                  <span className="font-semibold text-slate-600">Optional</span> can be skipped if not
+                  applicable.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {ONBOARDING_DOCS.map((doc) => {
+                {allDocs.map((doc) => {
                   const chosen = files[doc.key];
                   return (
                     <label
@@ -207,9 +268,16 @@ export default function OnboardingPage() {
                           <UploadCloud className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
                         )}
                         <div className="min-w-0">
-                          <span className="text-xs font-bold text-slate-800 block">{doc.label}</span>
-                          <span className="text-[10px] text-slate-400 font-light block mt-0.5">
-                            {chosen ? chosen.name : DOC_HINTS[doc.key]}
+                          <span className="text-xs font-bold text-slate-800 block leading-snug">
+                            {doc.label}
+                            {doc.optional && (
+                              <span className="ml-1.5 text-[9px] font-mono uppercase tracking-wider text-slate-400">
+                                Optional
+                              </span>
+                            )}
+                          </span>
+                          <span className="text-[10px] text-slate-400 font-light block mt-0.5 truncate">
+                            {chosen ? chosen.name : 'Tap to upload'}
                           </span>
                         </div>
                       </div>

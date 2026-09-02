@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import {
   Landmark,
   Factory,
-  Construction,
+  Cloud,
   ShoppingCart,
   Cpu,
   Leaf,
@@ -14,7 +14,7 @@ import { HERO_THEMES } from '../data/content';
 const THEME_ICONS: Record<string, FC<{ className?: string; strokeWidth?: number }>> = {
   Landmark,
   Factory,
-  Construction,
+  Cloud,
   ShoppingCart,
   Cpu,
   Leaf,

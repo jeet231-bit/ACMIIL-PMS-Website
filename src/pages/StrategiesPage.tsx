@@ -24,7 +24,7 @@ export default function StrategiesPage() {
       <section id="strategies" className="py-20 bg-white font-sans">
         <StrategyShowcase
           eyebrow="OUR STRATEGIES, ONE PHILOSOPHY"
-          title="Purpose-built portfolio strategies"
+          title="3 Purpose-built portfolio strategies"
           lead="Each strategy is run on the same GARP discipline — select a mandate to review its construction, key facts and track record."
           initialTabId={tabFromUrl}
           onTabChange={(id) => setSearchParams({ tab: id }, { replace: true })}

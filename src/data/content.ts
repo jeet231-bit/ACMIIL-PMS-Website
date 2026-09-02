@@ -38,8 +38,8 @@ export const HERO = {
 export const HERO_THEMES = [
   { icon: 'Landmark', label: 'Financialisation' },
   { icon: 'Factory', label: 'Manufacturing' },
-  { icon: 'Construction', label: 'Infrastructure' },
-  { icon: 'ShoppingCart', label: 'Consumption' },
+  { icon: 'Cloud', label: 'Cloud & AI Infrastructure' },
+  { icon: 'ShoppingCart', label: 'Premium Consumption' },
   { icon: 'Cpu', label: 'Digitisation' },
   { icon: 'Leaf', label: 'Energy Transition' },
   { icon: 'Shield', label: 'Defence' },
@@ -67,9 +67,9 @@ export const CREDIBILITY_BAR = [
   },
   {
     label: 'ALPHA DELIVERED',
-    value: '5–7',
+    value: '7',
     suffix: '%',
-    text: 'Annualised alpha over benchmark BSE 500 TRI#',
+    text: 'Annualised alpha over benchmark BSE 500 TRI',
   },
   {
     label: 'PHILOSOPHY',
@@ -202,8 +202,8 @@ export const STRATEGIES: StrategyContent[] = [
     },
     asOn: '31 Jul 2026',
     growth: {
-      strategy: '~₹4 Cr',
-      benchmark: '~₹2.6 Cr',
+      strategy: '₹4 Cr',
+      benchmark: '₹2.6 Cr',
       strategyValue: 4.0,
       benchmarkValue: 2.6,
       strategyCagr: 19.2,
@@ -240,8 +240,8 @@ export const STRATEGIES: StrategyContent[] = [
     },
     asOn: '31 Jul 2026',
     growth: {
-      strategy: '~₹4.6 Cr',
-      benchmark: '~₹3.2 Cr',
+      strategy: '₹4.6 Cr',
+      benchmark: '₹3.2 Cr',
       strategyValue: 4.6,
       benchmarkValue: 3.2,
       strategyCagr: 19.5,
@@ -278,8 +278,8 @@ export const STRATEGIES: StrategyContent[] = [
     },
     asOn: '31 Jul 2026',
     growth: {
-      strategy: '~₹3.4 Cr',
-      benchmark: '~₹2.4 Cr',
+      strategy: '₹3.4 Cr',
+      benchmark: '₹2.4 Cr',
       strategyValue: 3.4,
       benchmarkValue: 2.4,
       strategyCagr: 16.8,
@@ -418,7 +418,7 @@ export const ABOUT = {
     tagline: ['12 Years of Progress', 'Backed by 40 years of legacy.'],
     entities: [
       {
-        name: 'Asit C. Mehta Investment Intermediates Ltd',
+        name: 'Asit C. Mehta Investment Interrmediates Ltd.',
         monogram: 'ACE',
         logo: '/logos/investmentz-trim.png',
         short:
@@ -483,7 +483,7 @@ export const ABOUT = {
       'Mr. Prathmesh Agrawal is a seasoned Portfolio Management Services (PMS) professional with over 15 years of experience in the Indian listed equity markets. He has managed and advised investment portfolios with aggregate Assets Under Management (AUM) exceeding ₹1,000 crore.',
       "A Qualified Chartered Accountant, he has extensive expertise in Portfolio Management, Investment Strategy, Equity Research, and Risk Management. Over the course of his career, he has been associated with leading financial institutions, including Enam Asset Management, Religare Group, Varanium Capital, and Moody's Analytics, where he contributed to investment research, portfolio construction, and strategic investment decision-making.",
     ],
-    timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'Asit C. Mehta Investment Intermediates Ltd.'],
+    timeline: ["Moody's Analytics", 'Religare', 'Varanium Group', 'Enam AMC', 'Asit C. Mehta Investment Interrmediates Ltd.'],
     closingLine: '',
   },
   cta: {

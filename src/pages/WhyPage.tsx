@@ -8,13 +8,16 @@ export default function WhyPage() {
         eyebrow="WHY ACE PMS"
         title={
           <>
-            Proven Across Cycles.{' '}
+            Proven across Cycles.{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-              Positioned for the Future
             </span>
           </>
         }
-        lead="Why investors choose ACE PMS — concrete proof points and a defined, repeatable process built for HNI and UHNI investors."
+        lead={
+          <span className="text-base sm:text-lg">
+            Positioned to capture India’s journey towards a $10 trillion economy.
+          </span>
+        }
       />
 
       {/* Interactive proof points — the page centrepiece */}

@@ -88,7 +88,7 @@ export const ONBOARDING_DOCS = [
 export type OnboardingDocKey = (typeof ONBOARDING_DOCS)[number]['key'];
 
 export interface OnboardingFile {
-  key: OnboardingDocKey;
+  key: string;
   label: string;
   file: File;
 }

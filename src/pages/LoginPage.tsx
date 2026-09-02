@@ -12,11 +12,13 @@ import {
   ExternalLink,
   Loader2,
 } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { PageHero } from '../components/shared';
 import { useToast } from '../components/toast';
 import { useAuth } from '../lib/cms/store';
 import { ORBIS, cms } from '../lib/cms/backend';
 import { DEMO_HINT, DEMO_SIGNUP_CODE } from '../lib/cms/mockBackend';
+import { UPI_PMS } from '../data/onboarding';
 
 type Mode = 'hub' | 'team' | 'client' | 'partner';
 
@@ -29,7 +31,7 @@ const AUDIENCES: Array<{
   {
     id: 'team',
     Icon: ShieldCheck,
-    label: 'Team',
+    label: 'Admin',
     accent: 'text-accent-600 bg-accent-50 border-accent-100',
   },
   {
@@ -268,8 +270,9 @@ function OrbisPanel({ kind, onBack }: { kind: 'client' | 'partner'; onBack: () =
   const navigate = useNavigate();
   const isClient = kind === 'client';
   const url = isClient ? ORBIS.clientUrl : ORBIS.partnerUrl;
-  const existingLabel = isClient ? 'Existing client' : 'Registered partner';
-  const newLabel = isClient ? 'New client' : 'New partner / distributor';
+  const existingLabel = isClient ? 'Existing client' : 'Registered distributor';
+  const newLabel = isClient ? 'New client' : 'New distributor';
+  const [tab, setTab] = useState<'portal' | 'upi'>('portal');
 
   const goOrbis = () => {
     if (url) {
@@ -282,6 +285,27 @@ function OrbisPanel({ kind, onBack }: { kind: 'client' | 'partner'; onBack: () =
   return (
     <div className="max-w-2xl mx-auto">
       <BackLink onBack={onBack} />
+
+      {isClient && (
+        <div className="grid grid-cols-2 gap-2 bg-slate-100 rounded-xl p-1 mb-5">
+          {(['portal', 'upi'] as const).map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTab(t)}
+              className={`rounded-lg px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider transition ${
+                tab === t ? 'bg-white text-ink-900 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              {t === 'portal' ? 'Portal access' : 'UPI payment'}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {isClient && tab === 'upi' ? (
+        <UpiPayment />
+      ) : (
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         {/* Existing -> Orbis */}
         <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 flex flex-col">
@@ -290,7 +314,7 @@ function OrbisPanel({ kind, onBack }: { kind: 'client' | 'partner'; onBack: () =
           </div>
           <h3 className="font-extrabold text-base text-slate-900 mt-4">{existingLabel}</h3>
           <p className="text-xs text-slate-500 font-light leading-relaxed mt-1.5 flex-1">
-            Continue to the Orbis portal to access your {isClient ? 'portfolio and statements' : 'partner dashboard'}.
+            Continue to the Orbis portal to access your {isClient ? 'portfolio and statements' : 'distributor dashboard'}.
           </p>
           <button
             type="button"
@@ -310,26 +334,55 @@ function OrbisPanel({ kind, onBack }: { kind: 'client' | 'partner'; onBack: () =
           <p className="text-xs text-slate-500 font-light leading-relaxed mt-1.5 flex-1">
             {isClient
               ? 'Share your details and KYC documents to open a PMS account with us.'
-              : 'A full onboarding form to capture and securely store your details is coming soon.'}
+              : 'Share your details and required documents to register as a distributor.'}
           </p>
-          {isClient ? (
-            <button
-              type="button"
-              onClick={() => navigate('/onboarding')}
-              className="mt-5 w-full bg-accent-500 hover:bg-accent-600 text-white font-bold text-[11px] uppercase tracking-wider py-2.5 rounded-lg inline-flex items-center justify-center gap-2 transition"
-            >
-              Start onboarding <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => showToast('Onboarding for new partners will open here shortly.')}
-              className="mt-5 w-full bg-white border border-slate-200 text-slate-500 font-bold text-[11px] uppercase tracking-wider py-2.5 rounded-lg inline-flex items-center justify-center gap-2 hover:border-slate-300 transition"
-            >
-              Start onboarding · Soon
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => navigate(isClient ? '/onboarding' : '/onboarding?flow=distributor')}
+            className="mt-5 w-full bg-accent-500 hover:bg-accent-600 text-white font-bold text-[11px] uppercase tracking-wider py-2.5 rounded-lg inline-flex items-center justify-center gap-2 transition"
+          >
+            Start onboarding <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
+      </div>
+      )}
+    </div>
+  );
+}
+
+/* ---------------- UPI payment (PMS client accounts) ---------------- */
+
+function UpiPayment() {
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7">
+      <h3 className="font-extrabold text-lg text-slate-900">UPI payment — PMS</h3>
+      <p className="text-[11px] text-slate-500 font-light leading-relaxed mt-1.5">
+        <span className="font-bold text-rose-600">Important:</span> use the UPI ID that matches the
+        strategy your funds are intended for. Scan the QR in any UPI app, or pay to the UPI ID shown.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+        {UPI_PMS.map((acc) => (
+          <div
+            key={acc.upi}
+            className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 flex flex-col items-center text-center"
+          >
+            <span className="font-extrabold text-slate-900 text-sm">{acc.name}</span>
+            <div className="bg-white p-2.5 rounded-lg border border-slate-200 mt-3">
+              <QRCodeSVG
+                value={`upi://pay?pa=${acc.upi}&pn=ACE%20PMS&cu=INR`}
+                size={128}
+                level="M"
+              />
+            </div>
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-3">
+              UPI ID
+            </span>
+            <span className="text-xs font-mono text-ink-700 bg-white border border-slate-200 rounded px-2 py-1 mt-1 break-all">
+              {acc.upi}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );

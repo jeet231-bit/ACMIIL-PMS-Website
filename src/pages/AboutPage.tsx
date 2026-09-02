@@ -280,7 +280,7 @@ export default function AboutPage() {
           <>
             Asit C. Mehta{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-              Investment Intermediates Ltd.
+              Investment Interrmediates Ltd.
             </span>
           </>
         }

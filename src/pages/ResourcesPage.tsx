@@ -38,10 +38,10 @@ export default function ResourcesPage() {
         eyebrow="RESOURCES & DOWNLOADS"
         title={
           <>
-            Everything in <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">One Place</span>
+            ACE PMS <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Document Hub</span>
           </>
         }
-        lead="Product Deck, Factsheets, Compliance & Disclosure documents and Onboarding forms."
+        lead="Product Decks • Factsheets • Compliance & Disclosures • Onboarding Forms"
       />
 
       <section className="py-20 bg-white font-sans">

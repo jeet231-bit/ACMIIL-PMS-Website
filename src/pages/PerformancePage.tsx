@@ -15,7 +15,12 @@ export default function PerformancePage() {
             Proven Wealth <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Creation</span>
           </>
         }
-        lead="Three Strategies. One Investment Philosophy. Consistent Alpha Across Market Cycles."
+        lead={
+          <>
+            Three Strategies. One Investment Philosophy.{' '}
+            <span className="font-bold text-slate-800">Consistent Alpha Across Market Cycles.</span>
+          </>
+        }
       />
 
       {/* Strategy performance tables */}
@@ -30,7 +35,7 @@ export default function PerformancePage() {
               >
                 <div className="flex justify-between items-baseline mb-4 gap-3 flex-wrap">
                   <h3 className="font-extrabold text-lg text-slate-900">
-                    {table.strategy}
+                    {table.strategy.replace(' Opportunities', '')}
                   </h3>
                   <span className="text-[10px] text-slate-400 font-mono">({table.since})</span>
                 </div>

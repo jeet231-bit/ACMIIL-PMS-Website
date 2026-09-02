@@ -54,7 +54,7 @@ export const HeroArt: React.FC = () => (
 export const PageHero: React.FC<{
   eyebrow?: string; // retained for callers; no longer rendered as a pill
   title: React.ReactNode;
-  lead?: string;
+  lead?: React.ReactNode;
 }> = ({ title, lead }) => (
   <section className="relative bg-[#FAFAFA] pt-20 pb-20 overflow-hidden border-b border-slate-100 font-sans">
     <HeroArt />

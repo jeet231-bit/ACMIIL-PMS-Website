@@ -24,8 +24,17 @@ function buildGrowthChart(points: number[][]) {
   const yTop = 16;
   const N = points.length;
   let maxV = 1;
-  for (const p of points) maxV = Math.max(maxV, p[0], p[1]);
-  const yFor = (v: number) => yBottom - ((v - 1) / (maxV - 1 || 1)) * (yBottom - yTop);
+  let minV = 1;
+  for (const p of points) {
+    maxV = Math.max(maxV, p[0], p[1]);
+    minV = Math.min(minV, p[0], p[1]);
+  }
+  // Scale to the actual [min, max] range (with headroom) so early drawdowns
+  // below ₹1 Cr and tall peaks are never clipped at the axes.
+  const pad = (maxV - minV) * 0.08 || 0.1;
+  const hiV = maxV + pad;
+  const loV = minV - pad;
+  const yFor = (v: number) => yBottom - ((v - loV) / (hiV - loV || 1)) * (yBottom - yTop);
   const xFor = (i: number) => x0 + (N <= 1 ? 0 : i / (N - 1)) * (x1 - x0);
   const s = points.map((p, i) => [xFor(i), yFor(p[0])] as [number, number]);
   const b = points.map((p, i) => [xFor(i), yFor(p[1])] as [number, number]);
@@ -225,7 +234,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
             <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-2 border-b border-slate-100 gap-2">
               <div>
                 <span className="text-[10px] text-slate-400 block font-mono uppercase font-bold">
-                  SINCE-INCEPTION VALUE EXPANSION
+                  Power of Compounding
                 </span>
                 <span className="text-xs text-slate-500">
                   Actual growth of ₹1 crore invested at inception (month-end NAV)
@@ -422,8 +431,8 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
                             }}
                           ></div>
                         </div>
-                        <span className="text-[11.5px] text-slate-500 font-bold font-mono mt-1.5 block">
-                          vs {perf.rows.benchmark[i].toFixed(1)}% benchmark · +
+                        <span className="text-[11.5px] text-[#241A4C] font-bold font-mono mt-1.5 block">
+                          vs {perf.rows.benchmark[i].toFixed(1)}% {benchmarkName} · +
                           {perf.rows.alpha[i].toFixed(1)}% alpha
                         </span>
                       </div>
@@ -454,8 +463,13 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
       ) : (
         <Disclaimer>
           Growth-of-₹1-crore curves reflect each strategy's actual month-end NAV since inception,
-          all figures as on 31 July 2026. Past performance is not indicative of future results and is
-          subject to market risk. See the Performance page for methodology and full disclosures.
+          all figures as on 31 July 2026. Returns ≤1 year are absolute and &gt;1 year are annualised
+          TWRR, based on aggregate portfolio returns post fees and expenses; individual portfolio
+          returns may vary. Past performance is not indicative of future results. Investments in
+          securities are subject to market risks; read all related documents carefully before
+          investing. PMS is intended solely for HNI/UHNI investors. Rankings are based on PMS Bazaar
+          monthly reports and internal classification criteria, excluding strategies with a vintage of
+          less than 3 years and AMCs with aggregate AUM below ₹200 crore.
         </Disclaimer>
       )}
     </div>

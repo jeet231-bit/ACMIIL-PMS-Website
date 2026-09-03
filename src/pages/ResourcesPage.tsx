@@ -38,7 +38,7 @@ export default function ResourcesPage() {
         eyebrow="RESOURCES & DOWNLOADS"
         title={
           <>
-            ACE PMS <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Document Hub</span>
+            Document <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">Hub</span>
           </>
         }
         lead="Product Decks • Factsheets • Compliance & Disclosures • Onboarding Forms"

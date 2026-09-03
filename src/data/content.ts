@@ -685,6 +685,87 @@ export const INSIGHT_PLACEHOLDERS = [
   },
 ];
 
+// ---------- Media coverage ----------
+export interface MediaItem {
+  title: string;
+  source: string;
+  kind: 'link' | 'pdf';
+  href: string;
+  date: string;
+  /** Cover image (themed stock photo; falls back to a brand card if it fails). */
+  cover: string;
+}
+
+export const MEDIA_COVERAGE: { intro: string; items: MediaItem[] } = {
+  intro: 'Press coverage, rankings and alpha newsletters featuring ACE PMS.',
+  items: [
+    {
+      title: 'Top 10 Portfolio Management Schemes — November 2025',
+      source: 'Moneycontrol',
+      kind: 'link',
+      href: 'https://www.moneycontrol.com/news/photos/business/markets/top-10-portfolio-management-schemes-for-the-month-of-november-2025-13737432-1.html',
+      date: 'Nov 2025',
+      cover: '/media/covers/uptrend.jpg',
+    },
+    {
+      title: 'Microfinance recovery delivers big alpha for this PMS fund',
+      source: 'Moneycontrol',
+      kind: 'link',
+      href: 'https://www.moneycontrol.com/news/business/markets/microfinance-recovery-delivers-big-alpha-for-this-pms-fund-near-90-concentrated-bet-14014233.html',
+      date: '2026',
+      cover: '/media/covers/advisor.jpg',
+    },
+    {
+      title: 'PMS Alpha Newsletter — June 2026',
+      source: 'PMS AIF World',
+      kind: 'pdf',
+      href: '/media/PMS-AIF-WORLD-June2026-PMS-Performance-Alpha-Newsletter.pdf',
+      date: 'Jun 2026',
+      cover: '/media/covers/chart-rising.jpg',
+    },
+    {
+      title: 'PMS Alpha Newsletter — March 2026',
+      source: 'PMS AIF World',
+      kind: 'pdf',
+      href: '/media/PMS-AIF-WORLD-March2026-PMS-Alpha-Newsletter.pdf',
+      date: 'Mar 2026',
+      cover: '/media/covers/analytics-dashboard.jpg',
+    },
+    {
+      title: 'PMS Alpha Newsletter — December 2025',
+      source: 'PMS AIF World',
+      kind: 'pdf',
+      href: '/media/PMS-AIF-World-Dec-2025-Alpha-PMS-Newsletter.pdf',
+      date: 'Dec 2025',
+      cover: '/media/covers/devices-trading.jpg',
+    },
+    {
+      title: 'PMS Bazaar × CRISIL Ranking — March 2023',
+      source: 'PMS Bazaar',
+      kind: 'pdf',
+      href: '/media/PMSBazaar-Crisil-Ranking-March-2023.pdf',
+      date: 'Mar 2023',
+      cover: '/media/covers/skyline.jpg',
+    },
+    {
+      title: 'PMS Bazaar Ranking — December 2022',
+      source: 'PMS Bazaar',
+      kind: 'pdf',
+      href: '/media/PMSBazaar-PMS-Ranking-December22.pdf',
+      date: 'Dec 2022',
+      cover: '/media/covers/research-desk.jpg',
+    },
+    {
+      title: 'PMS Bazaar Ranking — June 2022',
+      source: 'PMS Bazaar',
+      kind: 'pdf',
+      href: '/media/PMSBazaar-PMS-Ranking-Jun22.pdf',
+      date: 'Jun 2022',
+      cover: '/media/covers/laptop-dashboard.jpg',
+    },
+  ],
+};
+
 // ---------- Resources ----------
 export const RESOURCES = {
   title: 'Everything in One Place',

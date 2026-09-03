@@ -73,9 +73,9 @@ export const CREDIBILITY_BAR = [
   },
   {
     label: 'PHILOSOPHY',
-    value: 'Q·V·C',
+    value: 'SCALE',
     suffix: '',
-    text: 'Management quality, entry valuation & industry capital cycle — the foundation of every decision',
+    text: 'Structural growth, capital cycle, advantage, leadership & entry valuation — the foundation of every decision',
   },
 ];
 

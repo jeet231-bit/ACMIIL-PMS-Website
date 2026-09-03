@@ -136,10 +136,10 @@ const impactCards: ImpactCard[] = [
   },
   {
     id: 'research',
-    metric: 'Q·V·C',
-    title: 'Research-first foundation',
+    metric: 'SCALE',
+    title: 'The SCALE framework',
     description:
-      'Management quality, entry valuation and industry capital cycle form the foundation of every investment decision.',
+      'Structural growth, capital cycle, competitive advantage, leadership and entry valuation form the foundation of every investment decision.',
     redirect: '/contact',
     cta: 'Discuss Our Process',
     Illustration: IllustrationResearch,

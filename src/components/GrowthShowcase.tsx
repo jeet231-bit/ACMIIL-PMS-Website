@@ -45,7 +45,7 @@ function GrowthCard({ g }: { g: (typeof PERFORMANCE.growth)[number] }) {
           </div>
           <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
             <div
-              className="h-full bg-slate-300 rounded-full transition-[width] duration-1000 ease-out"
+              className="h-full bg-[#241A4C] rounded-full transition-[width] duration-1000 ease-out"
               style={{ width: revealed ? `${benchPct}%` : '0%' }}
             />
           </div>

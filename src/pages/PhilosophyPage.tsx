@@ -72,7 +72,7 @@ export default function PhilosophyPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="RISK & DISCIPLINE"
-            title="Guardrails we hold, and the traps we avoid"
+            title="Guardrails we hold, and the Traps we avoid"
             center
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">

@@ -75,12 +75,18 @@ function nodePosition(index: number, total: number, rotationDeg: number) {
   };
 }
 
-export const ScaleFramework: FC = () => {
+interface ScaleFrameworkProps {
+  /** Hide the closing "flow line" strip. */
+  compact?: boolean;
+  /** Homepage mode: render just the centred brain orbit (no side copy/list). */
+  orbitOnly?: boolean;
+}
+
+export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbitOnly = false }) => {
   const total = SCALE.length;
   const [rotation, setRotation] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
 
-  // Auto-rotate while nothing is selected.
   useEffect(() => {
     if (selected != null) return;
     const id = window.setInterval(() => setRotation((r) => (r + 0.28) % 360), 40);
@@ -93,11 +99,128 @@ export const ScaleFramework: FC = () => {
       return;
     }
     setSelected(index);
-    // Snap the chosen node to the bottom (front) of the orbit.
     setRotation(180 - (index / total) * 360);
   };
 
   const active = selected != null ? SCALE[selected] : null;
+
+  const heading = (
+    <>
+      <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
+        Our Investment Philosophy
+      </span>
+      <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl mt-2">
+        The ACE{' '}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
+          SCALE
+        </span>{' '}
+        Framework
+      </h2>
+      <p className="text-[11px] font-mono font-bold text-accent-600 tracking-wide mt-2">
+        Growth • Capital Efficiency • Leadership • Valuation Discipline
+      </p>
+    </>
+  );
+
+  const orbit = (
+    <div
+      className="relative h-[360px] sm:h-[400px] select-none"
+      onClick={() => setSelected(null)}
+    >
+      {/* Rings */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-slate-200" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[224px] h-[224px] rounded-full border border-dashed border-slate-200" />
+
+      {/* Brain hub */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="relative grid place-items-center w-24 h-24 rounded-full bg-gradient-to-br from-ink-900 to-accent-500 shadow-lg">
+          <span className="absolute inset-0 rounded-full bg-accent-500/25 animate-ping" style={{ animationDuration: '2.8s' }} />
+          <span className="absolute inset-2 rounded-full bg-ink-900/20 animate-ping" style={{ animationDuration: '3.6s' }} />
+          <Brain className="relative w-11 h-11 text-white" strokeWidth={1.6} />
+        </div>
+      </div>
+
+      {/* Orbiting nodes */}
+      {SCALE.map((f, i) => {
+        const { x, y, zIndex, opacity } = nodePosition(i, total, rotation);
+        const on = selected === i;
+        return (
+          <button
+            key={f.letter}
+            type="button"
+            aria-label={f.title}
+            aria-pressed={on}
+            onClick={(e) => {
+              e.stopPropagation();
+              select(i);
+            }}
+            className="absolute left-1/2 top-1/2 group"
+            style={{
+              transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+              transition: 'transform 0.5s ease',
+              zIndex: on ? 40 : zIndex,
+              opacity: on ? 1 : opacity,
+            }}
+          >
+            <span
+              className={`grid place-items-center w-14 h-14 rounded-full border bg-white transition ${
+                on
+                  ? 'border-accent-500 ring-4 ring-accent-100 scale-110 text-accent-600'
+                  : 'border-slate-200 text-ink-700 group-hover:border-accent-300 shadow-sm'
+              }`}
+            >
+              <f.Icon className="w-5 h-5" strokeWidth={1.9} />
+            </span>
+            <span
+              className={`absolute left-1/2 top-full -translate-x-1/2 mt-1.5 whitespace-nowrap text-[10px] font-bold uppercase tracking-wider transition ${
+                on ? 'text-accent-600' : 'text-slate-500'
+              }`}
+            >
+              {f.node}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  const detailCard = (
+    <div className="mt-2 min-h-[132px]">
+      {active ? (
+        <motion.div
+          key={active.letter}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 shadow-sm"
+        >
+          <div className="flex items-center gap-3">
+            <span className="w-9 h-9 rounded-lg bg-accent-500 text-white grid place-items-center font-extrabold">
+              {active.letter}
+            </span>
+            <div>
+              <h4 className="font-extrabold text-slate-900 leading-tight">{active.title}</h4>
+              <p className="text-[11px] font-mono text-accent-600 font-bold">{active.sub}</p>
+            </div>
+          </div>
+          <p className="text-xs text-slate-600 font-light leading-relaxed mt-3">{active.desc}</p>
+        </motion.div>
+      ) : null}
+    </div>
+  );
+
+  // Homepage: just the centred brain orbit + a short heading + the detail card.
+  if (orbitOnly) {
+    return (
+      <section className="py-20 bg-white border-b border-slate-100 font-sans overflow-hidden">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {heading}
+          <div className="max-w-[440px] mx-auto mt-6">{orbit}</div>
+          <div className="max-w-xl mx-auto text-left">{detailCard}</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-white border-b border-slate-100 font-sans overflow-hidden">
@@ -110,19 +233,7 @@ export const ScaleFramework: FC = () => {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5 }}
           >
-            <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
-              Our Investment Philosophy
-            </span>
-            <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl mt-2">
-              The ACE{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-                SCALE
-              </span>{' '}
-              Framework
-            </h2>
-            <p className="text-[11px] font-mono font-bold text-accent-600 tracking-wide mt-2">
-              Growth • Capital Efficiency • Leadership • Valuation Discipline
-            </p>
+            {heading}
             <p className="text-sm text-slate-500 font-light leading-relaxed mt-4 max-w-xl">
               SCALE seeks leadership businesses in structurally high-growth industries, operating
               within favourable capital cycles, led by capable capital allocators and available at
@@ -169,108 +280,29 @@ export const ScaleFramework: FC = () => {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div
-              className="relative h-[360px] sm:h-[400px] select-none"
-              onClick={() => setSelected(null)}
-            >
-              {/* Rings */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-slate-200" />
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[224px] h-[224px] rounded-full border border-dashed border-slate-200" />
-
-              {/* Brain hub */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="relative grid place-items-center w-24 h-24 rounded-full bg-gradient-to-br from-ink-900 to-accent-500 shadow-lg">
-                  <span className="absolute inset-0 rounded-full bg-accent-500/25 animate-ping" style={{ animationDuration: '2.8s' }} />
-                  <span className="absolute inset-2 rounded-full bg-ink-900/20 animate-ping" style={{ animationDuration: '3.6s' }} />
-                  <Brain className="relative w-11 h-11 text-white" strokeWidth={1.6} />
-                </div>
-              </div>
-
-              {/* Orbiting nodes */}
-              {SCALE.map((f, i) => {
-                const { x, y, zIndex, opacity } = nodePosition(i, total, rotation);
-                const on = selected === i;
-                return (
-                  <button
-                    key={f.letter}
-                    type="button"
-                    aria-label={f.title}
-                    aria-pressed={on}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      select(i);
-                    }}
-                    className="absolute left-1/2 top-1/2 group"
-                    style={{
-                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
-                      transition: 'transform 0.5s ease',
-                      zIndex: on ? 40 : zIndex,
-                      opacity: on ? 1 : opacity,
-                    }}
-                  >
-                    <span
-                      className={`grid place-items-center w-14 h-14 rounded-full border bg-white transition ${
-                        on
-                          ? 'border-accent-500 ring-4 ring-accent-100 scale-110 text-accent-600'
-                          : 'border-slate-200 text-ink-700 group-hover:border-accent-300 shadow-sm'
-                      }`}
-                    >
-                      <f.Icon className="w-5 h-5" strokeWidth={1.9} />
-                    </span>
-                    <span
-                      className={`absolute left-1/2 top-full -translate-x-1/2 mt-1.5 whitespace-nowrap text-[10px] font-bold uppercase tracking-wider transition ${
-                        on ? 'text-accent-600' : 'text-slate-500'
-                      }`}
-                    >
-                      {f.node}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Detail card (renders below the orbit — no overflow clipping) */}
-            <div className="mt-2 min-h-[132px]">
-              {active ? (
-                <motion.div
-                  key={active.letter}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 shadow-sm"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="w-9 h-9 rounded-lg bg-accent-500 text-white grid place-items-center font-extrabold">
-                      {active.letter}
-                    </span>
-                    <div>
-                      <h4 className="font-extrabold text-slate-900 leading-tight">{active.title}</h4>
-                      <p className="text-[11px] font-mono text-accent-600 font-bold">{active.sub}</p>
-                    </div>
-                  </div>
-                  <p className="text-xs text-slate-600 font-light leading-relaxed mt-3">{active.desc}</p>
-                </motion.div>
-              ) : null}
-            </div>
+            {orbit}
+            {detailCard}
           </motion.div>
         </div>
 
         {/* Closing flow line */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-mono text-slate-400">
-          <span>Structural Growth</span>
-          <ArrowRight className="w-3 h-3 text-accent-400" />
-          <span>Capital Cycle</span>
-          <ArrowRight className="w-3 h-3 text-accent-400" />
-          <span>Competitive Advantage</span>
-          <ArrowRight className="w-3 h-3 text-accent-400" />
-          <span>Management &amp; Capital Allocation</span>
-          <ArrowRight className="w-3 h-3 text-accent-400" />
-          <span>Entry Valuation</span>
-          <ArrowRight className="w-3 h-3 text-accent-500" />
-          <span className="font-sans font-bold text-slate-700">
-            Sustainable earnings compounding + superior risk-adjusted returns
-          </span>
-        </div>
+        {!compact && (
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-mono text-slate-400">
+            <span>Structural Growth</span>
+            <ArrowRight className="w-3 h-3 text-accent-400" />
+            <span>Capital Cycle</span>
+            <ArrowRight className="w-3 h-3 text-accent-400" />
+            <span>Competitive Advantage</span>
+            <ArrowRight className="w-3 h-3 text-accent-400" />
+            <span>Management &amp; Capital Allocation</span>
+            <ArrowRight className="w-3 h-3 text-accent-400" />
+            <span>Entry Valuation</span>
+            <ArrowRight className="w-3 h-3 text-accent-500" />
+            <span className="font-sans font-bold text-slate-700">
+              Sustainable earnings compounding + superior risk-adjusted returns
+            </span>
+          </div>
+        )}
       </div>
     </section>
   );

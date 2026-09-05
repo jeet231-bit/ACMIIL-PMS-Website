@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { useRef, type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useReducedMotion } from 'framer-motion';
 import {
@@ -10,8 +10,11 @@ import {
   Landmark,
   TrendingUp,
   Briefcase,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { ABOUT } from '../data/content';
+import { TeamSection } from '../components/TeamSection';
 import { CountUp, useInView } from '../components/motion';
 import { PageHero } from '../components/shared';
 
@@ -103,6 +106,8 @@ const GroupStructure: FC = () => {
 /* ---------------- 7.4 Group service lines + scale ---------------- */
 const GroupScale: FC = () => {
   const { ref, inView } = useInView<HTMLDivElement>();
+  const scroller = useRef<HTMLDivElement>(null);
+  const scrollByDir = (d: number) => scroller.current?.scrollBy({ left: d * 240, behavior: 'smooth' });
   return (
     <section
       id="group-scale"
@@ -119,37 +124,57 @@ const GroupScale: FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAFA] via-[#FAFAFA]/55 to-[#FAFAFA]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Service lines — icon per line */}
-        <div className="text-center mb-12">
-          <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono mb-8">
-            Group Service Lines
-          </span>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
+      <div className="relative z-10">
+        {/* Service lines — full-width carousel with arrows near the screen edges */}
+        <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono mb-8 text-center px-4">
+          Group Service Lines
+        </span>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => scrollByDir(-1)}
+            aria-label="Previous service lines"
+            className="hidden sm:grid absolute left-3 lg:left-10 top-1/2 -translate-y-1/2 z-20 h-11 w-11 rounded-full bg-white border border-slate-200 shadow-lg place-items-center text-ink-700 hover:text-accent-600 hover:border-accent-300 transition"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <div
+            ref={scroller}
+            className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 max-w-6xl mx-auto px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
             {ABOUT.scale.serviceLines.map((s) => {
               const Icon = SERVICE_ICONS[s] ?? Briefcase;
               return (
                 <div
                   key={s}
-                  className="flex flex-col items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow"
+                  className="snap-start shrink-0 w-44 sm:w-52 flex flex-col items-center gap-3 p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="w-12 h-12 rounded-full grid place-items-center bg-accent-50 border border-accent-100 text-accent-600">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[11px] font-semibold text-slate-700 text-center leading-tight">
+                  <span className="text-[12px] font-semibold text-slate-700 text-center leading-tight">
                     {s}
                   </span>
                 </div>
               );
             })}
           </div>
+          <button
+            type="button"
+            onClick={() => scrollByDir(1)}
+            aria-label="Next service lines"
+            className="hidden sm:grid absolute right-3 lg:right-10 top-1/2 -translate-y-1/2 z-20 h-11 w-11 rounded-full bg-white border border-slate-200 shadow-lg place-items-center text-ink-700 hover:text-accent-600 hover:border-accent-300 transition"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
 
-        {/* Scale stats — single band */}
-        <div
-          ref={ref}
-          className="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200/80 shadow-sm grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100"
-        >
+        {/* Scale stats + footnote */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-14">
+          <div
+            ref={ref}
+            className="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200/80 shadow-sm grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100"
+          >
           {ABOUT.scale.stats.map((stat) => {
             const Icon = STAT_ICONS[stat.icon] ?? Users;
             return (
@@ -170,9 +195,10 @@ const GroupScale: FC = () => {
           })}
         </div>
 
-        {ABOUT.scale.footnote && (
-          <p className="text-center text-[10px] text-slate-400 italic mt-8">{ABOUT.scale.footnote}</p>
-        )}
+          {ABOUT.scale.footnote && (
+            <p className="text-center text-[10px] text-slate-400 italic mt-8">{ABOUT.scale.footnote}</p>
+          )}
+        </div>
       </div>
     </section>
   );
@@ -289,7 +315,7 @@ export default function AboutPage() {
 
       <GroupStructure />
       <GroupScale />
-      <Leadership />
+      <TeamSection />
 
       {/* 7.6 Closing CTA band */}
       <section className="py-16 bg-[#FAFAFA] font-sans">

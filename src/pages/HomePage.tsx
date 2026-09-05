@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, ChevronDown, Sparkles } from 'lucide-react';
 import {
   CREDIBILITY_BAR,
-  GARP_TEASER,
   PMS_EXPLAINER,
   GETTING_STARTED,
   FAQS,
@@ -11,7 +10,7 @@ import {
 import { INSIGHTS, fmtInsightDate } from '../content/insights';
 import { HomeHero } from '../components/HomeHero';
 import { StructuralThemesSection } from '../components/StructuralThemes';
-import { PhilosophyPillars } from '../components/PhilosophyPillars';
+import { ScaleFramework } from '../components/ScaleFramework';
 import { SchedulerCta } from '../components/SchedulerCta';
 import { StrategyShowcase } from '../components/StrategyShowcase';
 import { GrowthShowcase } from '../components/GrowthShowcase';
@@ -66,34 +65,8 @@ export default function HomePage() {
       {/* ============ Growth of ₹1 crore — right after the 'Read our story' CTA ============ */}
       <GrowthShowcase />
 
-      {/* ============ Philosophy — 4 pillars in dual-engine card style ============ */}
-      <section className="py-20 bg-white border-b border-slate-100 font-sans relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-            <span className="text-[10px] font-bold text-accent-600 tracking-widest uppercase block font-mono">
-              THE FOUR MANDATED PILLARS
-            </span>
-            <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl">
-              Every company in our portfolios must pass these non-negotiable thresholds
-            </h2>
-            <p className="text-slate-500 text-xs sm:text-sm leading-relaxed font-light">
-              {GARP_TEASER.body}
-            </p>
-          </div>
-
-          <PhilosophyPillars />
-
-          <div className="mt-10 text-center">
-            <Link
-              to="/philosophy"
-              className="text-xs font-bold text-ink-700 inline-flex items-center gap-1.5 border-b-2 border-accent-500 pb-0.5 hover:text-accent-600 transition"
-            >
-              How we invest — Philosophy &amp; Process <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ============ Philosophy — the ACE SCALE brain orbit ============ */}
+      <ScaleFramework orbitOnly />
 
       {/* ============ Strategies ============ */}
       <section className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">

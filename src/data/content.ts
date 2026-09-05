@@ -68,7 +68,7 @@ export const CREDIBILITY_BAR = [
   {
     label: 'ALPHA DELIVERED',
     value: '7',
-    suffix: '%',
+    suffix: '%*',
     text: 'Annualised alpha over benchmark BSE 500 TRI',
   },
   {
@@ -505,7 +505,7 @@ export const PHILOSOPHY_PAGE = {
     'Avoid over-diversification and consensus-driven ideas; keep churn moderate',
   ],
   coreSatellite: {
-    title: 'A Core–Satellite framework',
+    title: 'A Core–Satellite Strategy',
     core: {
       title: 'Core (75–80%)',
       body: 'The anchor of the portfolio — stable, consistent compounders held 1–3 years, meeting our GARP screens: earnings/revenue growth ≥12%, debt-to-equity ≤2, PEG ≤2, and positive operating cash flow.',

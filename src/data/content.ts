@@ -422,7 +422,7 @@ export const ABOUT = {
         monogram: 'ACE',
         logo: '/logos/investmentz-trim.png',
         short:
-          '40+ years in Institutional Equities, Retail Broking and Portfolio Management Services. SEBI-registered PMS (Reg. No. INP000005801).',
+          '40+ years in Institutional Equities, Retail Broking and Portfolio Management Services. SEBI-registered PMSS (Reg. No. INP000005801).',
         credential:
           'Strong and established platform of over 40 years in Institutional Equities, Retail Broking and Portfolio Management Services.',
         primary: true,

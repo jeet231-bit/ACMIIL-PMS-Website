@@ -26,7 +26,7 @@ export const Footer = () => {
             <div className="flex gap-3 flex-wrap">
               <div className="flex items-center gap-1.5 px-3 py-1 bg-ink-800 rounded-md border border-ink-600 text-[10px] text-emerald-400 font-mono">
                 <span className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-ping"></span>
-                SEBI-registered PM
+                SEBI-registered PMS
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1 bg-ink-800 rounded-md border border-ink-600 text-[10px] text-amber-400 font-mono">
                 {REGULATORY.descriptor}
@@ -81,7 +81,7 @@ export const Footer = () => {
 
           {/* Column 4: Contact */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-white">Corporate Desk</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white">Corporate Office</h4>
             <ul className="space-y-3 text-xs">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-accent-400 shrink-0 mt-0.5" />

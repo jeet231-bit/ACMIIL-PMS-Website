@@ -257,7 +257,7 @@ export default function HomePage() {
           <div className="text-[11px] text-slate-400 flex items-center justify-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             <span>
-              SEBI-registered PMS · Minimum investment ₹50 lakh · No lock-in
+              SEBI-registered PMSS · Minimum investment ₹50 lakh · No lock-in
             </span>
           </div>
         </div>

@@ -11,9 +11,10 @@ const inputCls =
 
 export default function OnboardingPage() {
   const [searchParams] = useSearchParams();
-  const [flowKey, setFlowKey] = useState<'client' | 'distributor'>(
-    searchParams.get('flow') === 'distributor' ? 'distributor' : 'client'
-  );
+  // Flow is fixed by how the visitor arrived (New client vs New distributor);
+  // the other flow is never shown here.
+  const flowKey: 'client' | 'distributor' =
+    searchParams.get('flow') === 'distributor' ? 'distributor' : 'client';
   const flow = ONBOARDING_FLOWS.find((f) => f.key === flowKey)!;
 
   const [categoryKey, setCategoryKey] = useState(flow.categories[0].key);
@@ -37,14 +38,6 @@ export default function OnboardingPage() {
   );
   const requiredDocs = allDocs.filter((d) => !d.optional);
   const missingDocs = requiredDocs.filter((d) => !files[d.key]);
-
-  const switchFlow = (key: 'client' | 'distributor') => {
-    const next = ONBOARDING_FLOWS.find((f) => f.key === key)!;
-    setFlowKey(key);
-    setCategoryKey(next.categories[0].key);
-    setFiles({});
-    setError(null);
-  };
 
   const switchCategory = (key: string) => {
     setCategoryKey(key);
@@ -158,22 +151,12 @@ export default function OnboardingPage() {
             <ArrowLeft className="w-3.5 h-3.5" /> Back to sign-in
           </Link>
 
-          {/* Flow tabs: Client vs Distributor */}
-          <div className="grid grid-cols-2 gap-2 bg-slate-100 rounded-xl p-1 mb-5">
-            {ONBOARDING_FLOWS.map((f) => (
-              <button
-                key={f.key}
-                type="button"
-                onClick={() => switchFlow(f.key)}
-                className={`rounded-lg px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition ${
-                  flowKey === f.key
-                    ? 'bg-white text-ink-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                {f.label}
-              </button>
-            ))}
+          {/* Fixed flow heading — the other flow is intentionally not shown */}
+          <div className="border-b border-slate-200 mb-8">
+            <h2 className="inline-block relative pb-3.5 text-[13px] font-extrabold uppercase tracking-wider text-ink-900">
+              {flow.label}
+              <span className="absolute left-0 -bottom-px h-[3px] w-full bg-accent-500 rounded-full" />
+            </h2>
           </div>
 
           {/* Category tabs */}
@@ -213,9 +196,10 @@ export default function OnboardingPage() {
                 </label>
                 <label className="block">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
-                    PAN number (optional)
+                    PAN number
                   </span>
                   <input
+                    required
                     value={pan}
                     onChange={(e) => setPan(e.target.value.toUpperCase())}
                     maxLength={10}
@@ -246,9 +230,9 @@ export default function OnboardingPage() {
               </div>
               <label className="block">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
-                  Anything we should know (optional)
+                  Anything we should know
                 </span>
-                <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className={inputCls} />
+                <textarea required value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className={inputCls} />
               </label>
             </div>
 
@@ -259,9 +243,7 @@ export default function OnboardingPage() {
                   <FileCheck2 className="w-4 h-4 text-accent-600" /> Required documents · {category.label}
                 </h3>
                 <p className="text-[11px] text-slate-500 font-light mt-1">
-                  PDF or image (JPG/PNG), up to ~10 MB each. Items marked{' '}
-                  <span className="font-semibold text-slate-600">Optional</span> can be skipped if not
-                  applicable.
+                  PDF or image (JPG/PNG), up to ~10 MB each. All documents are required.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

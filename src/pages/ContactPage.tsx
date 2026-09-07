@@ -156,7 +156,7 @@ export default function ContactPage() {
               <div className="bg-ink-900 text-white rounded-2xl p-6 sm:p-8 space-y-5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
                 <div className="relative z-10 space-y-5">
-                  <h3 className="font-extrabold text-xl">Head Office</h3>
+                  <h3 className="font-extrabold text-xl">Corporate Office</h3>
                   <ul className="space-y-4 text-xs text-ink-100/80">
                     <li className="flex items-start gap-2.5">
                       <MapPin className="w-4 h-4 text-accent-400 shrink-0 mt-0.5" />
@@ -181,7 +181,7 @@ export default function ContactPage() {
               {/* Map */}
               <div className="rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm">
                 <iframe
-                  title="ACMIIL Head Office — Pantomath Nucleus House"
+                  title="ACMIIL Corporate Office — Pantomath Nucleus House"
                   src="https://www.google.com/maps?q=Pantomath+Nucleus+House,+Saki-Vihar+Road,+Andheri+East,+Mumbai+400072&output=embed"
                   className="w-full h-56 border-0"
                   loading="lazy"

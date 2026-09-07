@@ -153,7 +153,7 @@ function TeamPanel({ onBack }: { onBack: () => void }) {
           </div>
           <div>
             <h3 className="font-extrabold text-lg text-slate-900 leading-tight">
-              {isRegister ? 'Create team account' : 'Team sign-in'}
+              {isRegister ? 'Create team account' : 'Admin Team'}
             </h3>
             <p className="text-[11px] text-slate-400 font-mono">Content management</p>
           </div>

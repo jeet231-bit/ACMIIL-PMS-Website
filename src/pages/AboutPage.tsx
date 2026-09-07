@@ -1,4 +1,4 @@
-import { useRef, type FC } from 'react';
+import { useEffect, useRef, type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useReducedMotion } from 'framer-motion';
 import {
@@ -107,7 +107,22 @@ const GroupStructure: FC = () => {
 const GroupScale: FC = () => {
   const { ref, inView } = useInView<HTMLDivElement>();
   const scroller = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
   const scrollByDir = (d: number) => scroller.current?.scrollBy({ left: d * 240, behavior: 'smooth' });
+
+  // Continuous auto-scroll; the track is duplicated so it loops seamlessly.
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+    const id = window.setInterval(() => {
+      if (pausedRef.current) return;
+      el.scrollLeft += 0.6;
+      const half = el.scrollWidth / 2;
+      if (half > 0 && el.scrollLeft >= half) el.scrollLeft -= half;
+    }, 16);
+    return () => window.clearInterval(id);
+  }, []);
+
   return (
     <section
       id="group-scale"
@@ -140,14 +155,18 @@ const GroupScale: FC = () => {
           </button>
           <div
             ref={scroller}
-            className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 max-w-6xl mx-auto px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            onMouseEnter={() => (pausedRef.current = true)}
+            onMouseLeave={() => (pausedRef.current = false)}
+            onPointerDown={() => (pausedRef.current = true)}
+            onPointerUp={() => (pausedRef.current = false)}
+            className="flex gap-4 overflow-x-auto pb-2 max-w-6xl mx-auto px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
-            {ABOUT.scale.serviceLines.map((s) => {
+            {[...ABOUT.scale.serviceLines, ...ABOUT.scale.serviceLines].map((s, i) => {
               const Icon = SERVICE_ICONS[s] ?? Briefcase;
               return (
                 <div
-                  key={s}
-                  className="snap-start shrink-0 w-44 sm:w-52 flex flex-col items-center gap-3 p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow"
+                  key={`${s}-${i}`}
+                  className="shrink-0 w-44 sm:w-52 flex flex-col items-center gap-3 p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="w-12 h-12 rounded-full grid place-items-center bg-accent-50 border border-accent-100 text-accent-600">
                     <Icon className="w-5 h-5" />

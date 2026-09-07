@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, RefreshCw, Shield, Users, Scale, Brain, ArrowRight } from 'lucide-react';
 
@@ -86,11 +86,27 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
   const total = SCALE.length;
   const [rotation, setRotation] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
+  const orbitBoxRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selected != null) return;
     const id = window.setInterval(() => setRotation((r) => (r + 0.28) % 360), 40);
     return () => window.clearInterval(id);
+  }, [selected]);
+
+  // Click anywhere outside the orbit or its detail card → close and resume spin.
+  // (orbit-only / homepage mode; the full layout uses its side list to switch.)
+  useEffect(() => {
+    if (selected == null || !orbitOnly) return;
+    const onDocClick = (e: MouseEvent) => {
+      const t = e.target as Node;
+      if (orbitBoxRef.current?.contains(t)) return;
+      if (cardRef.current?.contains(t)) return;
+      setSelected(null);
+    };
+    document.addEventListener('click', onDocClick);
+    return () => document.removeEventListener('click', onDocClick);
   }, [selected]);
 
   const select = (index: number) => {
@@ -124,6 +140,7 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
 
   const orbit = (
     <div
+      ref={orbitBoxRef}
       className="relative h-[360px] sm:h-[400px] select-none"
       onClick={() => setSelected(null)}
     >
@@ -185,7 +202,7 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
   );
 
   const detailCard = (
-    <div className="mt-2 min-h-[132px]">
+    <div ref={cardRef} className="mt-2 min-h-[132px]">
       {active ? (
         <motion.div
           key={active.letter}
@@ -215,7 +232,11 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
       <section className="py-20 bg-white border-b border-slate-100 font-sans overflow-hidden">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {heading}
-          <div className="max-w-[440px] mx-auto mt-6">{orbit}</div>
+          <div className="mt-10 mb-10 flex justify-center">
+            <div className="w-[440px] max-w-full" style={{ transform: 'scale(1.12)' }}>
+              {orbit}
+            </div>
+          </div>
           <div className="max-w-xl mx-auto text-left">{detailCard}</div>
         </div>
       </section>

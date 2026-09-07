@@ -124,16 +124,29 @@ export default function OnboardingPage() {
   return (
     <>
       <PageHero
-        eyebrow="ONBOARDING"
+        eyebrow={flowKey === 'distributor' ? 'DISTRIBUTOR ONBOARDING' : 'CLIENT ONBOARDING'}
         title={
-          <>
-            Open Your{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-              PMS Account
-            </span>
-          </>
+          flowKey === 'distributor' ? (
+            <>
+              Distributor{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
+                Registration
+              </span>
+            </>
+          ) : (
+            <>
+              Open Your{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
+                PMS Account
+              </span>
+            </>
+          )
         }
-        lead="Choose your account type, share your details and upload the documents required for that category. Everything is transmitted securely to our onboarding desk — a specialist will take it from there."
+        lead={
+          flowKey === 'distributor'
+            ? 'Register as an ACE PMS distributor — select your entity type and upload the documents required for that category. Everything is transmitted securely to our onboarding desk.'
+            : 'Choose your entity type, share your details and upload the documents required for that category. Everything is transmitted securely to our onboarding desk — a specialist will take it from there.'
+        }
       />
 
       <section className="py-16 bg-white font-sans">

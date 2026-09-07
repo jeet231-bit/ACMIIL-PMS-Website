@@ -26,10 +26,11 @@ export const TEAM_GROUPS: TeamGroup[] = [
     members: [
       {
         name: 'Mrs. Madhu Lunawat',
-        role: 'Founder, Wealth Company',
+        role: 'Co-Promoter, Pantomath Group',
         photo: '/team/madhu-lunawat.jpg',
         bio: [
-          'Founder of Wealth Company and the Bharat Value Fund. She built India’s first female-founded mutual fund house, which launched four active funds simultaneously in 2025 and achieved ₹2,000 crore in debut NFO collections.',
+          'A visionary leader with cross-functional expertise in corporate finance, merchant banking, and asset reconstruction, Ms. Lunawat has driven multiple record-breaking IPOs and co-promoted Asit C. Mehta Financial Services Ltd.',
+          'She is also the Founder & CIO of Bharat Value Fund and has led India’s only listed SME Fund.',
         ],
       },
     ],

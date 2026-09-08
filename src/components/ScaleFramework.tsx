@@ -197,7 +197,8 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
                 on ? 'text-accent-600' : 'text-slate-500'
               }`}
             >
-              {f.node}
+              <span className="text-[#E4611F]">{f.node.charAt(0)}</span>
+              {f.node.slice(1)}
             </span>
           </button>
         );

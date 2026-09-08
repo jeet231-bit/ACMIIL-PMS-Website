@@ -333,8 +333,8 @@ export default function AboutPage() {
       />
 
       <GroupStructure />
-      <GroupScale />
       <TeamSection />
+      <GroupScale />
 
       {/* 7.6 Closing CTA band */}
       <section className="py-16 bg-[#FAFAFA] font-sans">

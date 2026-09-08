@@ -29,8 +29,9 @@ export const TEAM_GROUPS: TeamGroup[] = [
         role: 'Co-Promoter, Pantomath Group',
         photo: '/team/madhu-lunawat.jpg',
         bio: [
-          'A visionary leader with cross-functional expertise in corporate finance, merchant banking, and asset reconstruction, Ms. Lunawat has driven multiple record-breaking IPOs and co-promoted Asit C. Mehta Financial Services Ltd.',
-          'She is also the Founder & CIO of Bharat Value Fund and has led India’s only listed SME Fund.',
+          'The first woman founder of a mutual fund house in India — a landmark in the Indian asset-management industry. Mrs. Lunawat brings over two decades of experience across asset management, private equity and capital markets, with earlier stints at Infosys, ASREC and Edelweiss.',
+          'As Co-Founder of the Pantomath Group — a full-service financial enterprise spanning investment banking, M&A, institutional equity and asset management — she has expanded the group’s footprint, integrating Asit C. Mehta Investment Interrmediates Ltd. as its retail-broking arm and fostering AI-led fintech ventures.',
+          'Founder & CIO of the Bharat Value Fund and the driving force behind The Wealth Company, she has pioneered alternative investment strategies and led India’s only listed SME Fund — bringing sharp investment judgment and disciplined thinking to every aspect of the business.',
         ],
       },
     ],

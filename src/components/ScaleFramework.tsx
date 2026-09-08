@@ -109,6 +109,14 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
     return () => document.removeEventListener('click', onDocClick);
   }, [selected]);
 
+  // Escape closes the open detail (popup on the full layout).
+  useEffect(() => {
+    if (selected == null) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSelected(null);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selected]);
+
   const select = (index: number) => {
     if (selected === index) {
       setSelected(null);
@@ -246,35 +254,41 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
   return (
     <section className="py-20 bg-white border-b border-slate-100 font-sans overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Left column — copy + filter list */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5 }}
-          >
-            {heading}
-            <p className="text-sm text-slate-500 font-light leading-relaxed mt-4 max-w-xl">
-              SCALE seeks leadership businesses in structurally high-growth industries, operating
-              within favourable capital cycles, led by capable capital allocators and available at
-              reasonable entry valuations.
-            </p>
+        {/* Heading — full width above the two columns */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+          className="max-w-2xl"
+        >
+          {heading}
+          <p className="text-sm text-slate-500 font-light leading-relaxed mt-4">
+            SCALE seeks leadership businesses in structurally high-growth industries, operating
+            within favourable capital cycles, led by capable capital allocators and available at
+            reasonable entry valuations.
+          </p>
+        </motion.div>
 
-            <div className="mt-7 space-y-2">
-              {SCALE.map((f, i) => {
-                const on = selected === i;
-                return (
-                  <button
-                    key={f.letter}
-                    type="button"
-                    onClick={() => select(i)}
-                    className={`w-full flex items-start gap-3 text-left rounded-xl border p-3 transition ${
-                      on
-                        ? 'bg-accent-50/60 border-accent-200 shadow-sm'
-                        : 'bg-white border-slate-200/70 hover:border-accent-200 hover:bg-slate-50'
-                    }`}
-                  >
+        {/* Accordion list (left) aligned with the brain orbit (right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 mt-10 items-center">
+          {/* Filter list — the selected item expands inline to reveal its detail */}
+          <div className="space-y-2">
+            {SCALE.map((f, i) => {
+              const on = selected === i;
+              return (
+                <button
+                  key={f.letter}
+                  type="button"
+                  onClick={() => select(i)}
+                  aria-expanded={on}
+                  className={`w-full text-left rounded-xl border p-3.5 transition ${
+                    on
+                      ? 'bg-accent-50/60 border-accent-200 shadow-sm'
+                      : 'bg-white border-slate-200/70 hover:border-accent-200 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
                     <span
                       className={`shrink-0 w-8 h-8 rounded-lg grid place-items-center font-extrabold text-sm transition ${
                         on ? 'bg-accent-500 text-white' : 'bg-ink-900 text-white'
@@ -288,21 +302,28 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
                         {f.sub}
                       </span>
                     </span>
-                  </button>
-                );
-              })}
-            </div>
-          </motion.div>
+                  </div>
+                  {on && (
+                    <p className="text-xs text-slate-600 font-light leading-relaxed mt-3 pl-11">
+                      {f.desc}
+                    </p>
+                  )}
+                </button>
+              );
+            })}
+          </div>
 
-          {/* Right column — rotating orbit + detail card */}
+          {/* Brain orbit — sized to sit alongside the list band */}
           <motion.div
             initial={{ opacity: 0, scale: 0.94 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex justify-center"
           >
-            {orbit}
-            {detailCard}
+            <div className="w-[440px] max-w-full" style={{ transform: 'scale(1.08)' }}>
+              {orbit}
+            </div>
           </motion.div>
         </div>
 

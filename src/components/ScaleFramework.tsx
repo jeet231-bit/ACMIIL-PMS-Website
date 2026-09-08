@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FC } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, RefreshCw, Shield, Users, Scale, Brain, ArrowRight } from 'lucide-react';
+import { TrendingUp, RefreshCw, Shield, Users, Scale, Brain } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /* The ACE SCALE framework — five filters on an auto-rotating orbit     */
@@ -134,11 +134,7 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
         Our Investment Philosophy
       </span>
       <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl mt-2">
-        The ACE{' '}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
-          SCALE
-        </span>{' '}
-        Framework
+        The ACE <span className="text-[#E4611F]">SCALE</span> Framework
       </h2>
       <p className="text-[11px] font-mono font-bold text-accent-600 tracking-wide mt-2">
         Growth • Capital Efficiency • Leadership • Valuation Discipline
@@ -237,10 +233,10 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
   // Homepage: just the centred brain orbit + a short heading + the detail card.
   if (orbitOnly) {
     return (
-      <section className="py-20 bg-white border-b border-slate-100 font-sans overflow-hidden">
+      <section className="pt-20 pb-6 bg-white border-b border-slate-100 font-sans overflow-hidden">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {heading}
-          <div className="mt-10 mb-10 flex justify-center">
+          <div className="mt-10 mb-16 sm:mb-6 flex justify-center">
             <div className="w-[440px] max-w-full" style={{ transform: 'scale(1.12)' }}>
               {orbit}
             </div>
@@ -252,7 +248,7 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
   }
 
   return (
-    <section className="py-20 bg-white border-b border-slate-100 font-sans overflow-hidden">
+    <section className="pt-20 pb-10 bg-white border-b border-slate-100 font-sans overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading — full width above the two columns */}
         <motion.div
@@ -271,7 +267,7 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
         </motion.div>
 
         {/* Accordion list (left) aligned with the brain orbit (right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 mt-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-14 mt-10 items-center">
           {/* Filter list — the selected item expands inline to reveal its detail */}
           <div className="space-y-2">
             {SCALE.map((f, i) => {
@@ -304,7 +300,7 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
                     </span>
                   </div>
                   {on && (
-                    <p className="text-xs text-slate-600 font-light leading-relaxed mt-3 pl-11">
+                    <p className="text-xs text-slate-600 font-light leading-relaxed mt-4 pl-11">
                       {f.desc}
                     </p>
                   )}
@@ -319,32 +315,13 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex justify-center"
+            className="flex justify-center lg:justify-start lg:pl-4"
           >
-            <div className="w-[440px] max-w-full" style={{ transform: 'scale(1.08)' }}>
+            <div className="w-[440px] max-w-full" style={{ transform: 'scale(1.12)' }}>
               {orbit}
             </div>
           </motion.div>
         </div>
-
-        {/* Closing flow line */}
-        {!compact && (
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] font-mono text-slate-400">
-            <span>Structural Growth</span>
-            <ArrowRight className="w-3 h-3 text-accent-400" />
-            <span>Capital Cycle</span>
-            <ArrowRight className="w-3 h-3 text-accent-400" />
-            <span>Competitive Advantage</span>
-            <ArrowRight className="w-3 h-3 text-accent-400" />
-            <span>Management &amp; Capital Allocation</span>
-            <ArrowRight className="w-3 h-3 text-accent-400" />
-            <span>Entry Valuation</span>
-            <ArrowRight className="w-3 h-3 text-accent-500" />
-            <span className="font-sans font-bold text-slate-700">
-              Sustainable earnings compounding + superior risk-adjusted returns
-            </span>
-          </div>
-        )}
       </div>
     </section>
   );

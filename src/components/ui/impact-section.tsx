@@ -106,7 +106,7 @@ const impactCards: ImpactCard[] = [
     id: 'ranked',
     metric: 'Top 10',
     title: 'Ranked PMS schemes',
-    description: 'Top 10 ranked PMS schemes in 3-yr and 5-yr timeframes by PMS Bazaar.',
+    description: 'Top 10 ranked PMS schemes in 3-yr and 5-yr timeframes by PMS Bazaar.*',
     redirect: '/performance',
     cta: 'Learn more',
     Illustration: IllustrationAward,
@@ -128,11 +128,11 @@ const impactCards: ImpactCard[] = [
     Illustration: IllustrationChart,
     surface: 'bg-ink-900 border-ink-800',
     medallion: 'bg-white/5 border border-white/10',
-    metricClass: 'text-amber-400',
+    metricClass: 'text-accent-400',
     strokeClass: 'text-ink-100',
     titleClass: 'text-white',
     descClass: 'text-ink-100/75',
-    ctaClass: 'text-amber-400 hover:text-amber-300',
+    ctaClass: 'text-accent-400 hover:text-accent-500',
   },
   {
     id: 'research',
@@ -143,10 +143,10 @@ const impactCards: ImpactCard[] = [
     redirect: '/contact',
     cta: 'Discuss Our Process',
     Illustration: IllustrationResearch,
-    surface: 'bg-amber-50 border-amber-100',
+    surface: 'bg-accent-50 border-accent-100',
     medallion: 'bg-white/70',
-    metricClass: 'text-amber-700',
-    strokeClass: 'text-amber-700',
+    metricClass: 'text-accent-600',
+    strokeClass: 'text-accent-600',
     titleClass: 'text-ink-900',
     descClass: 'text-ink-700/75',
     ctaClass: 'text-ink-700 hover:text-accent-600',
@@ -264,7 +264,7 @@ export const WhyAcePmsSection = () => {
             <span className="text-white font-extrabold text-base sm:text-lg tracking-tight">
               See what disciplined investing compounds into — explore our performance.
             </span>
-            <span className="shrink-0 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
+            <span className="shrink-0 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-accent-400">
               View Performance{' '}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </span>

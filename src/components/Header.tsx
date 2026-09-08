@@ -132,7 +132,7 @@ export const Header = () => {
               Request a Callback
             </Link>
             <div className="text-center text-[10px] text-slate-400 flex items-center justify-center gap-1">
-              <Mail className="w-3 h-3" /> {CONTACT.email} | SEBI-registered PMSS
+              <Mail className="w-3 h-3" /> {CONTACT.email} | SEBI-registered PMS
             </div>
           </div>
         </div>

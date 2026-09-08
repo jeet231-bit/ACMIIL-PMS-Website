@@ -163,7 +163,7 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
             >
               {s.name.replace('ACE ', '').replace(' Opportunities', '')}
               {s.tag === 'Flagship' && (
-                <span className="ml-1.5 text-[9px] text-amber-400 font-mono">★</span>
+                <span className="ml-1.5 text-[9px] text-accent-500 font-mono">★</span>
               )}
             </button>
           ))}

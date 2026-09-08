@@ -45,7 +45,7 @@ export default function App() {
 
   return (
     <ToastContext.Provider value={showToast}>
-      <div className="min-h-screen bg-[#FAFAFA] text-slate-900 font-sans selection:bg-amber-100 selection:text-amber-900 relative">
+      <div className="min-h-screen bg-[#FAFAFA] text-slate-900 font-sans selection:bg-accent-100 selection:text-accent-700 relative">
         <ScrollToTop />
 
         {toastMessage && (
@@ -54,7 +54,7 @@ export default function App() {
               <CheckCircle2 className="w-3.5 h-3.5" />
             </div>
             <div>
-              <span className="text-xs font-bold font-mono tracking-wider text-amber-400 block uppercase mb-0.5">
+              <span className="text-xs font-bold font-mono tracking-wider text-accent-500 block uppercase mb-0.5">
                ACE PMS
               </span>
               <span className="text-xs text-ink-100 font-light leading-relaxed">{toastMessage}</span>

@@ -28,7 +28,7 @@ export const Footer = () => {
                 <span className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-ping"></span>
                 SEBI-registered PMS
               </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 bg-ink-800 rounded-md border border-ink-600 text-[10px] text-amber-400 font-mono">
+              <div className="flex items-center gap-1.5 px-3 py-1 bg-ink-800 rounded-md border border-ink-600 text-[10px] text-accent-500 font-mono">
                 {REGULATORY.descriptor}
               </div>
             </div>
@@ -48,7 +48,7 @@ export const Footer = () => {
                     <span
                       className={`text-[10px] px-1.5 py-0.5 rounded ${
                         s.tag === 'Flagship'
-                          ? 'text-amber-400 bg-amber-500/10 group-hover:bg-amber-500/20'
+                          ? 'text-accent-500 bg-accent-500/10 group-hover:bg-accent-500/20'
                           : 'text-ink-200/50'
                       }`}
                     >
@@ -60,7 +60,7 @@ export const Footer = () => {
               <li>
                 <Link to="/philosophy" className="hover:text-white transition flex items-center gap-1 group">
                   <span>GARP Philosophy & Process</span>
-                  <ArrowUpRight className="w-3 h-3 text-ink-400 group-hover:text-amber-400 transition" />
+                  <ArrowUpRight className="w-3 h-3 text-ink-400 group-hover:text-accent-500 transition" />
                 </Link>
               </li>
             </ul>

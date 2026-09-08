@@ -20,11 +20,11 @@ const pillarIcon = (name: string) => {
 const ICON_STYLES = [
   'bg-ink-50 text-ink-700',
   'bg-accent-50 text-accent-600',
-  'bg-amber-50 text-amber-700',
+  'bg-accent-50 text-accent-600',
   'bg-emerald-50 text-emerald-700',
 ];
 
-const KICKER_STYLES = ['text-ink-600', 'text-accent-600', 'text-amber-700', 'text-emerald-700'];
+const KICKER_STYLES = ['text-ink-600', 'text-accent-600', 'text-accent-500', 'text-emerald-700'];
 
 // The four mandated pillars, rendered in the dual-engine card style:
 // white card, icon+title header, description, key-value stat rows.

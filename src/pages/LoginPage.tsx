@@ -44,7 +44,7 @@ const AUDIENCES: Array<{
     id: 'partner',
     Icon: Handshake,
     label: 'Existing/New Distributor',
-    accent: 'text-amber-700 bg-amber-50 border-amber-100',
+    accent: 'text-accent-600 bg-accent-50 border-accent-100',
   },
 ];
 

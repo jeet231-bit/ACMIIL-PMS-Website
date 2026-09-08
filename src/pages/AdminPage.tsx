@@ -413,7 +413,7 @@ const AccessList: FC<{ search: string; currentEmail: string }> = ({ search, curr
 
   return (
     <>
-      <div className="px-5 py-3 bg-amber-50/60 border-b border-amber-100">
+      <div className="px-5 py-3 bg-accent-50/60 border-b border-accent-100">
         <p className="text-[11px] text-slate-500">
           Every team member is a <span className="font-bold text-accent-700">Super Admin</span>. Add or
           remove accounts in Supabase → Authentication → Users.

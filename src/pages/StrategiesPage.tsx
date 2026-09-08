@@ -18,7 +18,7 @@ export default function StrategiesPage() {
             </span>
           </>
         }
-        lead="Purpose-built strategies, united by one GARP philosophy. Sorted by what you want to achieve, not by product jargon."
+        lead="Purpose-built strategies, united by one GARP philosophy."
       />
 
       <section id="strategies" className="py-20 bg-white font-sans">

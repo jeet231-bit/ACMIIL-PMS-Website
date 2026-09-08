@@ -69,12 +69,12 @@ export default function HomePage() {
       <ScaleFramework orbitOnly />
 
       {/* ============ Strategies ============ */}
-      <section className="py-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
+      <section className="pt-10 pb-20 bg-[#FAFAFA] border-b border-slate-200/60 font-sans">
         <StrategyShowcase
           compact
           eyebrow="OUR STRATEGIES"
           title="3 Purpose-built Strategies, One Kitchen"
-          lead="Sorted by what you want to achieve, not by product jargon — select a mandate for a snapshot."
+          lead="Select a mandate for a snapshot of its construction, key facts and track record."
         />
       </section>
 
@@ -139,7 +139,7 @@ export default function HomePage() {
             <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 lg:divide-x divide-ink-800">
               {GETTING_STARTED.facts.map((fact) => (
                 <div key={fact.k} className="p-6 space-y-1.5">
-                  <span className="text-[10px] text-amber-400 font-mono tracking-widest uppercase block font-bold">
+                  <span className="text-[10px] text-accent-400 font-mono tracking-widest uppercase block font-bold">
                     {fact.k}
                   </span>
                   <span className="text-sm font-bold text-white leading-snug block">{fact.v}</span>
@@ -257,7 +257,7 @@ export default function HomePage() {
           <div className="text-[11px] text-slate-400 flex items-center justify-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             <span>
-              SEBI-registered PMSS · Minimum investment ₹50 lakh · No lock-in
+              SEBI-registered PMS · Minimum investment ₹50 lakh · No lock-in
             </span>
           </div>
         </div>

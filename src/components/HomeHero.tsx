@@ -6,32 +6,46 @@ import { HERO } from '../data/content';
 // Clean, text-free cityscape render (16:9).
 const CITYSCAPE_SRC = '/new-updated-image.png';
 
+const Headline: FC = () => (
+  <h1 className="font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-[52px] leading-[1.08] text-slate-950">
+    {HERO.headlineLead}
+    <span className="text-accent-600">{HERO.headlineAccent}</span>
+    {HERO.headlineTail}
+  </h1>
+);
+
+const Subheadline: FC = () => (
+  <p className="text-slate-600 text-sm sm:text-base font-light max-w-lg leading-relaxed">
+    {HERO.subheadline}
+  </p>
+);
+
+const Ctas: FC = () => (
+  <div className="flex flex-col sm:flex-row gap-3.5">
+    <Link
+      to="/strategies"
+      className="px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-ink-900 shadow-xl hover:bg-ink-800 hover:shadow-2xl transition-all duration-300 text-center inline-flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2"
+    >
+      <span>{HERO.primaryCta}</span>
+      <ArrowRight className="w-4 h-4 text-accent-500" />
+    </Link>
+    <Link
+      to="/contact"
+      className="px-6 py-3.5 rounded-xl text-xs font-semibold bg-white text-slate-800 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition duration-200 text-center inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2"
+    >
+      {HERO.secondaryCta}
+    </Link>
+  </div>
+);
+
 const HeroContent: FC = () => (
-  <div className="max-w-xl py-14 lg:py-0">
-    <h1 className="font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-[52px] leading-[1.08] text-slate-950">
-      {HERO.headlineLead}
-      <span className="text-accent-600">{HERO.headlineAccent}</span>
-      {HERO.headlineTail}
-    </h1>
-
-    <p className="text-slate-600 text-sm sm:text-base font-light max-w-lg leading-relaxed mt-6">
-      {HERO.subheadline}
-    </p>
-
-    <div className="flex flex-col sm:flex-row gap-3.5 mt-8">
-      <Link
-        to="/strategies"
-        className="px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-ink-900 shadow-xl hover:bg-ink-800 hover:shadow-2xl transition-all duration-300 text-center inline-flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2"
-      >
-        <span>{HERO.primaryCta}</span>
-        <ArrowRight className="w-4 h-4 text-amber-400" />
-      </Link>
-      <Link
-        to="/contact"
-        className="px-6 py-3.5 rounded-xl text-xs font-semibold bg-white text-slate-800 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition duration-200 text-center inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2"
-      >
-        {HERO.secondaryCta}
-      </Link>
+  <div className="max-w-xl">
+    <Headline />
+    <div className="mt-6">
+      <Subheadline />
+    </div>
+    <div className="mt-8">
+      <Ctas />
     </div>
   </div>
 );
@@ -49,18 +63,28 @@ export const HomeHero: FC = () => (
       aria-hidden="true"
     />
 
-    <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:min-h-[calc(100vh-5rem)] flex items-center">
+    {/* Desktop content */}
+    <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:min-h-[calc(100vh-5rem)] hidden lg:flex items-center">
       <HeroContent />
     </div>
 
-    {/* Mobile — cityscape as a band beneath the content */}
+    {/* Mobile — headline, then image, then the subline, then the CTAs */}
     <div className="lg:hidden">
+      <div className="px-4 sm:px-6 pt-14">
+        <Headline />
+      </div>
       <img
         src={CITYSCAPE_SRC}
         alt="India's structural growth — skyline, infrastructure, manufacturing and ports rising toward a $10 trillion economy"
-        className="w-full"
+        className="w-full mt-8"
         loading="eager"
       />
+      <div className="px-4 sm:px-6 mt-8">
+        <Subheadline />
+      </div>
+      <div className="px-4 sm:px-6 mt-8 pb-14">
+        <Ctas />
+      </div>
     </div>
   </section>
 );

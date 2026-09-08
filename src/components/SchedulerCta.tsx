@@ -139,7 +139,7 @@ export const SchedulerCta: React.FC = () => {
             onClick={handleConfirm}
             className="w-full py-3 rounded-xl text-xs font-bold text-white uppercase tracking-wider bg-accent-500 hover:bg-accent-600 transition flex items-center justify-center gap-1.5"
           >
-            <Calendar className="w-4 h-4 text-amber-200" />
+            <Calendar className="w-4 h-4 text-accent-400" />
             <span>Confirm Booking</span>
           </button>
 

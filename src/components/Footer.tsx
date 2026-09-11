@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Scale, ArrowUpRight } from 'lucide-react';
 import { CONTACT, REGULATORY, STRATEGIES } from '../data/content';
+import { TOP_MONTHLY_STRATEGY_ID } from '../lib/topPerformer';
 
 export const Footer = () => {
   return (
@@ -19,10 +20,6 @@ export const Footer = () => {
                 {REGULATORY.legalName}
               </span>
             </div>
-            <p className="text-xs leading-relaxed max-w-sm">
-              A GARP-driven Portfolio Management Service with nearly a decade of track record — the
-              Asit C. Mehta heritage, reimagined by the Pantomath Group.
-            </p>
             <div className="flex gap-3 flex-wrap">
               <div className="flex items-center gap-1.5 px-3 py-1 bg-ink-800 rounded-md border border-ink-600 text-[10px] text-emerald-400 font-mono">
                 <span className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-ping"></span>
@@ -47,7 +44,7 @@ export const Footer = () => {
                     <span>{s.name}</span>
                     <span
                       className={`text-[10px] px-1.5 py-0.5 rounded ${
-                        s.tag === 'Flagship'
+                        s.id === TOP_MONTHLY_STRATEGY_ID
                           ? 'text-accent-500 bg-accent-500/10 group-hover:bg-accent-500/20'
                           : 'text-ink-200/50'
                       }`}

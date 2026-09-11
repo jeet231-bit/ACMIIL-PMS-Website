@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CheckCircle2, Download } from 'lucide-react';
 import { STRATEGIES, PERFORMANCE } from '../data/content';
 import strategyNav from '../data/strategyNav.json';
+import { TOP_MONTHLY_STRATEGY_ID } from '../lib/topPerformer';
 import { Disclaimer } from './shared';
 import { useToast } from './toast';
 
@@ -162,8 +163,13 @@ export const StrategyShowcase: React.FC<StrategyShowcaseProps> = ({
               }`}
             >
               {s.name.replace('ACE ', '').replace(' Opportunities', '')}
-              {s.tag === 'Flagship' && (
-                <span className="ml-1.5 text-[9px] text-accent-500 font-mono">★</span>
+              {s.id === TOP_MONTHLY_STRATEGY_ID && (
+                <span
+                  className="ml-1.5 text-[9px] text-accent-500 font-mono"
+                  title="Top performer this month"
+                >
+                  ★
+                </span>
               )}
             </button>
           ))}

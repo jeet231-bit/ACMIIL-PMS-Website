@@ -174,7 +174,7 @@ export interface StrategyContent {
 export const STRATEGIES: StrategyContent[] = [
   {
     id: 'multicap',
-    tag: 'Flagship',
+    tag: 'Flexicap',
     name: 'ACE Multicap',
     tagline: 'Built for balanced performance',
     points: [
@@ -212,7 +212,7 @@ export const STRATEGIES: StrategyContent[] = [
   },
   {
     id: 'tentrillion',
-    tag: 'Growth',
+    tag: 'Mid & Small Cap',
     name: 'ACE Ten Trillion Opportunities',
     tagline: "Built to ride India's ascent to a $10-trillion economy",
     points: [

@@ -63,7 +63,7 @@ export default function LoginPage() {
             </span>
           </>
         }
-        lead="Clarity, Control & Confidence — All in One Place."
+        lead="Your Wealth. Your Journey. Your Access."
       />
 
       <section className="py-20 bg-white font-sans min-h-[50vh]">

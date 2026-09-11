@@ -134,7 +134,11 @@ export const ScaleFramework: FC<ScaleFrameworkProps> = ({ compact = false, orbit
         Our Investment Philosophy
       </span>
       <h2 className="font-extrabold tracking-tight text-slate-900 text-3xl sm:text-4xl mt-2">
-        The ACE <span className="text-[#E4611F]">SCALE</span> Framework
+        The ACE{' '}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-ink-700 to-accent-600">
+          SCALE
+        </span>{' '}
+        Framework
       </h2>
       <p className="text-[11px] font-mono font-bold text-accent-600 tracking-wide mt-2">
         Growth • Capital Efficiency • Leadership • Valuation Discipline

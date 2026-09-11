@@ -250,7 +250,7 @@ export const STRATEGIES: StrategyContent[] = [
   },
   {
     id: 'multiasset',
-    tag: 'Income',
+    tag: 'Multi-Asset',
     name: 'ACE Multi-Asset',
     tagline: 'Asset-class diversification with an optional 0.5% monthly payout',
     points: [
@@ -689,9 +689,11 @@ export const INSIGHT_PLACEHOLDERS = [
 export interface MediaItem {
   title: string;
   source: string;
-  kind: 'link' | 'pdf';
+  kind: 'link' | 'pdf' | 'video';
   href: string;
   date: string;
+  /** Short feature / description line shown under the title. */
+  excerpt?: string;
   /** Cover image (themed stock photo; falls back to a brand card if it fails). */
   cover: string;
 }
@@ -714,6 +716,68 @@ export const MEDIA_COVERAGE: { intro: string; items: MediaItem[] } = {
       href: 'https://www.moneycontrol.com/news/business/markets/microfinance-recovery-delivers-big-alpha-for-this-pms-fund-near-90-concentrated-bet-14014233.html',
       date: '2026',
       cover: '/media/covers/advisor.jpg',
+    },
+    {
+      title: 'Small- and mid-cap stocks powering the best-performing PMSes',
+      source: 'Moneycontrol',
+      kind: 'link',
+      href: 'https://www.moneycontrol.com/news/photos/business/personal-finance/midcap-and-smallcap-stocks-that-drove-the-top-performing-pms-12804623.html',
+      date: '24 Aug 2024',
+      excerpt: 'Includes ACE Multicap and ACE Midcap.',
+      cover: '/media/covers/chart-rising.jpg',
+    },
+    {
+      title: 'Crorepati investors make up to 120% return with PMS funds',
+      source: 'Economic Times',
+      kind: 'link',
+      href: 'https://m.economictimes.com/markets/stocks/news/crorepati-investors-make-up-to-120-return-with-pms-funds/asit-c-mehta-investment-intermediates/slideshow/111729752.cms',
+      date: '14 Jul 2024',
+      excerpt: 'ACE Multicap and ACE Midcap featured in the slideshow.',
+      cover: '/media/covers/analytics-dashboard.jpg',
+    },
+    {
+      title: 'Four investment themes from a fund manager who delivered 102% in a year',
+      source: 'Moneycontrol',
+      kind: 'link',
+      href: 'https://www.moneycontrol.com/news/business/markets/four-investment-themes-from-a-fund-manager-who-delivered-102-returns-in-one-year-12717521.html',
+      date: '08 May 2024',
+      excerpt: 'Interview with Prasanna Pathak on ACE Multicap and investment themes.',
+      cover: '/media/covers/research-desk.jpg',
+    },
+    {
+      title: '3 PMS funds doubled HNI investor wealth in FY24',
+      source: 'Economic Times',
+      kind: 'link',
+      href: 'https://economictimes.indiatimes.com/markets/stocks/news/3-pms-funds-doubled-hni-investor-wealth-in-fy24-stars-missing-in-top-10-list/articleshow/109300870.cms',
+      date: '15 Apr 2024',
+      excerpt: 'Features ACE Multicap and ACE Midcap.',
+      cover: '/media/covers/skyline.jpg',
+    },
+    {
+      title: 'PMS Tracker: 22 PMS schemes gave double-digit returns last month',
+      source: 'Economic Times',
+      kind: 'link',
+      href: 'https://m.economictimes.com/markets/stocks/news/pms-tracker-22-pms-schemes-gave-double-digit-returns-last-month/articleshow/107614842.cms',
+      date: '12 Feb 2024',
+      excerpt: 'Mentions both strategies’ January 2024 performance.',
+      cover: '/media/covers/laptop-dashboard.jpg',
+    },
+    {
+      title: 'How top PMSes delivered alpha to investors',
+      source: 'The Hindu Business Line',
+      kind: 'link',
+      href: 'https://www.thehindubusinessline.com/portfolio/big-story/tulsian-asit-c-mehta-icici-pru-green-lantern-sundaram-heres-how-top-pmses-delivered-alpha-to-investors/article71262231.ece',
+      date: '',
+      excerpt: 'Tulsian, Asit C. Mehta, ICICI Pru, Green Lantern, Sundaram — big-story feature.',
+      cover: '/media/covers/devices-trading.jpg',
+    },
+    {
+      title: "ACE PMS: Built to Ride India's Ascent to a Ten Trillion Economy",
+      source: 'YouTube',
+      kind: 'video',
+      href: 'https://youtu.be/ZYAw2FX2mfw?si=gKdAcexoWpead4NH',
+      date: '',
+      cover: 'https://img.youtube.com/vi/ZYAw2FX2mfw/hqdefault.jpg',
     },
     {
       title: 'PMS Alpha Newsletter — June 2026',

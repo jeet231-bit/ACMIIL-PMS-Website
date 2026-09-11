@@ -777,7 +777,7 @@ export const MEDIA_COVERAGE: { intro: string; items: MediaItem[] } = {
       kind: 'video',
       href: 'https://youtu.be/ZYAw2FX2mfw?si=gKdAcexoWpead4NH',
       date: '',
-      cover: 'https://img.youtube.com/vi/ZYAw2FX2mfw/hqdefault.jpg',
+      cover: '/media/Media.jpg',
     },
     {
       title: 'PMS Alpha Newsletter — June 2026',

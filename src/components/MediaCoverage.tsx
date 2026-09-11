@@ -9,6 +9,29 @@ const TABS: { key: string; label: string; kinds: MediaItem['kind'][] }[] = [
   { key: 'videos', label: 'Videos', kinds: ['video'] },
 ];
 
+const MONTHS: Record<string, number> = {
+  jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+  jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+};
+
+// Parse the loose date strings ("24 Aug 2024", "Nov 2025", "2026", "") into a
+// sortable value so media always shows newest-first. Undated items sort last.
+function mediaDateValue(date: string): number {
+  if (!date) return -Infinity;
+  let year = 0;
+  let month = 0;
+  let day = 1;
+  for (const tok of date.trim().split(/\s+/)) {
+    if (/^\d{4}$/.test(tok)) year = parseInt(tok, 10);
+    else if (/^\d{1,2}$/.test(tok)) day = parseInt(tok, 10);
+    else {
+      const m = MONTHS[tok.slice(0, 3).toLowerCase()];
+      if (m !== undefined) month = m;
+    }
+  }
+  return year ? new Date(year, month, day).getTime() : -Infinity;
+}
+
 const MediaCard: FC<{ item: MediaItem }> = ({ item }) => {
   const [imgOk, setImgOk] = useState(true);
   const external = item.kind === 'link' || item.kind === 'video';
@@ -88,7 +111,9 @@ const MediaCard: FC<{ item: MediaItem }> = ({ item }) => {
 export const MediaCoverage: FC = () => {
   const [tab, setTab] = useState('articles');
   const active = TABS.find((t) => t.key === tab) ?? TABS[0];
-  const items = MEDIA_COVERAGE.items.filter((i) => active.kinds.includes(i.kind));
+  const items = MEDIA_COVERAGE.items
+    .filter((i) => active.kinds.includes(i.kind))
+    .sort((a, b) => mediaDateValue(b.date) - mediaDateValue(a.date));
 
   return (
     <section className="py-20 bg-white border-b border-slate-100 font-sans">

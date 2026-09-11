@@ -767,7 +767,7 @@ export const MEDIA_COVERAGE: { intro: string; items: MediaItem[] } = {
       source: 'The Hindu Business Line',
       kind: 'link',
       href: 'https://www.thehindubusinessline.com/portfolio/big-story/tulsian-asit-c-mehta-icici-pru-green-lantern-sundaram-heres-how-top-pmses-delivered-alpha-to-investors/article71262231.ece',
-      date: '',
+      date: '31 Jul 2026',
       excerpt: 'Tulsian, Asit C. Mehta, ICICI Pru, Green Lantern, Sundaram — big-story feature.',
       cover: '/media/covers/devices-trading.jpg',
     },
